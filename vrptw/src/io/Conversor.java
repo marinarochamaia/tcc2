@@ -16,13 +16,13 @@ public class Conversor {
 	}
 	
 	/**
-	 * Transforma uma lista de par‚metros em um objeto do tipo Cliente
+	 * Transforma uma lista de par√¢metros em um objeto do tipo Cliente
 	 * @param par‚metros Vetor de String com os par‚metros do novo objeto Cliente
 	 * @return Objeto Cliente com os par‚metros informados
 	 */
 	private Cliente decodificaCliente(String[] parametros)
 	{
-		// Decodifica os par‚metros
+		// Decodifica os par√¢metros
 		int numero = Integer.valueOf(parametros[0]);
 		float coordenadaX = Float.valueOf(parametros[1]);
 		float coordenadaY = Float.valueOf(parametros[2]);
@@ -35,8 +35,8 @@ public class Conversor {
 		
 		// Verifica se existe o final da janela na linha
 		int fimJanela;
-		if(parametros.length == 10) fimJanela = Integer.valueOf(parametros[9]); // Se existe ele È decodificado
-		else fimJanela = -1; // Sen„o È dado o valor padr„o igual a -1 para o mesmo
+		if(parametros.length == 10) fimJanela = Integer.valueOf(parametros[9]); // Se existe ele √© decodificado
+		else fimJanela = -1; // Sen√£o √© dado o valor padr√£o igual a -1 para o mesmo
 		
 		Cliente cliente = new Cliente(numero, coordenadaX, coordenadaY, demanda, duracaoServico, frequenciaVisita,
 				possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela);
@@ -46,33 +46,33 @@ public class Conversor {
 	}
 	
 	/**
-	 * Converte as informaÁıes contidas em um arquivo em objetos do tipo VeÌculo e Cliente, devidamente parametrizados
-	 * @param clientes Lista onde ser„o armazenados os objetos do tipo Cliente
-	 * @param veiculos Lista onde ser„o armazenados os objetos do tipo Veiculo
+	 * Converte as informa√ß√µes contidas em um arquivo em objetos do tipo Ve√≠culo e Cliente, devidamente parametrizados
+	 * @param clientes Lista onde ser√£o armazenados os objetos do tipo Cliente
+	 * @param veiculos Lista onde ser√£o armazenados os objetos do tipo Veiculo
 	 */
 	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos)
 	{
 		try
 		{
-			int posicaoDaLinha = 1; // Contador da posiÁ„o da linha atual
-			int quantidadeDeVeiculos = 0; // Contador da quantidade de veÌculos 
+			int posicaoDaLinha = 1; // Contador da posi√ß√£o da linha atual
+			int quantidadeDeVeiculos = 0; // Contador da quantidade de ve√≠culos 
 			int quantidadeDeClientes = 0; // Contador da quantidade de clientes
 			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo)); // Leitor que utiliza buffer para a leitura do arquivo
 			
-			// LÍ-se a primeira linha
+			// L√™-se a primeira linha
 			String linhaAtual = leitor.readLine();
 			
-			// Enquanto ela n„o for igual a NULL, ou seja, enquanto n„o acabar de ler o arquivo (EOF)
+			// Enquanto ela n√£o for igual a NULL, ou seja, enquanto n√£o acabar de ler o arquivo (EOF)
 			while(linhaAtual != null)
 			{
-				linhaAtual = linhaAtual.trim(); // Remove os espaÁos em branco no inÌcio e no final da String
-				String[] parametros = linhaAtual.split(" "); // Recupera os par‚metros que est„o separados por um espaÁo em branco
+				linhaAtual = linhaAtual.trim(); // Remove os espa√ßos em branco no in√≠cio e no final da String
+				String[] parametros = linhaAtual.split(" "); // Recupera os par√¢metros que est√£o separados por um espa√ßo em branco
 				
 				switch(posicaoDaLinha)
 				{
-					case 1: // Se for a primeira linha do arquivo, ent„o contÈm o tipo do problema, a quantidade de clientes e veÌculos e a quantidade m·xima de dias
+					case 1: // Se for a primeira linha do arquivo, ent√£o cont√©m o tipo do problema, a quantidade de clientes e ve√≠culos e a quantidade m√°xima de dias
 						
-						// ObtÈm-se a quantidade de veÌculos e a quantidade de clientes
+						// Obt√©m-se a quantidade de ve√≠culos e a quantidade de clientes
 						quantidadeDeVeiculos = Integer.valueOf(parametros[1]); 
 						quantidadeDeClientes = Integer.valueOf(parametros[2]);
 						
@@ -83,20 +83,20 @@ public class Conversor {
 						clientes.ensureCapacity(quantidadeDeClientes);
 						break;
 						
-					case 2: // Se for a segunda linha do arquivo, que contÈm a limitaÁ„o de dias e a carga m·xima dos veÌculos
-						int cargaMaxima = Integer.valueOf(parametros[1]); // ObtÈm-se a carga m·xima
+					case 2: // Se for a segunda linha do arquivo, que cont√©m a limita√ß√£o de dias e a carga m√°xima dos ve√≠culos
+						int cargaMaxima = Integer.valueOf(parametros[1]); // Obt√©m-se a carga m√°xima
 						
-						// Cria-se os objetos de veÌculos
+						// Cria-se os objetos de ve√≠culos
 						for(int i = 0; i < 2*quantidadeDeVeiculos; ++i) veiculos.add(new Veiculo(cargaMaxima));
 						break;
 						
-					default: // Para as demais linhas, que sÛ contÈm os dados dos clientes
+					default: // Para as demais linhas, que s√≥ cont√©m os dados dos clientes
 						clientes.add(decodificaCliente(parametros)); // Adiciona o objeto decodificado na lista de clientes
 						break;
 				}
 				
-				++posicaoDaLinha; // Incrementa a posiÁ„o da linha
-				linhaAtual = leitor.readLine(); // LÍ a prÛxima linha
+				++posicaoDaLinha; // Incrementa a posi√ß√£o da linha
+				linhaAtual = leitor.readLine(); // L√™ a pr√≥xima linha
 			}
 			
 			leitor.close();
