@@ -58,13 +58,15 @@ public class Rota {
 	//matriz de distâncias entre clientes
 	public static double [][] matrizDeDistancias = new double [numeroDeClientes][numeroDeClientes];
 	//matriz de custos de cada rota
-	public double [][] custoRota = new double [numeroDeRotas][numeroDeVeiculos];
+	public static double [][] custoRota = new double [numeroDeRotas][numeroDeVeiculos];
 	//cria uma matriz onde as rotas aleatórias serão salvas
 	public static ArrayList<ArrayList<Cliente>> rotas = new ArrayList<ArrayList<Cliente>>();
-	//cria  um arraylist para salvar a rota inicial partindo de zero(depósito) até o maximo de clientes
-	public static ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<Cliente>();
-	//cria  um arraylist para salvar a rota que será criada (esta só será incluída na matriz de rotas de atender as restrições)
-	public static ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<Cliente>();
+	//cria  um arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo de clientes
+	//ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem crescente
+	public static ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
+	//cria  um arraylist para salvar a rota aleátoria que será criada
+	//(esta só será incluída na matriz de rotas de atender as restrição da capacidade do veículo)
+	public static ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
 	public static void criaRotas(String[] args){
 
@@ -88,8 +90,6 @@ public class Rota {
 
 		//cria as rotas aleatórias sempre partindo do zero(depósito)
 		for(int i = 0; i < numeroDeRotas; i++){
-
-
 			//cria  uma rota partindo de zero(depósito) até o maximo de clientes
 			for(Cliente auxiliar: clientes)
 				sequenciaDeVisitas.add(auxiliar);
@@ -146,7 +146,21 @@ public class Rota {
 				}else break;
 			}//fecha o segundo for
 
-		}//fecha o primeiro for	
+		}//fecha o primeiro for		
 
+	}//fecha o cria Rotas
+	
+	public static void calculaCustos(){
+		
+		//percorre as linhas da matriz que são as rotas
+		for(int row = 0; row < numeroDeRotas; row++) {
+			//percorre as colunas da matriz que são os veículos
+			for(int column = 0; column < numeroDeVeiculos; column++) {
+				
+			}
+			
+		}
+		
 	}
+	
 }//fecha a classe
