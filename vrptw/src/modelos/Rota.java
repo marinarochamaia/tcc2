@@ -2,7 +2,6 @@ package modelos;
 
 import java.util.*;
 
-import io.Conversor;
 import modelos.Cliente;
 import modelos.Veiculo;
 
@@ -16,18 +15,12 @@ public class Rota {
 
 	private static int numeroDeVeiculos;
 
-	static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-	static ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
-	
-	
-
-
 	public Rota(int numeroDeRotas, int numeroDeClientes, int multa, int numeroDeVeiculos){
 
 		Rota.numeroDeRotas = 2;
-		Rota.numeroDeClientes = clientes.size();
+		Rota.numeroDeClientes = numeroDeClientes;
 		Rota.multa = 1000;
-		Rota.numeroDeVeiculos = veiculos.size();
+		Rota.numeroDeVeiculos = numeroDeVeiculos;
 	}
 
 	public int getNumeroDeRotas() {
@@ -68,18 +61,18 @@ public class Rota {
 	//(esta só será incluída na matriz de rotas de atender as restrição da capacidade do veículo)
 	public static ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
-	public static void criaRotas(String[] args){
+	public static void criaRotas(List<Cliente>clientes, List<Veiculo> veiculos){
 
-		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
-		Conversor conversor = new Conversor(args[0]);
-		conversor.converterArquivo(clientes, veiculos);
+		System.out.println("Cheguei na função");
 
 		//laço para preencher a matriz com as distâncias entre clientes calculadas através da distância euclidiana
 		//percorre as linhas da matriz de distâncias
 		for(int row = 0; row < numeroDeClientes; row++)
 		{
+			System.out.println("Cheguei no for1");
 			//percorre as colunas da matriz de distâncias
 			for(int column = 0; column < numeroDeClientes; column++){
+				System.out.println("Cheguei no for1");
 				if(row == column)
 					matrizDeDistancias [row][column] = 0;
 				else
@@ -108,8 +101,11 @@ public class Rota {
 		for(int row = 0; row<numeroDeRotas;row++){
 			ArrayList<Cliente> rotaAtual = rotas.get(row);
 			int contadorDeCliente = 0;
+			@SuppressWarnings("unused")
 			int demandaTotal = 0;
+			@SuppressWarnings("unused")
 			int demandaAtendida = 0;
+			@SuppressWarnings("unused")
 			int veiculosUtilizados = 0;
 
 			//soma a demanda total de cada rota
@@ -141,7 +137,7 @@ public class Rota {
 				}//fecha o terceiro for
 				if(veiculo.getCargaOcupada()!=0){
 					//a rota de cada veículo é incluída na matriz de cada veículo
-					veiculo.rotasVeiculo.add(possivelRotaVeiculo);
+					Veiculo.rotasVeiculo.add(possivelRotaVeiculo);
 					veiculosUtilizados++;
 				}else break;
 			}//fecha o segundo for
