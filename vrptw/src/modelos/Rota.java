@@ -61,7 +61,7 @@ public class Rota {
 	//(esta só será incluída na matriz de rotas de atender as restrição da capacidade do veículo)
 	public static ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
-	public static void criaRotas(List<Cliente>clientes, List<Veiculo> veiculos){
+	public void criaRotas(List<Cliente> clientes, List<Veiculo> veiculos){
 
 		System.out.println("Cheguei na função");
 
