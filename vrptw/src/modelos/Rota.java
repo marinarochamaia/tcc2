@@ -7,76 +7,77 @@ import modelos.Veiculo;
 
 public class Rota {
 
-	private static int numeroDeRotas;
+	private int numeroDeRotas;
 
-	private static int numeroDeClientes;
+	private int multa;
 
-	private static int multa;
-
-	private static int numeroDeVeiculos;
+	private int numeroDeClientes;
+	
+	private int numeroDeVeiculos;
 
 	public Rota(int numeroDeRotas, int numeroDeClientes, int multa, int numeroDeVeiculos){
 
-		Rota.numeroDeRotas = 2;
-		Rota.numeroDeClientes = numeroDeClientes;
-		Rota.multa = 1000;
-		Rota.numeroDeVeiculos = numeroDeVeiculos;
+		this.numeroDeRotas = numeroDeRotas;
+		this.numeroDeClientes = numeroDeClientes;
+		this.multa = multa;
+		this.numeroDeVeiculos = numeroDeVeiculos;
+	
 	}
 
 	public int getNumeroDeRotas() {
 		return numeroDeRotas;
 	}
 	public void setNumeroDeRotas(int numeroDeRotas){
-		Rota.numeroDeRotas = numeroDeRotas;
+		this.numeroDeRotas = numeroDeRotas;
 	}
 	public int getNumeroDeClientes() {
 		return numeroDeClientes;
 	}
 	public void setNumeroDeClientes(int numeroDeClientes){
-		Rota.numeroDeRotas = numeroDeClientes;
+		this.numeroDeClientes = numeroDeClientes;
 	}
 	public int getMulta() {
 		return multa;
 	}
 	public void setMulta(int multa){
-		Rota.multa = multa;
+		this.multa = multa;
 	}
 	public int getNumeroDeVeiculos() {
 		return numeroDeVeiculos;
 	}
 	public void setNumeroDeVeiculos(int numeroDeVeiculos){
-		Rota.numeroDeVeiculos = numeroDeVeiculos;
+		this.numeroDeVeiculos = numeroDeVeiculos;
 	}
-
+	
+	
 	//matriz de distâncias entre clientes
-	public static double [][] matrizDeDistancias = new double [numeroDeClientes][numeroDeClientes];
+	public double [][] matrizDeDistancias = new double [numeroDeClientes][numeroDeClientes];
 	//matriz de custos de cada rota
-	public static double [][] custoRota = new double [numeroDeRotas][numeroDeVeiculos];
-	//cria uma matriz onde as rotas aleatórias serão salvas
-	public static ArrayList<ArrayList<Cliente>> rotas = new ArrayList<ArrayList<Cliente>>();
-	//cria  um arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo de clientes
+	public double [][] custoRota = new double [numeroDeRotas][numeroDeVeiculos];
+	//matriz onde as rotas aleatórias serão salvas
+	public ArrayList<ArrayList<Cliente>> rotas = new ArrayList<ArrayList<Cliente>>();
+	//arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo de clientes
 	//ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem crescente
-	public static ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
-	//cria  um arraylist para salvar a rota aleátoria que será criada
+	public ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
+	//arraylist para salvar a rota aleátoria que será criada
 	//(esta só será incluída na matriz de rotas de atender as restrição da capacidade do veículo)
-	public static ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
+	public ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
+	//arraylist para calcular o custo total de cada rota
+	public double [] custoTotalRota = new double [numeroDeRotas];
 
+	
 	public void criaRotas(List<Cliente> clientes, List<Veiculo> veiculos){
-
-		System.out.println("Cheguei na função");
 
 		//laço para preencher a matriz com as distâncias entre clientes calculadas através da distância euclidiana
 		//percorre as linhas da matriz de distâncias
 		for(int row = 0; row < numeroDeClientes; row++)
 		{
-			System.out.println("Cheguei no for1");
 			//percorre as colunas da matriz de distâncias
 			for(int column = 0; column < numeroDeClientes; column++){
-				System.out.println("Cheguei no for1");
 				if(row == column)
-					matrizDeDistancias [row][column] = 0;
+					matrizDeDistancias[row][column] = 0;
 				else
-					matrizDeDistancias [row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row), clientes.get(column));
+					matrizDeDistancias[row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row), clientes.get(column));
 			}//fecha segundo for
 		}//fecha o primeiro for
 
@@ -113,7 +114,7 @@ public class Rota {
 				demandaTotal += rotaAtual.get(j).getDemanda();
 
 			//percorre os veículos disponíveis
-			for(int i = 0; i < numeroDeVeiculos; i++) {
+			for(int i = 0; i < numeroDeVeiculos ; i++) {
 
 				Veiculo veiculo = veiculos.get(i);
 				veiculo.resetCargaOcupada();
@@ -135,7 +136,7 @@ public class Rota {
 					//se não, é feito um break e inicia a rota do próximo veículo
 					else break;
 				}//fecha o terceiro for
-				if(veiculo.getCargaOcupada()!=0){
+				if(veiculo.getCargaOcupada() > 0){
 					//a rota de cada veículo é incluída na matriz de cada veículo
 					Veiculo.rotasVeiculo.add(possivelRotaVeiculo);
 					veiculosUtilizados++;
@@ -146,17 +147,17 @@ public class Rota {
 
 	}//fecha o cria Rotas
 	
-	public static void calculaCustos(){
+	public void calculaCustoRota(){
 		
-		//percorre as linhas da matriz que são as rotas
-		for(int row = 0; row < numeroDeRotas; row++) {
-			//percorre as colunas da matriz que são os veículos
-			for(int column = 0; column < numeroDeVeiculos; column++) {
-				
-			}
-			
+		Veiculo veiculo = new Veiculo(10000);
+		
+		for(int i = 0; i < numeroDeRotas; i++) {
+			for(int j = 0; j < numeroDeVeiculos; j++)
+			custoTotalRota[j] += veiculo.getCustoVeiculo();
 		}
+		System.out.println();
 		
 	}
+	
 	
 }//fecha a classe
