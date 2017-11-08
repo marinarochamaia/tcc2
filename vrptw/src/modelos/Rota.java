@@ -50,17 +50,17 @@ public class Rota {
 	}
 	
 	
-	//matriz de distâncias entre clientes
+	//matriz de distÃ¢ncias entre clientes
 	public double [][] matrizDeDistancias = new double [numeroDeClientes][numeroDeClientes];
 	//matriz de custos de cada rota
 	public double [][] custoRota = new double [numeroDeRotas][numeroDeVeiculos];
-	//matriz onde as rotas aleatórias serão salvas
+	//matriz onde as rotas aleatÃ³rias serÃ£o salvas
 	public ArrayList<ArrayList<Cliente>> rotas = new ArrayList<ArrayList<Cliente>>();
-	//arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo de clientes
-	//ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem crescente
+	//arraylist para salvar a rota inicial partindo de zero(depÃ³sito) atÃ© o mÃ¡ximo de clientes
+	//ou seja, cria uma rota partindo do 0 (depÃ³sito) atÃ© o Ãºltimo cliente em ordem crescente
 	public ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
-	//arraylist para salvar a rota aleátoria que será criada
-	//(esta só será incluída na matriz de rotas de atender as restrição da capacidade do veículo)
+	//arraylist para salvar a rota aleÃ¡toria que serÃ¡ criada
+	//(esta sÃ³ serÃ¡ incluÃ­da na matriz de rotas de atender as restriÃ§Ã£o da capacidade do veÃ­culo)
 	public ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 	//arraylist para calcular o custo total de cada rota
 	public double [] custoTotalRota = new double [numeroDeRotas];
@@ -68,12 +68,12 @@ public class Rota {
 	
 	public void criaRotas(List<Cliente> clientes, List<Veiculo> veiculos){
 
-		//laço para preencher a matriz com as distâncias entre clientes calculadas através da distância euclidiana
-		//percorre as linhas da matriz de distâncias
-		for(int row = 0; row < numeroDeClientes; row++)
+		//laÃ§o para preencher a matriz com as distÃ¢ncias entre clientes calculadas atravÃ©s da distÃ¢ncia euclidiana
+		//percorre as linhas da matriz de distÃ¢ncias
+		for(int row = 0; row < matrizDeDistancias.length; row++)
 		{
-			//percorre as colunas da matriz de distâncias
-			for(int column = 0; column < numeroDeClientes; column++){
+			//percorre as colunas da matriz de distÃ¢ncias
+			for(int column = 0; column < matrizDeDistancias.length; column++){
 				if(row == column)
 					matrizDeDistancias[row][column] = 0;
 				else
@@ -82,9 +82,9 @@ public class Rota {
 		}//fecha o primeiro for
 
 
-		//cria as rotas aleatórias sempre partindo do zero(depósito)
+		//cria as rotas aleatÃ³rias sempre partindo do zero(depÃ³sito)
 		for(int i = 0; i < numeroDeRotas; i++){
-			//cria  uma rota partindo de zero(depósito) até o maximo de clientes
+			//cria  uma rota partindo de zero(depÃ³sito) atÃ© o maximo de clientes
 			for(Cliente auxiliar: clientes)
 				sequenciaDeVisitas.add(auxiliar);
 
@@ -113,7 +113,7 @@ public class Rota {
 			for(int j = 0; j < numeroDeClientes; j++)
 				demandaTotal += rotaAtual.get(j).getDemanda();
 
-			//percorre os veículos disponíveis
+			//percorre os veÃ­culos disponÃ­veis
 			for(int i = 0; i < numeroDeVeiculos ; i++) {
 
 				Veiculo veiculo = veiculos.get(i);
@@ -125,19 +125,19 @@ public class Rota {
 
 					Cliente clienteAtual = rotaAtual.get(column);
 
-					//se a demanda do cliente que está sendo analisado mais a carga do veículo que já está ocupada for menor
-					//que a capacidade máxima do veículo este é incluído a rota deste veículo
+					//se a demanda do cliente que estÃ¡ sendo analisado mais a carga do veÃ­culo que jÃ¡ estÃ¡ ocupada for menor
+					//que a capacidade mÃ¡xima do veÃ­culo este Ã© incluÃ­do a rota deste veÃ­culo
 					if(veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()){
 						possivelRotaVeiculo.add(clienteAtual);
 						veiculo.setCargaOcupada(clienteAtual.getDemanda());
 						demandaAtendida += clienteAtual.getDemanda();
 						contadorDeCliente++;
 					}
-					//se não, é feito um break e inicia a rota do próximo veículo
+					//se nÃ£o, Ã© feito um break e inicia a rota do prÃ³ximo veÃ­culo
 					else break;
 				}//fecha o terceiro for
 				if(veiculo.getCargaOcupada() > 0){
-					//a rota de cada veículo é incluída na matriz de cada veículo
+					//a rota de cada veÃ­culo Ã© incluÃ­da na matriz de cada veÃ­culo
 					Veiculo.rotasVeiculo.add(possivelRotaVeiculo);
 					veiculosUtilizados++;
 				}else break;
