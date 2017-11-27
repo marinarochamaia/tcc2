@@ -79,7 +79,7 @@ public class Conversor {
 						
 						// Determina-se o tamanho da lista de ambos modelos
 						//veiculos = new ArrayList<Veiculo>(quantidadeDeVeiculos);
-						veiculos.ensureCapacity(2*quantidadeDeVeiculos);
+						veiculos.ensureCapacity(quantidadeDeVeiculos);
 						//clientes = new ArrayList<Cliente>(quantidadeDeClientes);
 						clientes.ensureCapacity(quantidadeDeClientes);
 						break;
@@ -88,7 +88,7 @@ public class Conversor {
 						int cargaMaxima = Integer.valueOf(parametros[1]); // Obtêm-se a carga máxima
 						
 						// Cria-se os objetos de veículos
-						for(int i = 0; i < 2*quantidadeDeVeiculos; ++i) veiculos.add(new Veiculo(cargaMaxima));
+						for(int i = 0; i < quantidadeDeVeiculos; ++i) veiculos.add(new Veiculo(cargaMaxima));
 						break;
 						
 					default: // Para as demais linhas, que só contém os dados dos clientes
