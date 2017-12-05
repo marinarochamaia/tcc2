@@ -9,6 +9,7 @@ import modelos.Veiculo;
 public class Conversor {
 	
 	private String nomeDoArquivo;
+	
 
 	public Conversor(String nomeDoArquivo)
 	{
@@ -79,7 +80,7 @@ public class Conversor {
 						
 						// Determina-se o tamanho da lista de ambos modelos
 						//veiculos = new ArrayList<Veiculo>(quantidadeDeVeiculos);
-						veiculos.ensureCapacity(2*quantidadeDeVeiculos);
+						veiculos.ensureCapacity(quantidadeDeVeiculos);
 						//clientes = new ArrayList<Cliente>(quantidadeDeClientes);
 						clientes.ensureCapacity(quantidadeDeClientes);
 						break;
@@ -88,7 +89,7 @@ public class Conversor {
 						int cargaMaxima = Integer.valueOf(parametros[1]); // Obtêm-se a carga máxima
 						
 						// Cria-se os objetos de veículos
-						for(int i = 0; i < 2*quantidadeDeVeiculos; ++i) veiculos.add(new Veiculo(cargaMaxima));
+						for(int i = 0; i < quantidadeDeVeiculos; ++i) veiculos.add(new Veiculo(cargaMaxima));
 						break;
 						
 					default: // Para as demais linhas, que só contém os dados dos clientes
@@ -107,5 +108,29 @@ public class Conversor {
 			System.out.println("Erro durante leitura de arquivo: " + e.getMessage());
 		}	
 	}
+	
+	public double [][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
+		
+		//arraylist para calcular o custo total de cada rota
+		//matriz de distâncias entre clientes
+		double [][] matrizDeDistancias = new double [numeroDeClientes][numeroDeClientes];
+		
+		//laço para preencher a matriz com as distâncias entre clientes calculadas atravás da distância euclidiana
+		
+		//percorre as linhas da matriz de distâncias
+		for(int row = 0; row <numeroDeClientes; row++)
+		{
+			//percorre as colunas da matriz de distâncias
+			for(int column = 0; column < numeroDeClientes; column++){
+				if(row == column)
+					matrizDeDistancias[row][column] = 0.0;
+				else
+					matrizDeDistancias[row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row), clientes.get(column));
+			}//fecha segundo for
+		}//fecha o primeiro for
+		
+		return matrizDeDistancias;
+	}
+	
 
 }
