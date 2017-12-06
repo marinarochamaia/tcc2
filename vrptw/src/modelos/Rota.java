@@ -7,13 +7,7 @@ import modelos.Veiculo;
 
 public class Rota {
 
-	private int numeroDeRotas;
-
-	private int multa;
-
-	private int numeroDeClientes;
-
-	private int numeroDeVeiculos;
+	private int numeroDeRotas, multa, numeroDeClientes,numeroDeVeiculos; 
 
 	public Rota(int numeroDeRotas, int numeroDeClientes, int multa, int numeroDeVeiculos) {
 
@@ -56,10 +50,13 @@ public class Rota {
 		this.numeroDeVeiculos = numeroDeVeiculos;
 	}
 
-	public void criaRotas() {
+	public void criaRotas(ArrayList<Cliente> c, ArrayList<Veiculo> v) {
 
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		ArrayList<Veiculo> veiculos = new ArrayList<>();
+		
+		clientes.addAll(c);
+		veiculos.addAll(v);
 
 		// arraylist para salvar a rota aleátoria que será criada
 		// (esta é será incluída na matriz de rotas de atender as restrição da
@@ -76,7 +73,7 @@ public class Rota {
 		for (Cliente auxiliar : clientes)
 			sequenciaDeVisitas.add(auxiliar);
 
-		sequenciaDeVisitas.remove(0);
+		sequenciaDeVisitas.remove(clientes.get(0));
 
 		Collections.shuffle(sequenciaDeVisitas);
 		clientes.addAll(sequenciaDeVisitas);
@@ -117,15 +114,14 @@ public class Rota {
 				// se não, é feito um break e inicia a rota do próximo veículo
 				else
 					break;
-			} // fecha o terceiro for
-
+			}
 			if (veiculo.getCargaOcupada() > 0) {
-				// a rota de cada veículo é incluída na matriz de cada veículo
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculosUtilizados++;
+
 			} else
 				break;
-		} // fecha o segundo for
+		} 
 
 	}// fecha o cria Rotas
 

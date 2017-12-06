@@ -14,6 +14,7 @@ public class Main {
 		
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		ArrayList<Veiculo> veiculos = new ArrayList<>();
+		ArrayList<Rota> populacao = new ArrayList<>();
 		
 		int numeroDeRotas = 2;
 		int multa = 1000;
@@ -23,11 +24,13 @@ public class Main {
 		Conversor conversor = new Conversor(args[0]);
 		conversor.converterArquivo(clientes, veiculos);
 
-		conversor.calculaDistancias(clientes.size(), clientes);
+		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 		
-		//cria as rotas aleatórias
+		for(int i = 0; i < numeroDeRotas; i++) {
 		Rota r = new Rota(numeroDeRotas, clientes.size(), multa, veiculos.size());
-		r.criaRotas();
+		r.criaRotas(clientes, veiculos);
+		populacao.add(r);
+		}
 		
 		//calcula os custos de cada veículo
 		Veiculo v = new Veiculo(200);

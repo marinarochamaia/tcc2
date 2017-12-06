@@ -19,121 +19,82 @@ public class Cliente {
 		this.inicioJanela = inicioJanela;
 		this.fimJanela = fimJanela;
 	}
-
 	
 	public float getCoordenadaX() {
 		return coordenadaX;
 	}
 
-
-
 	public void setCoordenadaX(float coordenadaX) {
 		this.coordenadaX = coordenadaX;
 	}
-
-
 
 	public float getCoordenadaY() {
 		return coordenadaY;
 	}
 
-
-
 	public void setCoordenadaY(float coordenadaY) {
 		this.coordenadaY = coordenadaY;
 	}
-
-
 
 	public float getDemanda() {
 		return demanda;
 	}
 
-
-
 	public void setDemanda(float demanda) {
 		this.demanda = demanda;
 	}
-
-
 
 	public float getDuracaoServico() {
 		return duracaoServico;
 	}
 
-
-
 	public void setDuracaoServico(float duracaoServico) {
 		this.duracaoServico = duracaoServico;
 	}
-
-
 
 	public int getFrequenciaVisita() {
 		return frequenciaVisita;
 	}
 
-
-
 	public void setFrequenciaVisita(int frequenciaVisita) {
 		this.frequenciaVisita = frequenciaVisita;
 	}
-
-
 
 	public int getPossiveisCombinacoesDeVisitas() {
 		return possiveisCombinacoesDeVisitas;
 	}
 
-
-
 	public void setPossiveisCombinacoesDeVisitas(int possiveisCombinacoesDeVisitas) {
 		this.possiveisCombinacoesDeVisitas = possiveisCombinacoesDeVisitas;
 	}
-
-
 
 	public int getListaDeTodasPossiveisVisitas() {
 		return listaDeTodasPossiveisVisitas;
 	}
 
-
-
 	public void setListaDeTodasPossiveisVisitas(int listaDeTodasPossiveisVisitas) {
 		this.listaDeTodasPossiveisVisitas = listaDeTodasPossiveisVisitas;
 	}
-
-
 
 	public int getInicioJanela() {
 		return inicioJanela;
 	}
 
-
-
 	public void setInicioJanela(int inicioJanela) {
 		this.inicioJanela = inicioJanela;
 	}
-
-
 
 	public int getFimJanela() {
 		return fimJanela;
 	}
 
-
-
 	public void setFimJanela(int fimJanela) {
 		this.fimJanela = fimJanela;
 	}
 
-
-
 	public int getNumero() {
 		return numero;
 	}
-
-
 
 	public void setNumero(int numero) {
 		this.numero = numero;

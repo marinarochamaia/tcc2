@@ -8,7 +8,6 @@ public class Veiculo {
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 	
-	
 	public int getCargaMaxima() {
 		return cargaMaxima;
 	}
@@ -53,18 +52,18 @@ public class Veiculo {
 	public void calculaCustos(double[][] matrizDeDistancias, int numeroDeRotas, int multa, int numeroDeClientes,
 			int numeroDeVeiculos) {
 		
-		
 		double [] custoTotalRota = new double [numeroDeRotas];
+		System.out.println(ordemDeVisitacao);
 
 
 			// percorre um veículo em específico
 			for (int j = 1; j <= numeroDeVeiculos; j++) {
-				
+
 				custoVeiculo = 0;
 				tempoVeiculo = 0;
 				
 				// percorre uma rota em específico
-				for (int row = 0; row < ordemDeVisitacao.size(); row++) {
+				for (int row = 0; row < numeroDeClientes; row++) {
 
 					custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(j - 1).getNumero()][ordemDeVisitacao.get(j).getNumero()];
 					tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(j - 1).getNumero()][ordemDeVisitacao.get(j).getNumero()];
@@ -93,10 +92,7 @@ public class Veiculo {
 
 				} 
 
-
-			} 
-			
-			
+			} 			
 
 		}
 
