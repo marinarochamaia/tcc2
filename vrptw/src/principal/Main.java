@@ -16,7 +16,7 @@ public class Main {
 		ArrayList<Veiculo> veiculos = new ArrayList<>();
 		ArrayList<Rota> populacao = new ArrayList<>();
 		
-		int numeroDeRotas = 2;
+		int numeroDeRotas = 1;
 		int multa = 1000;
 		double [][] matrizDeDistancias = new double [clientes.size()][clientes.size()];
 
@@ -27,8 +27,8 @@ public class Main {
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 		
 		for(int i = 0; i < numeroDeRotas; i++) {
-		Rota r = new Rota(numeroDeRotas, clientes.size(), multa, veiculos.size());
-		r.criaRotas(clientes, veiculos);
+		Rota r = new Rota(numeroDeRotas, clientes, veiculos, clientes.size(), multa, veiculos.size());
+		r.criaRotas();
 		populacao.add(r);
 		}
 		

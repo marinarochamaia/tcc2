@@ -8,13 +8,18 @@ import modelos.Veiculo;
 public class Rota {
 
 	private int numeroDeRotas, multa, numeroDeClientes,numeroDeVeiculos; 
-
-	public Rota(int numeroDeRotas, int numeroDeClientes, int multa, int numeroDeVeiculos) {
+    public ArrayList<Cliente> listaClientes = new ArrayList<>();
+    public ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
+    
+	public Rota(int numeroDeRotas, ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos,
+            int numeroDeClientes, int multa, int numeroDeVeiculos) {
 
 		this.numeroDeRotas = numeroDeRotas;
 		this.numeroDeClientes = numeroDeClientes;
 		this.multa = multa;
 		this.numeroDeVeiculos = numeroDeVeiculos;
+		this.listaClientes = clientes;
+		this.listaVeiculos = veiculos;
 
 	}
 
@@ -50,34 +55,29 @@ public class Rota {
 		this.numeroDeVeiculos = numeroDeVeiculos;
 	}
 
-	public void criaRotas(ArrayList<Cliente> c, ArrayList<Veiculo> v) {
-
-		ArrayList<Cliente> clientes = new ArrayList<>();
-		ArrayList<Veiculo> veiculos = new ArrayList<>();
-		
-		clientes.addAll(c);
-		veiculos.addAll(v);
+	public void criaRotas() {
 
 		// arraylist para salvar a rota aleátoria que será criada
-		// (esta é será incluída na matriz de rotas de atender as restrição da
+		// (esta é será incluída na população de rotas se atender as restrição da
 		// capacidade do veículo)
 		ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
 		// arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo
-		// de clientes
-		// ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem
+		// de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem
 		// crescente
 		ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
 
 		// cria uma rota partindo de zero(depósito) até o maximo de clientes
-		for (Cliente auxiliar : clientes)
+		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
 
-		sequenciaDeVisitas.remove(clientes.get(0));
+		Cliente deposito = sequenciaDeVisitas.get(0);
+		sequenciaDeVisitas.remove(listaClientes.get(0));
 
+		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
-		clientes.addAll(sequenciaDeVisitas);
-
+		listaClientes.addAll(sequenciaDeVisitas);
+		
 		int contadorDeCliente = 0;
 		@SuppressWarnings("unused")
 		int demandaTotal = 0;
@@ -87,27 +87,28 @@ public class Rota {
 		int veiculosUtilizados = 0;
 
 		// soma a demanda total de cada rota
-		for (int i = 0; i < numeroDeClientes; i++)
-			demandaTotal += clientes.get(i).getDemanda();
+		for (int i = 0; i < listaClientes.size(); i++)
+			demandaTotal += listaClientes.get(i).getDemanda();
 
 		// percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 
-			Veiculo veiculo = veiculos.get(j);
+			Veiculo veiculo = listaVeiculos.get(j);
 			veiculo.resetCargaOcupada();
 			int aux = contadorDeCliente;
 
 			// percorre as colunas de cada cliente
-			for (int column = aux; column < clientes.size(); column++) {
+			for (int column = aux; column < listaClientes.size(); column++) {
 
-				Cliente clienteAtual = clientes.get(column);
+				Cliente clienteAtual = listaClientes.get(column);
 
 				// se a demanda do cliente que está sendo analisado somado a carga do veículo
 				// que já está ocupada for menor
-				// que a capacidade máxima do veáculo este é incluído a rota deste veículo
+				// que a capacidade máxima do veículo este é incluído a rota deste veículo
 				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
 					possivelRotaVeiculo.add(clienteAtual);
 					veiculo.setCargaOcupada(clienteAtual.getDemanda());
+
 					demandaAtendida += clienteAtual.getDemanda();
 					contadorDeCliente++;
 				}
@@ -116,13 +117,14 @@ public class Rota {
 					break;
 			}
 			if (veiculo.getCargaOcupada() > 0) {
+				veiculo.ordemDeVisitacao.add(deposito);
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
+				veiculo.ordemDeVisitacao.add(deposito);
 				veiculosUtilizados++;
 
 			} else
 				break;
 		} 
-
 	}// fecha o cria Rotas
 
 }// fecha a classe

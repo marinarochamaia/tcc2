@@ -53,7 +53,6 @@ public class Veiculo {
 			int numeroDeVeiculos) {
 		
 		double [] custoTotalRota = new double [numeroDeRotas];
-		System.out.println(ordemDeVisitacao);
 
 
 			// percorre um veículo em específico
