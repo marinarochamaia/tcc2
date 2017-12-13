@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Veiculo {
 	private int cargaMaxima;
-	public double cargaOcupada = 0, custoVeiculo, tempoVeiculo;
+	public double cargaOcupada = 0, custoVeiculo=0, tempoVeiculo=0, custoTotalVeículo;
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 	
@@ -51,48 +51,36 @@ public class Veiculo {
 
 	public void calculaCustos(double[][] matrizDeDistancias, int numeroDeRotas, int multa, int numeroDeClientes,
 			int numeroDeVeiculos) {
-		
-		double [] custoTotalRota = new double [numeroDeRotas];
+						
+				// percorre a rota de um veículo em específico
+				for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
-
-			// percorre um veículo em específico
-			for (int j = 1; j <= numeroDeVeiculos; j++) {
-
-				custoVeiculo = 0;
-				tempoVeiculo = 0;
-				
-				// percorre uma rota em específico
-				for (int row = 0; row < numeroDeClientes; row++) {
-
-					custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(j - 1).getNumero()][ordemDeVisitacao.get(j).getNumero()];
-					tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(j - 1).getNumero()][ordemDeVisitacao.get(j).getNumero()];
-					;
+					custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
+					tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
+					
 
 					// se o cliente chega dentro da janela
-					if (tempoVeiculo >= ordemDeVisitacao.get(j).getInicioJanela()
-							&& tempoVeiculo >= ordemDeVisitacao.get(j).getFimJanela())
-						tempoVeiculo += ordemDeVisitacao.get(j).getDuracaoServico();
+					if (tempoVeiculo >= ordemDeVisitacao.get(row).getInicioJanela()
+							&& tempoVeiculo >= ordemDeVisitacao.get(row).getFimJanela())
+						tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 
 					// se o cliente chega antes da janela (espera a janela abrir e paga multa)
-					else if (tempoVeiculo < ordemDeVisitacao.get(j).getInicioJanela()) {
-						tempoVeiculo += ordemDeVisitacao.get(j).getInicioJanela() - tempoVeiculo;
-						tempoVeiculo += ordemDeVisitacao.get(j).getDuracaoServico();
+					else if (tempoVeiculo < ordemDeVisitacao.get(row).getInicioJanela()) {
+						tempoVeiculo += ordemDeVisitacao.get(row).getInicioJanela() - tempoVeiculo;
+						tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 						custoVeiculo += multa;
 					}
 					// se o cliente chega depois da janela o cliente é atendido mas é paga a multa
-					else if (tempoVeiculo > ordemDeVisitacao.get(j).getInicioJanela()) {
-						tempoVeiculo += ordemDeVisitacao.get(j).getDuracaoServico();
+					else if (tempoVeiculo > ordemDeVisitacao.get(row).getInicioJanela()) {
+						tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 						custoVeiculo += multa;
 					}
 
-
-					custoTotalRota[j] += custoVeiculo;
-					System.out.println("Custo Total da Rota " + (j) + ": " + custoTotalRota[j]);
-
+					custoTotalVeículo = custoVeiculo;
 				} 
-
+				
+				System.out.println(custoTotalVeículo);
 			} 			
 
 		}
 
-	}

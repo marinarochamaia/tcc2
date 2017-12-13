@@ -2,17 +2,19 @@ package modelos;
 
 import java.util.*;
 
+import io.Conversor;
 import modelos.Cliente;
 import modelos.Veiculo;
 
 public class Rota {
 
 	private int numeroDeRotas, multa, numeroDeClientes,numeroDeVeiculos; 
+	Conversor conversor;
     public ArrayList<Cliente> listaClientes = new ArrayList<>();
     public ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
     
 	public Rota(int numeroDeRotas, ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos,
-            int numeroDeClientes, int multa, int numeroDeVeiculos) {
+            int numeroDeClientes, int multa, int numeroDeVeiculos, Conversor conversor) {
 
 		this.numeroDeRotas = numeroDeRotas;
 		this.numeroDeClientes = numeroDeClientes;
@@ -20,7 +22,7 @@ public class Rota {
 		this.numeroDeVeiculos = numeroDeVeiculos;
 		this.listaClientes = clientes;
 		this.listaVeiculos = veiculos;
-
+		this.conversor = conversor;
 	}
 
 	public int getNumeroDeRotas() {
@@ -56,6 +58,10 @@ public class Rota {
 	}
 
 	public void criaRotas() {
+		
+		double [][] matrizDeDistancias = new double [listaClientes.size()][listaClientes.size()];
+
+		matrizDeDistancias = conversor.calculaDistancias(listaClientes.size(), listaClientes);
 
 		// arraylist para salvar a rota aleátoria que será criada
 		// (esta é será incluída na população de rotas se atender as restrição da
@@ -121,10 +127,15 @@ public class Rota {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 				veiculosUtilizados++;
-
+				
+				
 			} else
 				break;
+			
+			veiculo.calculaCustos(matrizDeDistancias, numeroDeRotas, multa, listaClientes.size(), listaVeiculos.size());
+
 		} 
+
 	}// fecha o cria Rotas
 
 }// fecha a classe
