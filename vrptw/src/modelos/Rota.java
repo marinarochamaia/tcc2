@@ -8,30 +8,32 @@ import modelos.Veiculo;
 
 public class Rota {
 
-	private int numeroDeRotas, multa, numeroDeClientes,numeroDeVeiculos; 
+	private int multa, numeroDeClientes,numeroDeVeiculos;
+	double custoTotalRota=0;
+	public double getCustoTotalRota() {
+		return custoTotalRota;
+	}
+
+	public void setCustoTotalRota(double custoTotalRota) {
+		this.custoTotalRota = custoTotalRota;
+	}
+
 	Conversor conversor;
     public ArrayList<Cliente> listaClientes = new ArrayList<>();
     public ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
+	double [][] matrizDeDistancias = new double [listaClientes.size()][listaClientes.size()];
     
-	public Rota(int numeroDeRotas, ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos,
-            int numeroDeClientes, int multa, int numeroDeVeiculos, Conversor conversor) {
+	public Rota(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos,
+            int numeroDeClientes, int multa, int numeroDeVeiculos, double [][] matrizDeDistancias) {
 
-		this.numeroDeRotas = numeroDeRotas;
 		this.numeroDeClientes = numeroDeClientes;
 		this.multa = multa;
 		this.numeroDeVeiculos = numeroDeVeiculos;
 		this.listaClientes = clientes;
 		this.listaVeiculos = veiculos;
-		this.conversor = conversor;
+		this.matrizDeDistancias = matrizDeDistancias;
 	}
 
-	public int getNumeroDeRotas() {
-		return numeroDeRotas;
-	}
-
-	public void setNumeroDeRotas(int numeroDeRotas) {
-		this.numeroDeRotas = numeroDeRotas;
-	}
 
 	public int getNumeroDeClientes() {
 		return numeroDeClientes;
@@ -58,11 +60,8 @@ public class Rota {
 	}
 
 	public void criaRotas() {
+			
 		
-		double [][] matrizDeDistancias = new double [listaClientes.size()][listaClientes.size()];
-
-		matrizDeDistancias = conversor.calculaDistancias(listaClientes.size(), listaClientes);
-
 		// arraylist para salvar a rota aleátoria que será criada
 		// (esta é será incluída na população de rotas se atender as restrição da
 		// capacidade do veículo)
@@ -76,25 +75,19 @@ public class Rota {
 		// cria uma rota partindo de zero(depósito) até o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
-
+		
 		Cliente deposito = sequenciaDeVisitas.get(0);
 		sequenciaDeVisitas.remove(listaClientes.get(0));
-
+		
 		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
+		listaClientes.add(deposito);
 		listaClientes.addAll(sequenciaDeVisitas);
 		
+		
 		int contadorDeCliente = 0;
-		@SuppressWarnings("unused")
-		int demandaTotal = 0;
-		@SuppressWarnings("unused")
-		int demandaAtendida = 0;
-		@SuppressWarnings("unused")
-		int veiculosUtilizados = 0;
 
-		// soma a demanda total de cada rota
-		for (int i = 0; i < listaClientes.size(); i++)
-			demandaTotal += listaClientes.get(i).getDemanda();
+
 
 		// percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
@@ -115,7 +108,6 @@ public class Rota {
 					possivelRotaVeiculo.add(clienteAtual);
 					veiculo.setCargaOcupada(clienteAtual.getDemanda());
 
-					demandaAtendida += clienteAtual.getDemanda();
 					contadorDeCliente++;
 				}
 				// se não, é feito um break e inicia a rota do próximo veículo
@@ -126,16 +118,17 @@ public class Rota {
 				veiculo.ordemDeVisitacao.add(deposito);
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
-				veiculosUtilizados++;
+
 				
 				
 			} else
 				break;
 			
-			veiculo.calculaCustos(matrizDeDistancias, numeroDeRotas, multa, listaClientes.size(), listaVeiculos.size());
-
+			veiculo.calculaCustos(matrizDeDistancias, multa, listaClientes.size(), listaVeiculos.size());
+			custoTotalRota += veiculo.custoTotalVeículo;
 		} 
 
+		//System.out.println("Custo total da rota:" +  custoTotalRota);
 	}// fecha o cria Rotas
 
 }// fecha a classe
