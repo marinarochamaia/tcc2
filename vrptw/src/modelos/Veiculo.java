@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Veiculo {
 	private int cargaMaxima;
-	public double cargaOcupada = 0, custoVeiculo=0, tempoVeiculo=0, custoTotalVeículo;
+	private double cargaOcupada, custoVeiculo, tempoVeiculo;
+	@SuppressWarnings("unused")
+	private double custoTotalVeículo;
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 
@@ -29,7 +31,7 @@ public class Veiculo {
 	}
 
 	public void setCustoVeiculo(double custoVeiculo) {
-		this.custoVeiculo = custoVeiculo;
+		this.custoVeiculo = 0;
 	}
 
 	public double getCustoVeiculo() {
@@ -37,7 +39,7 @@ public class Veiculo {
 	}
 
 	public void setTempoVeiculo(double tempoVeiculo) {
-		this.tempoVeiculo = tempoVeiculo;
+		this.tempoVeiculo = 0;
 	}
 
 	public double getTempoVeiculo() {
@@ -51,9 +53,11 @@ public class Veiculo {
 
 	public void calculaCustos(double[][] matrizDeDistancias, int multa, int numeroDeClientes,
 			int numeroDeVeiculos) {
-
+		
 		// percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
+			
+			
 
 			custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 			tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];

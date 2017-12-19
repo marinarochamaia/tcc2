@@ -60,7 +60,6 @@ public class Rota {
 	}
 
 	public void criaRotas() {
-			
 		
 		// arraylist para salvar a rota aleátoria que será criada
 		// (esta é será incluída na população de rotas se atender as restrição da
@@ -72,6 +71,7 @@ public class Rota {
 		// crescente
 		ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
 
+		
 		// cria uma rota partindo de zero(depósito) até o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
@@ -81,51 +81,57 @@ public class Rota {
 		
 		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
-		listaClientes.add(deposito);
 		listaClientes.addAll(sequenciaDeVisitas);
 		
 		
 		int contadorDeCliente = 0;
 
-
-
 		// percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
+			
 
+			possivelRotaVeiculo.clear();
 			Veiculo veiculo = listaVeiculos.get(j);
 			veiculo.resetCargaOcupada();
 			int aux = contadorDeCliente;
+
 
 			// percorre as colunas de cada cliente
 			for (int column = aux; column < listaClientes.size(); column++) {
 
 				Cliente clienteAtual = listaClientes.get(column);
-
+				
 				// se a demanda do cliente que está sendo analisado somado a carga do veículo
 				// que já está ocupada for menor
 				// que a capacidade máxima do veículo este é incluído a rota deste veículo
-				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
+				if ((veiculo.getCargaOcupada() + clienteAtual.getDemanda()) <= veiculo.getCargaMaxima()) {
+					
 					possivelRotaVeiculo.add(clienteAtual);
 					veiculo.setCargaOcupada(clienteAtual.getDemanda());
-
 					contadorDeCliente++;
+					
 				}
-				// se não, é feito um break e inicia a rota do próximo veículo
-				else
+				else if((veiculo.getCargaOcupada() + clienteAtual.getDemanda()) > veiculo.getCargaMaxima() && column == listaClientes.size())
+					possivelRotaVeiculo.clear();
+				// se não, é feito um break e inicia a rota do próximo veículo				
+				else 
 					break;
+				
+									
 			}
+			
 			if (veiculo.getCargaOcupada() > 0) {
 				veiculo.ordemDeVisitacao.add(deposito);
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
+				
+				System.out.println(veiculo.ordemDeVisitacao);
 
-				
-				
 			} else
 				break;
 			
 			veiculo.calculaCustos(matrizDeDistancias, multa, listaClientes.size(), listaVeiculos.size());
-			custoTotalRota += veiculo.custoTotalVeículo;
+			custoTotalRota += veiculo.getCustoVeiculo();
 		} 
 
 		//System.out.println("Custo total da rota:" +  custoTotalRota);

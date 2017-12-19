@@ -19,7 +19,7 @@ public class Main {
 		ArrayList<Rota> populacao = new ArrayList<>();
 		double [][] matrizDeDistancias = new double [clientes.size()][clientes.size()];
 		
-		int numeroDeRotas = 1000;
+		int numeroDeRotas = 1;
 		int multa = 1000;
 
 		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
@@ -40,7 +40,7 @@ public class Main {
 			menorCusto = r.getCustoTotalRota();
 		}
 		
-		System.out.println(menorCusto);
+		//System.out.println("Menor custo encontrado nas rotas: " + menorCusto);
 		
 	}//fecha a main
 }//fecha a classe
