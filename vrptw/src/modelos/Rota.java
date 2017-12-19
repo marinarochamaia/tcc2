@@ -92,6 +92,7 @@ public class Rota {
 
 			possivelRotaVeiculo.clear();
 			Veiculo veiculo = listaVeiculos.get(j);
+			veiculo.ordemDeVisitacao.clear();
 			veiculo.resetCargaOcupada();
 			int aux = contadorDeCliente;
 
@@ -100,6 +101,7 @@ public class Rota {
 			for (int column = aux; column < listaClientes.size(); column++) {
 
 				Cliente clienteAtual = listaClientes.get(column);
+				listaClientes.add(deposito);
 				
 				// se a demanda do cliente que está sendo analisado somado a carga do veículo
 				// que já está ocupada for menor
@@ -125,7 +127,8 @@ public class Rota {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 				
-				System.out.println(veiculo.ordemDeVisitacao);
+				System.out.println(veiculo.ordemDeVisitacao.size());
+
 
 			} else
 				break;
@@ -134,7 +137,9 @@ public class Rota {
 			custoTotalRota += veiculo.getCustoVeiculo();
 		} 
 
+		System.out.println("\n\n\n\n");
 		//System.out.println("Custo total da rota:" +  custoTotalRota);
+
 	}// fecha o cria Rotas
 
 }// fecha a classe
