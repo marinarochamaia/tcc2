@@ -10,13 +10,6 @@ public class Rota {
 
 	private int multa, numeroDeClientes,numeroDeVeiculos;
 	double custoTotalRota=0;
-	public double getCustoTotalRota() {
-		return custoTotalRota;
-	}
-
-	public void setCustoTotalRota(double custoTotalRota) {
-		this.custoTotalRota = custoTotalRota;
-	}
 
 	Conversor conversor;
     public ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -59,6 +52,15 @@ public class Rota {
 		this.numeroDeVeiculos = numeroDeVeiculos;
 	}
 
+	public double getCustoTotalRota() {
+		return custoTotalRota;
+	}
+
+	public void setCustoTotalRota(double custoTotalRota) {
+		this.custoTotalRota = custoTotalRota;
+	}
+	
+	
 	public void criaRotas() {
 		
 		// arraylist para salvar a rota aleátoria que será criada
@@ -81,8 +83,9 @@ public class Rota {
 		
 		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
+		listaClientes.add(deposito);
 		listaClientes.addAll(sequenciaDeVisitas);
-		
+
 		
 		int contadorDeCliente = 0;
 
@@ -92,6 +95,7 @@ public class Rota {
 
 			possivelRotaVeiculo.clear();
 			Veiculo veiculo = listaVeiculos.get(j);
+			veiculo.ordemDeVisitacao.clear();
 			veiculo.resetCargaOcupada();
 			int aux = contadorDeCliente;
 
@@ -100,24 +104,21 @@ public class Rota {
 			for (int column = aux; column < listaClientes.size(); column++) {
 
 				Cliente clienteAtual = listaClientes.get(column);
+
 				
 				// se a demanda do cliente que está sendo analisado somado a carga do veículo
 				// que já está ocupada for menor
 				// que a capacidade máxima do veículo este é incluído a rota deste veículo
-				if ((veiculo.getCargaOcupada() + clienteAtual.getDemanda()) <= veiculo.getCargaMaxima()) {
-					
+				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
+
 					possivelRotaVeiculo.add(clienteAtual);
 					veiculo.setCargaOcupada(clienteAtual.getDemanda());
 					contadorDeCliente++;
 					
 				}
-				else if((veiculo.getCargaOcupada() + clienteAtual.getDemanda()) > veiculo.getCargaMaxima() && column == listaClientes.size())
-					possivelRotaVeiculo.clear();
 				// se não, é feito um break e inicia a rota do próximo veículo				
 				else 
-					break;
-				
-									
+					break;					
 			}
 			
 			if (veiculo.getCargaOcupada() > 0) {
@@ -125,7 +126,8 @@ public class Rota {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 				
-				System.out.println(veiculo.ordemDeVisitacao);
+				//System.out.println("Ordem de visitação do véiculo " + (j+1) + ": " +veiculo.ordemDeVisitacao);
+
 
 			} else
 				break;
@@ -134,7 +136,12 @@ public class Rota {
 			custoTotalRota += veiculo.getCustoVeiculo();
 		} 
 
-		//System.out.println("Custo total da rota:" +  custoTotalRota);
+
+		
+		
 	}// fecha o cria Rotas
 
+	
+	
+	
 }// fecha a classe

@@ -32,7 +32,7 @@ public class Main {
 		for(int i = 0; i < numeroDeRotas; i++) {
 		Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 		r.criaRotas();
-		populacao.add(r);
+		populacao.add(r);		
 		
 		if(i == 0)
 			menorCusto = r.getCustoTotalRota();
@@ -40,7 +40,10 @@ public class Main {
 			menorCusto = r.getCustoTotalRota();
 		}
 		
-		//System.out.println("Menor custo encontrado nas rotas: " + menorCusto);
+		System.out.println("Menor custo encontrado nas rotas: " + menorCusto);
+		
+		
+
 		
 	}//fecha a main
 }//fecha a classe
