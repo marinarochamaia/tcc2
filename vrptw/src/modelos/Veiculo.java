@@ -80,7 +80,6 @@ public class Veiculo {
 				custoVeiculo += multa;
 			}
 
-			custoTotalVeículo = custoVeiculo;
 		} 
 
 
