@@ -1,6 +1,6 @@
 package modelos;
 
-public class Cliente {
+public class Cliente implements Cloneable{
 	
 	private float coordenadaX, coordenadaY, demanda, duracaoServico;
 	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela, numero;
@@ -133,5 +133,17 @@ public class Cliente {
 			    + "]\n";
 	}
 	
-
+	
+    // This method calls Object's clone().
+    public Cliente getClone() {
+        try {
+            // call clone in Object.
+            return (Cliente) super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println (" Clone não pode ser feito. " );
+            return this;
+        }
+    }
 }
+
+

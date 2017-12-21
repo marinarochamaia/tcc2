@@ -6,7 +6,7 @@ import io.Conversor;
 import modelos.Cliente;
 import modelos.Veiculo;
 
-public class Rota {
+public class Rota implements Cloneable {
 
 	private int multa, numeroDeClientes,numeroDeVeiculos;
 	double custoTotalRota=0;
@@ -141,6 +141,17 @@ public class Rota {
 		
 	}// fecha o cria Rotas
 
+	
+    // This method calls Object's clone().
+    public Rota getClone(Rota r) {
+        try {
+            // call clone in Object.
+            return (Rota) super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println (" Rota não pode ser clonada. " );
+            return this;
+        }
+    }
 	
 	
 	

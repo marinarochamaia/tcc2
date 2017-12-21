@@ -3,7 +3,11 @@ package io;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import modelos.Cliente;
+import modelos.Rota;
 import modelos.Veiculo;
 
 public class Conversor {
@@ -132,5 +136,5 @@ public class Conversor {
 		return matrizDeDistancias;
 	}
 	
-
+	
 }

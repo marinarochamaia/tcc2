@@ -9,76 +9,97 @@ import modelos.Veiculo;
 
 public class Main {
 
-	@SuppressWarnings("unchecked")
-	public static void main(String[] args) {
 
-		
-		double menorCusto = 0, custoAtual = 0, menorCustoMutacao = 0, menorCustoFinal=0;
+    public static void main(String[] args) {
 
-		ArrayList<Cliente> clientes = new ArrayList<>();
-		ArrayList<Veiculo> veiculos = new ArrayList<>();
-		ArrayList<Rota> populacao = new ArrayList<>();
-		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
+        double menorCusto = 0;
 
-		int numeroDeRotas = 1000;
-		int multa = 1000;
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        ArrayList<Veiculo> veiculos = new ArrayList<>();
+        ArrayList<Rota> populacao = new ArrayList<>();
+        double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
-		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será
-		// lido
-		Conversor conversor = new Conversor(args[0]);
-		conversor.converterArquivo(clientes, veiculos);
+        int numeroDeRotas = 1;
+        int multa = 1000;
 
-		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
+        // args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será
+        // lido
+        Conversor conversor = new Conversor(args[0]);
+        conversor.converterArquivo(clientes, veiculos);
 
-		for (int i = 0; i < numeroDeRotas; i++) {
-			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-			r.criaRotas();
-			populacao.add(r);
-			
-			if (i == 0)
-				menorCusto = r.getCustoTotalRota();
-			else if (menorCusto > r.getCustoTotalRota())
-				menorCusto = r.getCustoTotalRota();
+        matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
-			int geracoes = 0;
+        //criação da população
+        for (int i = 0; i < numeroDeRotas; i++) {
+            Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
+            r.criaRotas();
+            populacao.add(r);
+        }
 
-			while (geracoes < 2) {
+       
+        //busca pelo menor custo da população inicial
+        menorCusto = Double.MAX_VALUE;
+        for (Rota r : populacao) {
+            if (menorCusto > r.getCustoTotalRota()) {
+                menorCusto = r.getCustoTotalRota();
+            }
+        }
 
-				for (int j = 0; j < veiculos.size(); j++) {
-					ArrayList<Cliente> descendenteAtual = new ArrayList<>();
-					ArrayList<Veiculo> veiculosDescentes = new ArrayList<>();
-					veiculosDescentes.clear();
-					descendenteAtual = (ArrayList<Cliente>) r.listaVeiculos.get(j).ordemDeVisitacao.clone();
-					veiculosDescentes = (ArrayList<Veiculo>) r.listaVeiculos.clone();
-					
-					int troca = veiculos.size()/2;
+        ///número de gerações que serão criadas
+        int geracoes = 0;
+        
+        //laço para fazer a mutação em todas as gerações criadas
+        while (geracoes < 1) {
 
-					Collections.swap(descendenteAtual, (troca/2), (troca/3));
-					Collections.swap(descendenteAtual, (troca/2), (troca/4));
-					veiculosDescentes.get(j).calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
-					custoAtual = veiculosDescentes.get(j).getCustoVeiculo();
+        	//para cada indivíduo da população (rota)
+            for (Rota r : populacao) {
+            	
+            	//a rota é clonada
+            	Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
+            	rotaClonada = (Rota) r.getClone(rotaClonada);
+              
+            	//são selecionados números aleatórios que serão utilizados para pegar os veículos 
+                Random rnd = new Random();
+                int j = rnd.nextInt(veiculos.size());
 
-					if(j == 0) 
-						menorCustoMutacao = custoAtual;
-					else if(custoAtual < menorCustoMutacao) 
-						menorCustoMutacao = custoAtual;
-					
-				}
-				
-				if(i == 0) 
-					menorCustoFinal = menorCustoMutacao;
-				else if(menorCusto < menorCustoFinal) 
-					menorCustoFinal = menorCusto;
-				
-				geracoes++;
+                //os veículos são selecionados
+                Veiculo v1 = rotaClonada.listaVeiculos.get(j);
+                
+                
+                //uma posição de cada veículo é selecionada
+                //esta deve ser diferente do depósito, enquanto não for, outra posição é selecionada
+                int pv1;
+                
+                do {
+                        pv1 = rnd.nextInt(v1.ordemDeVisitacao.size());
+                } while (v1.ordemDeVisitacao.get(pv1).getNumero() == 0);
+                            
+                
+                int pv2;                               
+                do {
+                    pv2 = rnd.nextInt(v1.ordemDeVisitacao.size());
+                } while (v1.ordemDeVisitacao.get(pv2).getNumero() == 0 || pv2 == pv1);  
+                
+                //são clonados dois clientes
+                Cliente c1 = (Cliente)v1.ordemDeVisitacao.get(pv1).getClone();
+                Cliente c2 = (Cliente)v1.ordemDeVisitacao.get(pv2).getClone();
+                
+                System.out.println(c1);
+                System.out.println(c2);
 
-			}
 
-		}
+                
+                                
+                //Collections.swap(rotaClonada., i, j);
+                
 
-		System.out.println("Menor custo encontrado nas rotas: \n" + menorCusto);
-		System.out.println("Menor custo encontrado nas rotas nas mutação: \n" + menorCustoMutacao);
-		System.out.println("Menor custo encontrado nas rotas depois mutação: \n" + menorCustoFinal);
+                
+                geracoes++;
 
-	}// fecha a main
+            }
+
+        }
+
+
+    }// fecha a main
 }// fecha a classe
