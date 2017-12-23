@@ -63,18 +63,18 @@ public class Rota implements Cloneable {
 	
 	public void criaRotas() {
 		
-		// arraylist para salvar a rota aleátoria que será criada
-		// (esta é será incluída na população de rotas se atender as restrição da
-		// capacidade do veículo)
+		// arraylist para salvar a rota aleÃ¡toria que serÃ¡ criada
+		// (esta Ã© serÃ¡ incluÃ­da na populaÃ§Ã£o de rotas se atender as restriÃ§Ã£o da
+		// capacidade do veÃ­culo)
 		ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
-		// arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo
-		// de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último cliente em ordem
+		// arraylist para salvar a rota inicial partindo de zero(depÃ³sito) atÃ© o mÃ¡ximo
+		// de clientes, ou seja, cria uma rota partindo do 0 (depÃ³sito) atÃ© o Ãºltimo cliente em ordem
 		// crescente
 		ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
 
 		
-		// cria uma rota partindo de zero(depósito) até o maximo de clientes
+		// cria uma rota partindo de zero(depÃ³sito) atÃ© o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
 		
@@ -89,7 +89,7 @@ public class Rota implements Cloneable {
 		
 		int contadorDeCliente = 0;
 
-		// percorre os veículos disponíveis
+		// percorre os veÃ­culos disponÃ­veis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 			
 
@@ -97,6 +97,8 @@ public class Rota implements Cloneable {
 			Veiculo veiculo = listaVeiculos.get(j);
 			veiculo.ordemDeVisitacao.clear();
 			veiculo.resetCargaOcupada();
+			veiculo.resetTempoVeiculo();
+			veiculo.resetCustoVeiculo();
 			int aux = contadorDeCliente;
 
 
@@ -106,9 +108,9 @@ public class Rota implements Cloneable {
 				Cliente clienteAtual = listaClientes.get(column);
 
 				
-				// se a demanda do cliente que está sendo analisado somado a carga do veículo
-				// que já está ocupada for menor
-				// que a capacidade máxima do veículo este é incluído a rota deste veículo
+				// se a demanda do cliente que estÃ¡ sendo analisado somado a carga do veÃ­culo
+				// que jÃ¡ estÃ¡ ocupada for menor
+				// que a capacidade mÃ¡xima do veÃ­culo este Ã© incluÃ­do a rota deste veÃ­culo
 				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
 					if(clienteAtual.getNumero() == 0)
 						continue;
@@ -117,7 +119,7 @@ public class Rota implements Cloneable {
 					contadorDeCliente++;
 					
 				}
-				// se não, é feito um break e inicia a rota do próximo veículo				
+				// se nÃ£o, Ã© feito um break e inicia a rota do prÃ³ximo veÃ­culo				
 				else 
 					break;					
 			}
@@ -127,7 +129,7 @@ public class Rota implements Cloneable {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 				
-				//System.out.println("Ordem de visitação do véiculo " + (j+1) + ": " +veiculo.ordemDeVisitacao);
+				//System.out.println("Ordem de visitaÃ§Ã£o do vÃ©iculo " + (j+1) + ": " +veiculo.ordemDeVisitacao);
 
 
 			} else
@@ -149,7 +151,7 @@ public class Rota implements Cloneable {
             // call clone in Object.
             return (Rota) super.clone();
         } catch (CloneNotSupportedException e) {
-            System.out.println (" Rota não pode ser clonada. " );
+            System.out.println (" Rota nÃ£o pode ser clonada. " );
             return this;
         }
     }
