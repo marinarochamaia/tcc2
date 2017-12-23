@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		double menorCusto = 0, menorCustoDescendente = 0;
-		int n = 7;//número de gerações 
+		int n = 7;//nÃºmero de geraÃ§Ãµes 
 		int cont = 0, numeroDeRotas = 1000, multa = 1000;
 		int tamanhoNovaPopulacao = (n*numeroDeRotas)*30/100;
 		
@@ -25,21 +25,21 @@ public class Main {
 		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
 
-		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será
+		// args[0] Ã© o primeiro parÃ¢metro do programa, que Ã© o nome do arquivo que serÃ¡
 		// lido
 		Conversor conversor = new Conversor(args[0]);
 		conversor.converterArquivo(clientes, veiculos);
 
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
-		// criação da população
+		// criaÃ§Ã£o da populaÃ§Ã£o
 		for (int i = 0; i < numeroDeRotas; i++) {
 			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			r.criaRotas();
 			populacao.add(r);
 		}
 
-		// busca pelo menor custo da população inicial
+		// busca pelo menor custo da populaÃ§Ã£o inicial
 		menorCusto = Double.MAX_VALUE;
 		for (Rota r : populacao) {
 			if (menorCusto > r.getCustoTotalRota()) {
@@ -47,31 +47,31 @@ public class Main {
 			}
 		}
 
-		/// número de gerações que serão criadas
+		/// nÃºmero de geraÃ§Ãµes que serÃ£o criadas
 		int geracoes = 0;
 
-		// laço para fazer a mutação em todas as gerações criadas
+		// laÃ§o para fazer a mutaÃ§Ã£o em todas as geraÃ§Ãµes criadas
 		while (geracoes < n) {
 
-			// para cada indivíduo da população (rota)
+			// para cada indivÃ­duo da populaÃ§Ã£o (rota)
 			for (Rota r : populacao) {
 
-				// a rota é clonada
+				// a rota Ã© clonada
 				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),
 						matrizDeDistancias);
 				rotaClonada = (Rota) r.getClone(rotaClonada);
 				rotaClonada.custoTotalRota = 0;
 				
-				// são selecionados números aleatórios que serão utilizados para pegar os
-				// veículos
+				// sÃ£o selecionados nÃºmeros aleatÃ³rios que serÃ£o utilizados para pegar os
+				// veÃ­culos
 				Random rnd = new Random();
 				int j = rnd.nextInt(veiculos.size());
 
-				// os veículos são selecionados
+				// os veÃ­culos sÃ£o selecionados
 				Veiculo v1 = rotaClonada.listaVeiculos.get(j);
 
-				// uma posição de cada veículo é selecionada
-				// esta deve ser diferente do depósito, enquanto não for, outra posição é
+				// uma posiÃ§Ã£o de cada veÃ­culo Ã© selecionada
+				// esta deve ser diferente do depÃ³sito, enquanto nÃ£o for, outra posiÃ§Ã£o Ã©
 				// selecionada
 				int pv1;
 
@@ -79,8 +79,8 @@ public class Main {
 					pv1 = rnd.nextInt(v1.ordemDeVisitacao.size());
 				} while (v1.ordemDeVisitacao.get(pv1).getNumero() == 0);
 
-				// uma segunda posição do veículo é selecionada
-				// esta não deve ser o depósito e nem igual a primeira posição
+				// uma segunda posiÃ§Ã£o do veÃ­culo Ã© selecionada
+				// esta nÃ£o deve ser o depÃ³sito e nem igual a primeira posiÃ§Ã£o
 				int pv2;
 				do {
 					pv2 = rnd.nextInt(v1.ordemDeVisitacao.size());
@@ -89,10 +89,11 @@ public class Main {
 				Collections.swap(v1.ordemDeVisitacao, pv1, pv2);
 				
 				//calcula os custos da npva rota
+				v1.resetCustoVeiculo();
 				v1.calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
 				rotaClonada.custoTotalRota = v1.getCustoVeiculo();
 
-				//as novas rotas são adicionadas em um array auxiliar em ordem crescente de custos
+				//as novas rotas sÃ£o adicionadas em um array auxiliar em ordem crescente de custos
 				if (cont == 0)
 					aux.add(rotaClonada);
 				else if (rotaClonada.custoTotalRota < aux.get(cont - 1).custoTotalRota)
@@ -102,7 +103,7 @@ public class Main {
 
 				cont++;
 				
-				//se as rotas já acabaram é feito um "corte" nos descendentes gerando a nova população
+				//se as rotas jÃ¡ acabaram Ã© feito um "corte" nos descendentes gerando a nova populaÃ§Ã£o
 				if(cont == (n*numeroDeRotas)) {
 					for(int i = 0; i < tamanhoNovaPopulacao; i++) {
 						Rota e = aux.get(i);
@@ -113,7 +114,7 @@ public class Main {
 
 			} // fecha for
 
-			//é feito um merge da nova população e da população inicial
+			//Ã© feito um merge da nova populaÃ§Ã£o e da populaÃ§Ã£o inicial
 			if (n == 0) {
 				for (int k = 0; k < populacao.size(); k++) {
 					Rota auxiliar = populacao.get(k);
@@ -121,13 +122,13 @@ public class Main {
 				}
 			}
 			
-			//as rotas são ordenadas por valor de custos
+			//as rotas sÃ£o ordenadas por valor de custos
 			for(int i = 1; i < novaPopulacao.size(); i++) {
 				if(novaPopulacao.get(i).custoTotalRota < novaPopulacao.get(i-1).custoTotalRota)
 					Collections.swap(novaPopulacao, i, (i-1));				
 			}
 
-			//é feito um corte para mu indivíduos
+			//Ã© feito um corte para mu indivÃ­duos
 			for(int j = (novaPopulacao.size()-1); j >= numeroDeRotas; j--) {
 				novaPopulacao.remove(j);
 			}
