@@ -8,7 +8,8 @@ import modelos.Veiculo;
 
 public class Rota implements Cloneable {
 
-	private int multa, numeroDeClientes,numeroDeVeiculos;
+	private int multa, numeroDeClientes,numeroDeVeiculos, veiculosUtilizados = 0;
+
 	public double custoTotalRota=0;
 
 	Conversor conversor;
@@ -52,6 +53,15 @@ public class Rota implements Cloneable {
 		this.numeroDeVeiculos = numeroDeVeiculos;
 	}
 
+	public int getVeiculosUtilizados() {
+		return veiculosUtilizados;
+	}
+
+
+	public void setVeiculosUtilizados(int veiculosUtilizados) {
+		this.veiculosUtilizados = veiculosUtilizados;
+	}
+	
 	public double getCustoTotalRota() {
 		return custoTotalRota;
 	}
@@ -63,54 +73,52 @@ public class Rota implements Cloneable {
 	
 	public void criaRotas() {
 		
-		// arraylist para salvar a rota ale√°toria que ser√° criada
-		// (esta √© ser√° inclu√≠da na popula√ß√£o de rotas se atender as restri√ß√£o da
-		// capacidade do ve√≠culo)
+		// arraylist para salvar a rota ale·toria que ser· criada
+		// (esta È ser· incluÌda na populaÁ„o de rotas se atender as restriÁ„o da
+		// capacidade do veÌculo)
 		ArrayList<Cliente> possivelRotaVeiculo = new ArrayList<>();
 
-		// arraylist para salvar a rota inicial partindo de zero(dep√≥sito) at√© o m√°ximo
-		// de clientes, ou seja, cria uma rota partindo do 0 (dep√≥sito) at√© o √∫ltimo cliente em ordem
+		// arraylist para salvar a rota inicial partindo de zero(depÛsito) atÈ o m·ximo
+		// de clientes, ou seja, cria uma rota partindo do 0 (depÛsito) atÈ o ˙ltimo cliente em ordem
 		// crescente
 		ArrayList<Cliente> sequenciaDeVisitas = new ArrayList<>();
 
 		
-		// cria uma rota partindo de zero(dep√≥sito) at√© o maximo de clientes
+		// cria uma rota partindo de zero(depÛsito) atÈ o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
 		
 		Cliente deposito = sequenciaDeVisitas.get(0);
-		sequenciaDeVisitas.remove(listaClientes.get(0));
+		
+		if(sequenciaDeVisitas.get(0).getNumero()==0)
+			sequenciaDeVisitas.remove(deposito);
 		
 		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
 		listaClientes.add(deposito);
 		listaClientes.addAll(sequenciaDeVisitas);
-
 		
 		int contadorDeCliente = 0;
 
-		// percorre os ve√≠culos dispon√≠veis
+		// percorre os veÌculos disponÌveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 			
-
 			possivelRotaVeiculo.clear();
 			Veiculo veiculo = listaVeiculos.get(j);
 			veiculo.ordemDeVisitacao.clear();
 			veiculo.resetCargaOcupada();
-			veiculo.resetTempoVeiculo();
 			veiculo.resetCustoVeiculo();
+			veiculo.resetTempoVeiculo();
 			int aux = contadorDeCliente;
-
 
 			// percorre as colunas de cada cliente
 			for (int column = aux; column < listaClientes.size(); column++) {
 
 				Cliente clienteAtual = listaClientes.get(column);
 
-				
-				// se a demanda do cliente que est√° sendo analisado somado a carga do ve√≠culo
-				// que j√° est√° ocupada for menor
-				// que a capacidade m√°xima do ve√≠culo este √© inclu√≠do a rota deste ve√≠culo
+				// se a demanda do cliente que est· sendo analisado somado a carga do veÌculo
+				// que j· est· ocupada for menor
+				// que a capacidade m·xima do veÌculo este È incluÌdo a rota deste veÌculo
 				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
 					if(clienteAtual.getNumero() == 0)
 						continue;
@@ -119,43 +127,39 @@ public class Rota implements Cloneable {
 					contadorDeCliente++;
 					
 				}
-				// se n√£o, √© feito um break e inicia a rota do pr√≥ximo ve√≠culo				
+				// se n„o, È feito um break e inicia a rota do prÛximo veÌculo				
 				else 
 					break;					
 			}
 			
+			//a rota de cada veÌculo È inserido no array de ordem de visitaÁ„o
 			if (veiculo.getCargaOcupada() > 0) {
+				
 				veiculo.ordemDeVisitacao.add(deposito);
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
-				
-				//System.out.println("Ordem de visita√ß√£o do v√©iculo " + (j+1) + ": " +veiculo.ordemDeVisitacao);
-
+				veiculosUtilizados++;
 
 			} else
 				break;
 			
+			//calcula o custo de cada veÌculo e adiciona ao custo total da rota 
 			veiculo.calculaCustos(matrizDeDistancias, multa, listaClientes.size(), listaVeiculos.size());
 			custoTotalRota += veiculo.getCustoVeiculo();
 		} 
-
-
-		
 		
 	}// fecha o cria Rotas
 
 	
-    // This method calls Object's clone().
+    // Esse mÈtodo chama o Object's clone().
     public Rota getClone(Rota r) {
         try {
             // call clone in Object.
             return (Rota) super.clone();
         } catch (CloneNotSupportedException e) {
-            System.out.println (" Rota n√£o pode ser clonada. " );
+            System.out.println (" Rota n„o pode ser clonada. " );
             return this;
         }
     }
-	
-	
 	
 }// fecha a classe

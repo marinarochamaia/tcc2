@@ -6,7 +6,7 @@ public class Veiculo {
 	private int cargaMaxima;
 	private double cargaOcupada, custoVeiculo, tempoVeiculo;
 	@SuppressWarnings("unused")
-	private double custoTotalVeÃ­culo;
+	private double custoTotalVeículo;
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 
@@ -37,22 +37,21 @@ public class Veiculo {
 	public double getCustoVeiculo() {
 		return custoVeiculo;
 	}
-	
 	public void resetCustoVeiculo() {
 		this.custoVeiculo = 0;
 	}
 	
-
 	public void setTempoVeiculo(double tempoVeiculo) {
-		this.tempoVeiculo = tempoVeiculo;
+		this.tempoVeiculo = 0;
 	}
 
 	public double getTempoVeiculo() {
 		return tempoVeiculo;
 	}
 	
-	public void resetTempoVeiculo(){
+	public void resetTempoVeiculo() {
 		this.tempoVeiculo = 0;
+	}
 
 	public Veiculo(int cargaMaxima) {
 
@@ -62,10 +61,8 @@ public class Veiculo {
 	public void calculaCustos(double[][] matrizDeDistancias, int multa, int numeroDeClientes,
 			int numeroDeVeiculos) {
 		
-		// percorre a rota de um veÃ­culo em especÃ­fico
+		// percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
-			
-			
 
 			custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 			tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
@@ -82,7 +79,7 @@ public class Veiculo {
 				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 				custoVeiculo += multa;
 			}
-			// se o cliente chega depois da janela o cliente Ã© atendido mas Ã© paga a multa
+			// se o cliente chega depois da janela o cliente é atendido mas é paga a multa
 			else if (tempoVeiculo > ordemDeVisitacao.get(row).getInicioJanela()) {
 				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 				custoVeiculo += multa;
