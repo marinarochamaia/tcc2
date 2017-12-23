@@ -9,7 +9,7 @@ import modelos.Veiculo;
 public class Rota implements Cloneable {
 
 	private int multa, numeroDeClientes,numeroDeVeiculos;
-	double custoTotalRota=0;
+	public double custoTotalRota=0;
 
 	Conversor conversor;
     public ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Rota implements Cloneable {
 	}
 
 	public void setCustoTotalRota(double custoTotalRota) {
-		this.custoTotalRota = custoTotalRota;
+		this.custoTotalRota = 0;
 	}
 	
 	
@@ -110,7 +110,8 @@ public class Rota implements Cloneable {
 				// que já está ocupada for menor
 				// que a capacidade máxima do veículo este é incluído a rota deste veículo
 				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
-
+					if(clienteAtual.getNumero() == 0)
+						continue;
 					possivelRotaVeiculo.add(clienteAtual);
 					veiculo.setCargaOcupada(clienteAtual.getDemanda());
 					contadorDeCliente++;

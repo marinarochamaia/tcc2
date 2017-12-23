@@ -132,18 +132,7 @@ public class Cliente implements Cloneable{
 				+ listaDeTodasPossiveisVisitas + ", inicioJanela=" + inicioJanela + ", fimJanela=" + fimJanela
 			    + "]\n";
 	}
-	
-	
-    // This method calls Object's clone().
-    public Cliente getClone() {
-        try {
-            // call clone in Object.
-            return (Cliente) super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println (" Clone não pode ser feito. " );
-            return this;
-        }
-    }
+
 }
 
 
