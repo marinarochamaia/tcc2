@@ -150,7 +150,6 @@ public class Rota implements Cloneable {
 		
 	}// fecha o cria Rotas
 
-	
     // Esse método chama o Object's clone().
     public Rota getClone(Rota r) {
         try {
@@ -162,4 +161,10 @@ public class Rota implements Cloneable {
         }
     }
 	
+    @Override
+    public String toString() {
+    	return "Custo total da rota: " + custoTotalRota + "\n";
+    }
+    
+    
 }// fecha a classe

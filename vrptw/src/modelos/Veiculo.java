@@ -83,12 +83,19 @@ public class Veiculo {
 			else if (tempoVeiculo > ordemDeVisitacao.get(row).getInicioJanela()) {
 				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 				custoVeiculo += multa;
-			}
+			}//fecha if
 
-		} 
+		} //fecha for
 
 
-	} 			
+	} //fecha calculaCustos
 	
-}
-
+	
+	@Override
+	public String toString() {
+		return "Veículo: [carga máxima = " + cargaMaxima + " ,carga ocupada = " + 
+					cargaOcupada + " ,custo total do veículo = " + custoTotalVeículo + "]\n";
+	}
+	
+	
+}//fecha classe

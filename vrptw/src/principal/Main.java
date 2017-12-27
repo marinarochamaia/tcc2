@@ -2,6 +2,8 @@ package principal;
 
 import java.util.*;
 
+
+
 import io.Conversor;
 import modelos.Cliente;
 import modelos.Rota;
@@ -16,7 +18,7 @@ public class Main {
 		int cont = 0;
 		int numeroDeRotas = 1000; //mu tamanho da população inicial
 		int multa = 1000;
-		int tamanhoNovaPopulacao = (n*numeroDeRotas)*30/100;
+		int tamanhoNovaPopulacao = (n*numeroDeRotas)*30/100; // Fator PL = 30%
 		
 
 		ArrayList <Rota> aux = new ArrayList<>();
@@ -31,7 +33,7 @@ public class Main {
 		Conversor conversor = new Conversor(args[0]);
 		conversor.converterArquivo(clientes, veiculos);
 
-
+		//as distâncias entre os clientes são calculadas
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
 		// criação da população
@@ -48,10 +50,8 @@ public class Main {
 				menorCusto = r.getCustoTotalRota();
 			}
 		}
-
-		System.out.println();
 		
-		/// número de gerações que serão criadas
+		// número de gerações que serão criadas
 		int geracoes = 0;
 
 		// laço para fazer a mutação em todas as gerações criadas
@@ -91,6 +91,8 @@ public class Main {
 				} while (v1.ordemDeVisitacao.get(pv2).getNumero() == 0 || pv2 == pv1);
 
 				Collections.swap(v1.ordemDeVisitacao, pv1, pv2);
+				Collections.swap(v1.ordemDeVisitacao, (pv1/2), (pv2/3));
+				Collections.swap(v1.ordemDeVisitacao, (pv1/4), (pv2/5));
 				
 				//calcula os custos da nova rota
 				v1.resetCustoVeiculo();
@@ -115,7 +117,6 @@ public class Main {
 					}
 				}
 		
-
 			} // fecha for
 
 			//é feito um merge da nova população e da população inicial
@@ -150,8 +151,8 @@ public class Main {
 		} // fecha while
 		
 		if(menorCusto < menorCustoDescendente)
-			System.out.println("Menor custo encontrado: " + menorCusto);
+			System.out.println("Menor custo encontrado: "+ menorCusto);
 		else
-			System.out.println("Menor custo encontrado: " + menorCustoDescendente);
+			System.out.println("Menor custo encontrado: "+ menorCustoDescendente);
 	}// fecha a main
 }// fecha a classe
