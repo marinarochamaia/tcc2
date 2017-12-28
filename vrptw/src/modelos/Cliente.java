@@ -1,13 +1,14 @@
 package modelos;
 
-public class Cliente implements Cloneable{
-	
+public class Cliente implements Cloneable {
+
 	private float coordenadaX, coordenadaY, demanda, duracaoServico;
-	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela, numero;
-	
-	public Cliente(int numero, float coordenadaX, float coordenadaY, float demanda, float duracaoServico, int frequenciaVisita,
-			int possiveisCombinacoesDeVisitas, int listaDeTodasPossiveisVisitas, int inicioJanela, int fimJanela)
-	{
+	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela,
+			numero;
+
+	public Cliente(int numero, float coordenadaX, float coordenadaY, float demanda, float duracaoServico,
+			int frequenciaVisita, int possiveisCombinacoesDeVisitas, int listaDeTodasPossiveisVisitas, int inicioJanela,
+			int fimJanela) {
 		this.numero = numero;
 		this.coordenadaX = coordenadaX;
 		this.coordenadaY = coordenadaY;
@@ -19,7 +20,7 @@ public class Cliente implements Cloneable{
 		this.inicioJanela = inicioJanela;
 		this.fimJanela = fimJanela;
 	}
-	
+
 	public float getCoordenadaX() {
 		return coordenadaX;
 	}
@@ -100,50 +101,40 @@ public class Cliente implements Cloneable{
 		this.numero = numero;
 	}
 
-
 	/**
-	 * Calcula a distância euclidiana entre o Cliente que chama o método e o cliente passado como parâmetro
-	 * @param outroCliente A outra instância de cliente a qual se deseja calcular a distância
+	 * Calcula a distância euclidiana entre o Cliente que chama o método e o cliente
+	 * passado como parâmetro
+	 * 
+	 * @param outroCliente
+	 *            A outra instância de cliente a qual se deseja calcular a distância
 	 * @return A distância euclidiana entre os dois clientes
 	 */
-	public double distanciaEuclidianaAte(Cliente outroCliente)
-	{
+	public double distanciaEuclidianaAte(Cliente outroCliente) {
 		double soma = Math.pow(this.coordenadaX + outroCliente.getCoordenadaX(), 2)
-				      + Math.pow(this.coordenadaY + outroCliente.getCoordenadaY(), 2);
+				+ Math.pow(this.coordenadaY + outroCliente.getCoordenadaY(), 2);
 		return Math.sqrt(soma);
 	}
-	
+
 	/**
 	 * Calcula a distância euclidiana entre duas instâncias
-	 * @param clienteA Primeira instância
-	 * @param clienteB Segunda instância
+	 * 
+	 * @param clienteA
+	 *            Primeira instância
+	 * @param clienteB
+	 *            Segunda instância
 	 * @return A distância euclidiana entre os dois clientes
 	 */
-	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB)
-	{
+	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB) {
 		return clienteA.distanciaEuclidianaAte(clienteB);
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [numero=" + numero + " coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY + ", demanda=" + demanda
-				+ ", duracaoServico=" + duracaoServico + ", frequenciaVisita=" + frequenciaVisita
-				+ ", possiveisCombinacoesDeVisitas=" + possiveisCombinacoesDeVisitas + ", listaDeTodasPossiveisVisitas="
-				+ listaDeTodasPossiveisVisitas + ", inicioJanela=" + inicioJanela + ", fimJanela=" + fimJanela
-			    + "]\n";
+		return "Cliente [numero=" + numero + " coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY
+				+ ", demanda=" + demanda + ", duracaoServico=" + duracaoServico + ", frequenciaVisita="
+				+ frequenciaVisita + ", possiveisCombinacoesDeVisitas=" + possiveisCombinacoesDeVisitas
+				+ ", listaDeTodasPossiveisVisitas=" + listaDeTodasPossiveisVisitas + ", inicioJanela=" + inicioJanela
+				+ ", fimJanela=" + fimJanela + "]\n";
 	}
-	
-	
-    // This method calls Object's clone().
-    public Cliente getClone() {
-        try {
-            // call clone in Object.
-            return (Cliente) super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println (" Clone não pode ser feito. " );
-            return this;
-        }
-    }
+
 }
-
-

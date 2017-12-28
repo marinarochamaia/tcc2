@@ -3,20 +3,15 @@ package io;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 import modelos.Cliente;
-import modelos.Rota;
 import modelos.Veiculo;
 
 public class Conversor {
 	
 	private String nomeDoArquivo;
-	
 
-	public Conversor(String nomeDoArquivo)
-	{
+	public Conversor(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
 	
@@ -25,8 +20,7 @@ public class Conversor {
 	 * @param parâmetros Vetor de String com os parâmetros do novo objeto Cliente
 	 * @return Objeto Cliente com os parâmetros informados
 	 */
-	private Cliente decodificaCliente(String[] parametros)
-	{
+	private Cliente decodificaCliente(String[] parametros) {
 		// Decodifica os parâmetros
 		int numero = Integer.valueOf(parametros[0]);
 		float coordenadaX = Float.valueOf(parametros[1]);
@@ -55,10 +49,8 @@ public class Conversor {
 	 * @param clientes Lista onde serão armazenados os objetos do tipo Cliente
 	 * @param veiculos Lista onde serão armazenados os objetos do tipo Veiculo
 	 */
-	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos)
-	{
-		try
-		{
+	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos) {
+		try {
 			int posicaoDaLinha = 1; // Contador da posição da linha atual
 			int quantidadeDeVeiculos = 0; // Contador da quantidade de veículos 
 			int quantidadeDeClientes = 0; // Contador da quantidade de clientes
@@ -68,13 +60,11 @@ public class Conversor {
 			String linhaAtual = leitor.readLine();
 			
 			// Enquanto ela não for igual a NULL, ou seja, enquanto não acabar de ler o arquivo (EOF)
-			while(linhaAtual != null)
-			{
+			while(linhaAtual != null) {
 				linhaAtual = linhaAtual.trim(); // Remove os espaços em branco no início e no final da String
 				String[] parametros = linhaAtual.split(" "); // Recupera os parâmetros que estão separados por um espaço em branco
 				
-				switch(posicaoDaLinha)
-				{
+				switch(posicaoDaLinha) {
 					case 1: // Se for a primeira linha do arquivo, então contém o tipo do problema,
 						//a quantidade de clientes e veículos e a quantidade máxima de dias
 						
@@ -111,6 +101,7 @@ public class Conversor {
 		{
 			System.out.println("Erro durante leitura de arquivo: " + e.getMessage());
 		}	
+		
 	}
 	
 	public double [][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
@@ -122,8 +113,7 @@ public class Conversor {
 		//laço para preencher a matriz com as distâncias entre clientes calculadas atravás da distância euclidiana
 		
 		//percorre as linhas da matriz de distâncias
-		for(int row = 0; row <numeroDeClientes; row++)
-		{
+		for(int row = 0; row <numeroDeClientes; row++) {
 			//percorre as colunas da matriz de distâncias
 			for(int column = 0; column < numeroDeClientes; column++){
 				if(row == column)
@@ -135,6 +125,5 @@ public class Conversor {
 		
 		return matrizDeDistancias;
 	}
-	
 	
 }
