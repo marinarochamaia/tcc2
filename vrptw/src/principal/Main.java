@@ -17,7 +17,6 @@ public class Main {
 		int numeroDeRotas = 100; // mu tamanho da população inicial
 		int gmax = 1000;// número de gerações
 		int descendentes = 1000; // lamba, numero de descendentes
-		double w = descendentes / numeroDeRotas;
 		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
 		double cBuscaLocal = 0.3; // coeficiente de busca local
@@ -62,93 +61,102 @@ public class Main {
 
 		// laço para fazer a mutação em todas as gerações criadas
 		while (geracoes < gmax) {
-
 			// para cada indivíduo da população (pai) 
 			for (Rota r : populacao) {
 				//gerar (lambda/mu) w filhos
-				for(int i = 0; i< w; i++) {
+				for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 					
 					Random rnd = new Random();
 					double m = rnd.nextDouble();
 					
 					if(m <= cMutacao) {
-					
-						// a rota é clonada
-						Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
-						rotaClonada = (Rota) r.getClone(rotaClonada);
-						rotaClonada.custoTotalRota = 0;
-
-						// são selecionados números aleatórios que serão utilizados para pegar os veículos
-						int j = rnd.nextInt(rotaClonada.getVeiculosUtilizados() - 1);
-
-						// os veículos são selecionados
-						Veiculo v1 = rotaClonada.listaVeiculos.get(j);
-
-						// uma posição de cada veículo é selecionada
-						// esta deve ser diferente do depósito, enquanto não for, outra posição é
-						// selecionada
-						int pv1;
-
-						do {
-							pv1 = rnd.nextInt(v1.ordemDeVisitacao.size());
-						} while (v1.ordemDeVisitacao.get(pv1).getNumero() == 0 || v1.ordemDeVisitacao.size() == 0);
-
-						// uma segunda posição do veículo é selecionada
-						// esta não deve ser o depósito e nem igual a primeira posição
-						int pv2;
-						do {
-							pv2 = rnd.nextInt(v1.ordemDeVisitacao.size());
-						} while (v1.ordemDeVisitacao.get(pv2).getNumero() == 0 || pv2 == pv1);
-					
-					
-						// mutação
-						Collections.swap(v1.ordemDeVisitacao, pv1, pv2);
-						Collections.swap(v1.ordemDeVisitacao, (pv1 / 2), (pv2 / 3));
-						Collections.swap(v1.ordemDeVisitacao, (pv1 / 4), (pv2 / 5));
-
-						// calcula os custos da nova rota (função de avaliação ou aptidão)
-						v1.resetCustoVeiculo();
-						v1.calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
-						rotaClonada.custoTotalRota = v1.getCustoVeiculo();
-						
-						double b = rnd.nextDouble();
-						//a busca local só é feita se o fator pl for atendido
-						if (b <= cBuscaLocal){
-							int count = 0;
-							while(count <= (clientes.size()/2)) {	
-								double custoInicial = rotaClonada.custoTotalRota = v1.getCustoVeiculo();
-								
-								int bl1;
-								do {
-									bl1 = rnd.nextInt(v1.ordemDeVisitacao.size());
-								} while (v1.ordemDeVisitacao.get(bl1).getNumero() == 0 || v1.ordemDeVisitacao.size() == 0);
+							// a rota é clonada
+							Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
+							rotaClonada = (Rota) r.getClone(rotaClonada);
+							rotaClonada.custoTotalRota = 0;
 	
-								// uma segunda posição do veículo é selecionada
-								// esta não deve ser o depósito e nem igual a primeira posição
-								int bl2;
-								do {
-									bl2 = rnd.nextInt(v1.ordemDeVisitacao.size());
-								} while (v1.ordemDeVisitacao.get(bl2).getNumero() == 0 || bl2 == bl1);
-								
-								Collections.swap(v1.ordemDeVisitacao, bl1, bl2);
-								v1.calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
-								rotaClonada.custoTotalRota = v1.getCustoVeiculo();
-								
-								double custoBuscaLocal = v1.getCustoVeiculo();
-								
-								if(custoBuscaLocal > custoInicial) {
-									Collections.swap(v1.ordemDeVisitacao, bl1, bl2);
-								}else
-									break;
-								
-								count++;
-							}	
-						}//fim da buscalocal
+							// são selecionados números aleatórios que serão utilizados para pegar os veículos
+							int j = rnd.nextInt(rotaClonada.getVeiculosUtilizados() - 1);
+	
+							// os veículos são selecionados
+							Veiculo v1 = rotaClonada.listaVeiculos.get(j);
+	
+							// uma posição de cada veículo é selecionada
+							// esta deve ser diferente do depósito, enquanto não for, outra posição é
+							// selecionada
+							int pv1;
+	
+							do {
+								pv1 = rnd.nextInt(v1.ordemDeVisitacao.size());
+							} while (v1.ordemDeVisitacao.get(pv1).getNumero() == 0 || v1.ordemDeVisitacao.size() == 0);
+	
+							// uma segunda posição do veículo é selecionada
+							// esta não deve ser o depósito e nem igual a primeira posição
+							int pv2;
+							do {
+								pv2 = rnd.nextInt(v1.ordemDeVisitacao.size());
+							} while (v1.ordemDeVisitacao.get(pv2).getNumero() == 0 || pv2 == pv1);
 						
-						// as novas rotas são adicionadas em um array auxiliar
-						aux.add(rotaClonada);
+						
+							// mutação
+							Collections.swap(v1.ordemDeVisitacao, pv1, pv2);
+							Collections.swap(v1.ordemDeVisitacao, (pv1 / 2), (pv2 / 3));
+							Collections.swap(v1.ordemDeVisitacao, (pv1 / 4), (pv2 / 5));
+	
+							// calcula os custos da nova rota (função de avaliação ou aptidão)
+							v1.resetCustoVeiculo();
+							v1.calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
+							rotaClonada.custoTotalRota += v1.getCustoVeiculo();
+							
+							for(int v = 0; v < r.getVeiculosUtilizados(); v++) {
+								if(v != j)
+									rotaClonada.custoTotalRota += v1.getCustoVeiculo();
+							}
+							
+							double custoInicial = rotaClonada.custoTotalRota;
+							
+							double b = rnd.nextDouble();
+							//a busca local só é feita se o fator pl for atendido
+							if (b <= cBuscaLocal){
+								int count = 0;
+								while(count <= (clientes.size()/2)) {	
 
-					}
+									
+									int bl1;
+									do {
+										bl1 = rnd.nextInt(v1.ordemDeVisitacao.size());
+									} while (v1.ordemDeVisitacao.get(bl1).getNumero() == 0 || v1.ordemDeVisitacao.size() == 0);
+		
+									// uma segunda posição do veículo é selecionada
+									// esta não deve ser o depósito e nem igual a primeira posição
+									int bl2;
+									do {
+										bl2 = rnd.nextInt(v1.ordemDeVisitacao.size());
+									} while (v1.ordemDeVisitacao.get(bl2).getNumero() == 0 || bl2 == bl1);
+									
+									Collections.swap(v1.ordemDeVisitacao, bl1, bl2);
+									v1.calculaCustos(matrizDeDistancias, multa, clientes.size(), veiculos.size());
+									rotaClonada.custoTotalRota += v1.getCustoVeiculo();
+									
+									for(int v = 0; v < r.getVeiculosUtilizados(); v++) {
+										if(v != j)
+											rotaClonada.custoTotalRota += v1.getCustoVeiculo();
+									}
+									
+									double custoBuscaLocal = rotaClonada.custoTotalRota;
+									
+									if(custoBuscaLocal > custoInicial) {
+										Collections.swap(v1.ordemDeVisitacao, bl1, bl2);
+									}else
+										break;
+									
+									count++;
+								}	
+							}//fim da buscalocal
+							
+							// as novas rotas são adicionadas em um array auxiliar
+							aux.add(rotaClonada);
+						}
 				}
 			} // fecha for
 
@@ -175,6 +183,7 @@ public class Main {
 			geracoes++;
 			//System.out.println(geracoes + " " + menorCustoDescendente);
 		} // fecha while
+
 
 		// menor custo final é encontrado
 		if (menorCusto < menorCustoDescendente)
