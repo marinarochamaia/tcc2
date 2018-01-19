@@ -6,7 +6,7 @@ import io.Conversor;
 import modelos.Cliente;
 import modelos.Veiculo;
 
-public class Rota implements Cloneable {
+public class Rota implements Cloneable, Comparable<Rota> {
 
 	private int multa, numeroDeClientes, numeroDeVeiculos, veiculosUtilizados = 0;
 
@@ -165,6 +165,16 @@ public class Rota implements Cloneable {
 			return this;
 		}
 	}
+	
+	public int compareTo(Rota rota) {
+        if (this.custoTotalRota < rota.custoTotalRota) {
+            return -1;
+        }
+        if (this.custoTotalRota > rota.custoTotalRota) {
+            return 1;
+        }
+        return 0;
+    }
 
 	@Override
 	public String toString() {
