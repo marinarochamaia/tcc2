@@ -10,7 +10,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 	private int multa, numeroDeClientes, numeroDeVeiculos, veiculosUtilizados = 0;
 
-	public double custoTotalRota = 0;
+	private double custoTotalRota;
 
 	Conversor conversor;
 	public ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -65,6 +65,10 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	public void setCustoTotalRota(double custoTotalRota) {
+		this.custoTotalRota += custoTotalRota;
+	}
+	
+	public void resetCustoTotalRota() {
 		this.custoTotalRota = 0;
 	}
 
