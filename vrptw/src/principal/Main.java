@@ -13,42 +13,42 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		double menorCusto = 0; // menor custo encontrado na populaÁ„o inicial
-		double menorCustoDescendente = 0; // menor custo encontrado nas novas geraÁıes
+		double menorCusto = 0; // menor custo encontrado na popula√ß√£o inicial
+		double menorCustoDescendente = 0; // menor custo encontrado nas novas gera√ß√µes
 		double menorCustoTotal = 0; // menor custo Final
-		int numeroDeRotas = 30; // mu tamanho da populaÁ„o inicial
-		int gmax = 100;// n˙mero de geraÁıes
+		int numeroDeRotas = 30; // mu tamanho da popula√ß√£o inicial
+		int gmax = 100;// n√∫mero de gera√ß√µes
 		int descendentes = 150; // lamba, numero de descendentes
-		int multa = 1000;// multa aplicada ‡s rotas que n„o chegarem dentro da janela
-		double cMutacao = 0.8; // coeficiente de mutaÁ„o
+		int multa = 1000;// multa aplicada √†s rotas que n√£o chegarem dentro da janela
+		double cMutacao = 0.8; // coeficiente de muta√ß√£o
 		double cBuscaLocal = 0.3; // coeficiente de busca local
 
-		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local
-		//array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local com o merge com a populaÁ„o inicial
+		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local
+		//array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local com o merge com a popula√ß√£o inicial
 		ArrayList<Rota> novaPopulacao = new ArrayList<>();
 		ArrayList<Cliente> clientes = new ArrayList<>(); // lista de clientes passados pelo arquivo
-		ArrayList<Veiculo> veiculos = new ArrayList<>(); // lista de veÌculos passados pelo arquivo
+		ArrayList<Veiculo> veiculos = new ArrayList<>(); // lista de ve√≠culos passados pelo arquivo
 		ArrayList<Rota> populacao = new ArrayList<>(); // array das rotas iniciais (pais)
-		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()]; // matriz que salva as dist‚ncias
+		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()]; // matriz que salva as dist√¢ncias
 		// de todos os clientes para os
 		// outros
 
-		// args[0] È o primeiro par‚metro do programa, que È o nome do arquivo que ser·
+		// args[0] √© o primeiro par√¢metro do programa, que √© o nome do arquivo que ser√°
 		// lido
 		Conversor conversor = new Conversor(args[0]);
 		conversor.converterArquivo(clientes, veiculos);
 
-		// as dist‚ncias entre os clientes s„o calculadas
+		// as dist√¢ncias entre os clientes s√£o calculadas
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
-		// criaÁ„o da populaÁ„o inicial (pais)
+		// cria√ß√£o da popula√ß√£o inicial (pais)
 		for (int i = 0; i < numeroDeRotas; i++) {
 			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			r.criaRotas();
 			populacao.add(r);
 		}
 
-		// busca pelo menor custo da populaÁ„o inicial
+		// busca pelo menor custo da popula√ß√£o inicial
 		menorCusto = Double.MAX_VALUE;
 		for (Rota r : populacao) {
 			if (menorCusto > r.getCustoTotalRota()) {
@@ -57,14 +57,14 @@ public class Main {
 		}
 
 		BigDecimal bd = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Menor custo antes da aplicaÁ„o do algoritmo evolutivo: " + bd.doubleValue());
+		System.out.println("Menor custo antes da aplica√ß√£o do algoritmo evolutivo: " + bd.doubleValue());
 
-		// n˙mero de geraÁıes que ser„o criadas
+		// n√∫mero de gera√ß√µes que ser√£o criadas
 		int geracoes = 0;
 
-		// laÁo para fazer a mutaÁ„o em todas as geraÁıes criadas
+		// la√ßo para fazer a muta√ß√£o em todas as gera√ß√µes criadas
 		while (geracoes < gmax) {
-			// para cada indivÌduo da populaÁ„o (pai) 
+			// para cada indiv√≠duo da popula√ß√£o (pai) 
 			for (Rota r : populacao) {
 				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
 					//gerar (lambda/mu) w filhos
@@ -74,18 +74,18 @@ public class Main {
 						double m = rnd.nextDouble();
 
 						if(m <= cMutacao) {
-							// a rota È clonada
+							// a rota √© clonada
 							Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
 							rotaClonada = (Rota) r.getClone(rotaClonada);
 
-							// s„o selecionados n˙meros aleatÛrios que ser„o utilizados para pegar os veÌculos
+							// s√£o selecionados n√∫meros aleat√≥rios que ser√£o utilizados para pegar os ve√≠culos
 							int j = rnd.nextInt(rotaClonada.getVeiculosUtilizados() - 1);
 
-							// os veÌculos s„o selecionados
+							// os ve√≠culos s√£o selecionados
 							Veiculo v1 = rotaClonada.listaVeiculos.get(j);
 
-							// uma posiÁ„o de cada veÌculo È selecionada
-							// esta deve ser diferente do depÛsito, enquanto n„o for, outra posiÁ„o È
+							// uma posi√ß√£o de cada ve√≠culo √© selecionada
+							// esta deve ser diferente do dep√≥sito, enquanto n√£o for, outra posi√ß√£o √©
 							// selecionada
 							int pv1;
 
@@ -93,32 +93,32 @@ public class Main {
 								pv1 = rnd.nextInt(v1.ordemDeVisitacao.size());
 							} while (v1.ordemDeVisitacao.get(pv1).getNumero() == 0 || v1.ordemDeVisitacao.size() == 0);
 
-							// uma segunda posiÁ„o do veÌculo È selecionada
-							// esta n„o deve ser o depÛsito e nem igual a primeira posiÁ„o
+							// uma segunda posi√ß√£o do ve√≠culo √© selecionada
+							// esta n√£o deve ser o dep√≥sito e nem igual a primeira posi√ß√£o
 							int pv2;
 							do {
 								pv2 = rnd.nextInt(v1.ordemDeVisitacao.size());
 							} while (v1.ordemDeVisitacao.get(pv2).getNumero() == 0 || pv2 == pv1);
 
-							// mutaÁ„o
+							// muta√ß√£o
 							Collections.swap(v1.ordemDeVisitacao, pv1, pv2);
 							Collections.swap(v1.ordemDeVisitacao, (pv1 / 2), (pv2 / 3));
 							Collections.swap(v1.ordemDeVisitacao, (pv1 / 4), (pv2 / 5));
 
-							// calcula os custos da nova rota (funÁ„o de avaliaÁ„o ou aptid„o)
+							// calcula os custos da nova rota (fun√ß√£o de avalia√ß√£o ou aptid√£o)
 							calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, clientes, veiculos, r, rotaClonada);
 
 							double b = rnd.nextDouble();
-							//a busca local sÛ È feita se o fator pl for atendido
+							//a busca local s√≥ √© feita se o fator pl for atendido
 							if (b <= cBuscaLocal){
 								int count = 0;
 								while(count <= (clientes.size()/2)) {	
 									count++;
 									
 
-									//1) remover u e inserir apÛs v;
-									//2) remover u e x e inserir u e x apÛs v;
-									//3) remover u e x e inserir x e u apÛs v; (posiÁıes invertidas)
+									//1) remover u e inserir ap√≥s v;
+									//2) remover u e x e inserir u e x ap√≥s v;
+									//3) remover u e x e inserir x e u ap√≥s v; (posi√ß√µes invertidas)
 									//4) trocar u e v; // SWAP
 									//5) troca u e x com v;
 									//6) troca u e x com v e y;
@@ -130,7 +130,7 @@ public class Main {
 										switch (k) {
 										case 1: {
 											double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-											//n„o parte de zero e termina uma posiÁ„o antes por causa do depÛsito
+											//n√£o parte de zero e termina uma posi√ß√£o antes por causa do dep√≥sito
 											for(int u = 1; u < v1.ordemDeVisitacao.size() - 3; u++) {
 												for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
@@ -329,21 +329,21 @@ public class Main {
 								}	//fecha while
 							}//fim da buscalocal
 
-							// as novas rotas s„o adicionadas em um array auxiliar
+							// as novas rotas s√£o adicionadas em um array auxiliar
 							aux.add(rotaClonada);
 						}
 					}
 				}
 			} // fecha for
 
-			// È feito um merge da nova populaÁ„o e da populaÁ„o inicial
+			// √© feito um merge da nova popula√ß√£o e da popula√ß√£o inicial
 			novaPopulacao.addAll(populacao);
 			novaPopulacao.addAll(aux);
 
-			// as rotas s„o ordenadas por valor de custos
+			// as rotas s√£o ordenadas por valor de custos
 			Collections.sort(novaPopulacao);
 
-			// È feito um corte para mu indivÌduos
+			// √© feito um corte para mu indiv√≠duos
 			for (int j = (novaPopulacao.size() - 1); j >= numeroDeRotas; j--) {
 				novaPopulacao.remove(j);
 			}
@@ -360,10 +360,7 @@ public class Main {
 			//System.out.println(geracoes + " " + menorCustoDescendente);
 		} // fecha while
 
-		BigDecimal bd3 = new BigDecimal(menorCustoDescendente).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Menor custo dos descendentes: " + bd3.doubleValue());
-
-		// menor custo final È encontrado
+		// menor custo final √© encontrado
 		if (menorCusto < menorCustoDescendente)
 			menorCustoTotal = menorCusto;
 		else
