@@ -13,36 +13,36 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		double menorCusto = 0; // menor custo encontrado na populaÁ„o inicial
-		double menorCustoDescendente = 0; // menor custo encontrado nas novas geraÁıes
+		double menorCusto = 0; // menor custo encontrado na popula√ß√£o inicial
+		double menorCustoDescendente = 0; // menor custo encontrado nas novas gera√ß√µes
 		double menorCustoTotal = 0; // menor custo Final
-		int numeroDeRotas = 50; // mu tamanho da populaÁ„o inicial
-		int gmax = 100;// n˙mero de geraÁıes
+		int numeroDeRotas = 50; // mu tamanho da popula√ß√£o inicial
+		int gmax = 100;// n√∫mero de gera√ß√µes
 		int descendentes = 250; // lamba, numero de descendentes
-		int multa = 1000;// multa aplicada ‡s rotas que n„o chegarem dentro da janela
-		double cMutacao = 0.8; // coeficiente de mutaÁ„o
+		int multa = 1000;// multa aplicada √†s rotas que n√£o chegarem dentro da janela
+		double cMutacao = 0.8; // coeficiente de muta√ß√£o
 		double cBuscaLocal = 0.3; // coeficiente de busca local
 
 
-		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local
-		//array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local com o merge com a populaÁ„o inicial
+		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local
+		//array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local com o merge com a popula√ß√£o inicial
 		ArrayList<Rota> novaPopulacao = new ArrayList<>();
 		ArrayList<Cliente> clientes = new ArrayList<>(); // lista de clientes passados pelo arquivo
-		ArrayList<Veiculo> veiculos = new ArrayList<>(); // lista de veÌculos passados pelo arquivo
+		ArrayList<Veiculo> veiculos = new ArrayList<>(); // lista de ve√≠culos passados pelo arquivo
 		ArrayList<Rota> populacao = new ArrayList<>(); // array das rotas iniciais (pais)
-		// matriz que salva as dist‚ncias de todos os clientes para os outros
+		// matriz que salva as dist√¢ncias de todos os clientes para os outros
 		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()]; 
 
 		Rota melhorRota = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-		// args[0] È o primeiro par‚metro do programa, que È o nome do arquivo que ser·
+		// args[0] √© o primeiro par√¢metro do programa, que √© o nome do arquivo que ser√°
 		// lido
 		Conversor conversor = new Conversor(args[0]);
 		conversor.converterArquivo(clientes, veiculos);
 
-		// as dist‚ncias entre os clientes s„o calculadas
+		// as dist√¢ncias entre os clientes s√£o calculadas
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
-		// criaÁ„o da populaÁ„o inicial (pais)
+		// cria√ß√£o da popula√ß√£o inicial (pais)
 		for (int i = 0; i < numeroDeRotas; i++) {
 			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			r.criaRotas();
@@ -50,7 +50,7 @@ public class Main {
 				populacao.add(r);	
 		}
 
-		// busca pelo menor custo da populaÁ„o inicial
+		// busca pelo menor custo da popula√ß√£o inicial
 		menorCusto = Double.MAX_VALUE;
 		for (Rota r : populacao) {
 			if (menorCusto > r.getCustoTotalRota()) {
@@ -60,21 +60,21 @@ public class Main {
 
 
 
-		// n˙mero de geraÁıes que ser„o criadas
+		// n√∫mero de gera√ß√µes que ser√£o criadas
 		int geracoes = 0;
 
-		// laÁo para fazer a mutaÁ„o em todas as geraÁıes criadas
+		// la√ßo para fazer a muta√ß√£o em todas as gera√ß√µes criadas
 		while (geracoes < gmax) {
-			// para cada indivÌduo da populaÁ„o (pai) 
+			// para cada indiv√≠duo da popula√ß√£o (pai) 
 			for (Rota r : populacao) {
-				// a rota È clonada
+				// a rota √© clonada
 				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
 				rotaClonada = (Rota) r.getClone(rotaClonada);
 				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
-					// s„o selecionados n˙meros aleatÛrios que ser„o utilizados para pegar os veÌculos
+					// s√£o selecionados n√∫meros aleat√≥rios que ser√£o utilizados para pegar os ve√≠culos
 					Random rnd = new Random();
 					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados() - 1);
-					// os veÌculos s„o selecionados
+					// os ve√≠culos s√£o selecionados
 					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
 					//gerar (lambda/mu) w filhos
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
@@ -89,29 +89,29 @@ public class Main {
 										<= v1.getCargaMaxima())
 									Collections.swap(rotaClonada.listaClientes, i, j);
 
-								// calcula os custos da nova rota (funÁ„o de avaliaÁ„o ou aptid„o)
+								// calcula os custos da nova rota (fun√ß√£o de avalia√ß√£o ou aptid√£o)
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada.listaClientes,
 										rotaClonada.listaVeiculos, r, rotaClonada);
 							}
 						}
 
 						double b = rnd.nextDouble();
-						//a busca local sÛ È feita se o fator pl for atendido
+						//a busca local s√≥ √© feita se o fator pl for atendido
 						if (b <= cBuscaLocal){
 							int count = 0;
 							while(count <= (clientes.size()/2)) {	
 								count++;
 
 
-								//1) remover u e inserir apÛs v;
-								//2) remover u e x e inserir u e x apÛs v;
-								//3) remover u e x e inserir x e u apÛs v; (posiÁıes invertidas)
+								//1) remover u e inserir ap√≥s v;
+								//2) remover u e x e inserir u e x ap√≥s v;
+								//3) remover u e x e inserir x e u ap√≥s v; (posi√ß√µes invertidas)
 								//4) trocar u e v; // SWAP
 								//5) troca u e x com v;
 								//6) troca u e x com v e y;
-								//7) troca u e v em veÌculos diferentes
-								//8) troca u e x com v e y em veÌculos diferentes
-								ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+								//7) troca u e v em ve√≠culos diferentes
+								//8) troca u e x com v e y em ve√≠culos diferentes
+								ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
 								Collections.shuffle(operacoes);	
 
 								for(Integer o : operacoes) {
@@ -121,7 +121,7 @@ public class Main {
 
 										double custoAntesBuscaLocal = v1.getCustoVeiculo();
 
-										//n„o parte de zero e termina uma posiÁ„o antes por causa do depÛsito
+										//n√£o parte de zero e termina uma posi√ß√£o antes por causa do dep√≥sito
 										for(int u = 0; u < v1.ordemDeVisitacao.size() - 1; u++) {
 											for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
@@ -559,7 +559,7 @@ public class Main {
 
 						}//fim da buscalocal
 
-						// as novas rotas s„o adicionadas em um array auxiliar
+						// as novas rotas s√£o adicionadas em um array auxiliar
 						aux.add(rotaClonada);
 					}
 
@@ -567,14 +567,14 @@ public class Main {
 
 			} // fecha for
 
-			// È feito um merge da nova populaÁ„o e da populaÁ„o inicial
+			// √© feito um merge da nova popula√ß√£o e da popula√ß√£o inicial
 			novaPopulacao.addAll(populacao);
 			novaPopulacao.addAll(aux);
 
-			// as rotas s„o ordenadas por valor de custos
+			// as rotas s√£o ordenadas por valor de custos
 			Collections.sort(novaPopulacao);
 
-			// È feito um corte para mu indivÌduos
+			// √© feito um corte para mu indiv√≠duos
 			for (int p = (novaPopulacao.size() - 1); p >= numeroDeRotas; p--) {
 				novaPopulacao.remove(p);
 			}
@@ -593,14 +593,14 @@ public class Main {
 
 		} // fecha while
 
-		// menor custo final È encontrado
+		// menor custo final √© encontrado
 		if (menorCusto < menorCustoDescendente)
 			menorCustoTotal = menorCusto;
 		else
 			menorCustoTotal = menorCustoDescendente;
 
 		BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Menor custo antes da aplicaÁ„o do algoritmo evolutivo: " + bd1.doubleValue());
+		System.out.println("Menor custo antes da aplica√ß√£o do algoritmo evolutivo: " + bd1.doubleValue());
 
 		BigDecimal bd2 = new BigDecimal(menorCustoTotal).setScale(2, RoundingMode.HALF_EVEN);
 		System.out.println("Menor custo encontrado: " + bd2.doubleValue());
