@@ -130,11 +130,7 @@ public class Cliente implements Cloneable {
 
 	@Override
 	public String toString() {
-		return "Cliente [numero=" + numero + " coordenadaX=" + coordenadaX + ", coordenadaY=" + coordenadaY
-				+ ", demanda=" + demanda + ", duracaoServico=" + duracaoServico + ", frequenciaVisita="
-				+ frequenciaVisita + ", possiveisCombinacoesDeVisitas=" + possiveisCombinacoesDeVisitas
-				+ ", listaDeTodasPossiveisVisitas=" + listaDeTodasPossiveisVisitas + ", inicioJanela=" + inicioJanela
-				+ ", fimJanela=" + fimJanela + "]\n";
+		return "Cliente (numero=" + numero + ")" + "\n";
 	}
 
 }
