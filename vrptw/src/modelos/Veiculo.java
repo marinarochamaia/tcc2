@@ -73,7 +73,7 @@ public class Veiculo {
 					&& tempoVeiculo >= ordemDeVisitacao.get(row).getFimJanela())
 				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
 
-			// se o cliente chega antes da janela (espera a janela abrir e paga multa)
+			// se o cliente chega antes da janela não é incluso na rota
 			else if (tempoVeiculo < ordemDeVisitacao.get(row).getInicioJanela()) {
 				tempoVeiculo += ordemDeVisitacao.get(row).getInicioJanela() - tempoVeiculo;
 				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
