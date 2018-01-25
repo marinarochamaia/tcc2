@@ -42,15 +42,15 @@ public class BuscaLocal {
 							for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(v >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								Cliente clienteU = v1.ordemDeVisitacao.get(u);
 
 								if(clienteU.getNumero() == 0)
-									break;
+									continue;
 
 								v1.ordemDeVisitacao.remove(u);
 								v1.ordemDeVisitacao.add(v, clienteU);
@@ -60,7 +60,7 @@ public class BuscaLocal {
 
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else {
 									v1.ordemDeVisitacao.remove(v);
 									v1.ordemDeVisitacao.add(u, clienteU);
@@ -85,23 +85,23 @@ public class BuscaLocal {
 							for(int v = x + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(u >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								if(v >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								if(x >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(x).getNumero() == 0)
-									break;
+									continue;
 
 								Cliente clienteU = v1.ordemDeVisitacao.get(u);
 								if(clienteU.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteX = v1.ordemDeVisitacao.get(x);
 								if(clienteX.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteV = v1.ordemDeVisitacao.get(v);
 								if(clienteV.getNumero() == 0)
-									break;
+									continue;
 
 								v1.ordemDeVisitacao.remove(u);
 								v1.ordemDeVisitacao.remove(x - 1);
@@ -116,7 +116,7 @@ public class BuscaLocal {
 
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else {
 									int pos = v1.ordemDeVisitacao.indexOf(clienteU);
 									v1.ordemDeVisitacao.remove(pos);
@@ -143,23 +143,23 @@ public class BuscaLocal {
 							for(int v = x + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								if(v >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								if(x >= v1.ordemDeVisitacao.size()|| v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								Cliente clienteU = v1.ordemDeVisitacao.get(u);
 								if(clienteU.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteV = v1.ordemDeVisitacao.get(v);
 								if(clienteV.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteX = v1.ordemDeVisitacao.get(x);
 								if(clienteX.getNumero() == 0)
-									break;
+									continue;
 
 
 								v1.ordemDeVisitacao.remove(u);
@@ -174,7 +174,7 @@ public class BuscaLocal {
 										rotaClonada.listaVeiculos, rotaClonada);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else {
 									int pos = v1.ordemDeVisitacao.indexOf(clienteU);
 									v1.ordemDeVisitacao.remove(pos);
@@ -202,10 +202,10 @@ public class BuscaLocal {
 							for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(v >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								Collections.swap(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao, u, v);
 
@@ -213,7 +213,7 @@ public class BuscaLocal {
 										rotaClonada.listaVeiculos, rotaClonada);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else 
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 							}
@@ -235,17 +235,17 @@ public class BuscaLocal {
 							for(int v = x + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(v >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								if(x >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(x).getNumero() == 0)
-									break;
+									continue;
 
 								Cliente clienteX = v1.ordemDeVisitacao.get(x);
 								if(clienteX.getNumero() == 0)
-									break;
+									continue;
 
 								Collections.swap(v1.ordemDeVisitacao, u, v);
 								v1.ordemDeVisitacao.remove(x);
@@ -255,7 +255,7 @@ public class BuscaLocal {
 										rotaClonada.listaVeiculos, rotaClonada);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else { 
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 									int pos = v1.ordemDeVisitacao.indexOf(clienteX);
@@ -281,16 +281,16 @@ public class BuscaLocal {
 								int y = v+1;
 
 								if(v >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(v).getNumero() == 0)
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(u).getNumero() == 0)
-									break;
+									continue;
 
 								if(x >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(x).getNumero() == 0)
-									break;
+									continue;
 
 								if(y >= v1.ordemDeVisitacao.size()  || v1.ordemDeVisitacao.get(y).getNumero() == 0)
-									break;
+									continue;
 
 
 								Collections.swap(v1.ordemDeVisitacao, u, v);
@@ -300,7 +300,7 @@ public class BuscaLocal {
 										rotaClonada.listaVeiculos, rotaClonada);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else { 
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 									Collections.swap(v1.ordemDeVisitacao, x, y);
@@ -322,23 +322,23 @@ public class BuscaLocal {
 							for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {
 
 								if(v >= rotaClonada.getVeiculosUtilizados())
-									break;
+									continue;
 
 								Veiculo v2 = rotaClonada.listaVeiculos.get(v);
 
 								if(v >= v1.ordemDeVisitacao.size() || v >= v2.ordemDeVisitacao.size() 
 										|| 0 == v1.ordemDeVisitacao.get(v).getNumero() || 0 == v2.ordemDeVisitacao.get(v).getNumero())
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size() || u >= v2.ordemDeVisitacao.size())
-									break;
+									continue;
 
 								Cliente clienteU = v1.ordemDeVisitacao.get(u);
 								if(clienteU.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteV = v2.ordemDeVisitacao.get(v);
 								if(clienteV.getNumero() == 0 || clienteV == clienteU)
-									break;
+									continue;
 
 								double cargaOcupadaV1 = v1.getCargaOcupada() - clienteU.getDemanda() + clienteV.getDemanda();
 								double cargaOcupadaV2 = v2.getCargaOcupada() - clienteV.getDemanda() + clienteU.getDemanda();
@@ -356,7 +356,7 @@ public class BuscaLocal {
 										rotaClonada, v);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else {
 									v2.ordemDeVisitacao.remove(v);
 									v2.ordemDeVisitacao.add(v, clienteV);
@@ -383,40 +383,40 @@ public class BuscaLocal {
 								int y = v + 1;
 
 								if(v >= rotaClonada.getVeiculosUtilizados())
-									break;
+									continue;
 
 								Veiculo v2 = rotaClonada.listaVeiculos.get(v);
 								if(v2.ordemDeVisitacao == v1.ordemDeVisitacao)
-									break;
+									continue;
 
 								if(v >= v1.ordemDeVisitacao.size() || v >= v2.ordemDeVisitacao.size()
 										|| 0 == v1.ordemDeVisitacao.get(v).getNumero() || 0 == v2.ordemDeVisitacao.get(v).getNumero())
-									break;
+									continue;
 
 								if(u >= v1.ordemDeVisitacao.size() || u >= v2.ordemDeVisitacao.size()
 										|| 0 == v1.ordemDeVisitacao.get(v).getNumero() || 0 == v2.ordemDeVisitacao.get(v).getNumero())
-									break;
+									continue;
 
 								if(x >= v1.ordemDeVisitacao.size() || x >= v2.ordemDeVisitacao.size()
 										|| 0 == v1.ordemDeVisitacao.get(v).getNumero() || 0 == v2.ordemDeVisitacao.get(v).getNumero())
-									break;
+									continue;
 
 								if(y >= v1.ordemDeVisitacao.size() || y >= v2.ordemDeVisitacao.size()
 										|| 0 == v1.ordemDeVisitacao.get(v).getNumero() || 0 == v2.ordemDeVisitacao.get(v).getNumero())
-									break;
+									continue;
 
 								Cliente clienteU = v1.ordemDeVisitacao.get(u);
 								if(clienteU.getNumero() == 0)
-									break;
+									continue;
 								Cliente clienteV = v1.ordemDeVisitacao.get(v);
 								if(clienteV.getNumero() == 0 || clienteV == clienteU)
-									break;
+									continue;
 								Cliente clienteX = v2.ordemDeVisitacao.get(x);
 								if(clienteX.getNumero() == 0 || clienteX == clienteU || clienteX == clienteV)
-									break;
+									continue;
 								Cliente clienteY = v2.ordemDeVisitacao.get(y);
 								if(clienteY.getNumero() == 0 || clienteY == clienteU || clienteY == clienteV || clienteY == clienteX)
-									break;										
+									continue;										
 
 								double cargaOcupadaV1 = v1.getCargaOcupada() - clienteU.getDemanda() - clienteV.getDemanda() +
 										clienteX.getDemanda() + clienteY.getDemanda();
@@ -444,7 +444,7 @@ public class BuscaLocal {
 										rotaClonada, v);
 
 								if(v1.getCustoVeiculo() < custoAntesBuscaLocal)
-									break;
+									continue;
 								else {
 									v2.ordemDeVisitacao.remove(x);
 									v2.ordemDeVisitacao.add(x, clienteU);
