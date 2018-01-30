@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Veiculo {
 	private int cargaMaxima;
 	private double cargaOcupada, custoVeiculo, tempoVeiculo;
-	private double custoTotalVeículo;
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 
@@ -62,6 +61,8 @@ public class Veiculo {
 
 		// percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
+			resetCustoVeiculo();
+			resetTempoVeiculo();
 
 			custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
 					.getNumero()];
@@ -92,7 +93,7 @@ public class Veiculo {
 	@Override
 	public String toString() {
 		return "Veículo: [carga máxima = " + cargaMaxima + " ,carga ocupada = " + cargaOcupada
-				+ " ,custo total do veículo = " + custoTotalVeículo + "]\n";
+				+ " ,custo do veículo = " + custoVeiculo + "]\n";
 	}
 
 }// fecha classe
