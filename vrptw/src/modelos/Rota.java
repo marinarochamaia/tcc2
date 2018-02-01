@@ -75,8 +75,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 	public void criaRotas() {
 
-
-
 		// arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo
 		// de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último
 		// cliente em ordem
@@ -86,7 +84,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		// cria uma rota partindo de zero(depósito) até o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
-
+		
 		// o deposito que sempre é o primeiro cliente é instanciado
 		Cliente deposito = sequenciaDeVisitas.get(0);
 
@@ -99,29 +97,18 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		Collections.shuffle(sequenciaDeVisitas);
 		listaClientes.add(deposito);// o depósito deve vir primeiro
 		listaClientes.addAll(sequenciaDeVisitas);
-
-		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, veiculosUtilizados, matrizDeDistancias, multa, custoTotalRota);
-
+	
+		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
 
 	}// fecha o cria Rotas
 
-	// Esse método chama o Object's clone().
-	public Rota getClone(Rota r) {
-		try {
-			// call clone in Object.
-			return (Rota) super.clone();
-		} catch (CloneNotSupportedException e) {
-			System.out.println(" Rota não pode ser clonada. ");
-			return this;
-		}
-	}
 
 	
-	
 	public void criaOrdemDeVisitacao(int numeroDeVeiculos, ArrayList<Veiculo> listaVeiculos, ArrayList<Cliente> listaClientes,
-			Cliente deposito, int veiculosUtilizados, double [][] matrizDeDistancias, int multa, double custoTotalRota) {
+			Cliente deposito, double [][] matrizDeDistancias, int multa) {
 		
 		int contadorDeCliente = 0;
+		resetCustoTotalRota();
 
 		// percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
@@ -176,16 +163,29 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 			} else
-				return;
+				break;
 
 			setVeiculosUtilizados(j);
+
+			
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa, listaClientes.size(), listaVeiculos.size());
 			setCustoTotalRota(veiculo.getCustoVeiculo());
 		}
 
 	}
-	
+
+	// Esse método chama o Object's clone().
+	public Rota getClone(Rota r) {
+		try {
+			// call clone in Object.
+			return (Rota) super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println(" Rota não pode ser clonada. ");
+			return this;
+		}
+	}
+
 	
 	public int compareTo(Rota rota) {
 		if (this.custoTotalRota < rota.custoTotalRota) {
@@ -201,9 +201,5 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	public String toString() {
 		return "Custo total da rota: " + custoTotalRota + "\n";
 	}
-
-
-
-
 
 }

@@ -73,11 +73,12 @@ public class Main {
 				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
 				rotaClonada = (Rota) r.getClone(rotaClonada);
 
-				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
 
+				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
+					rotaClonada.resetCustoTotalRota();
 					// são selecionados números aleatórios que serão utilizados para pegar os veículos
 					Random rnd = new Random();
-					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados()- 1);
+					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
 
 					// os veículos são selecionados
 					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
@@ -86,10 +87,10 @@ public class Main {
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
 						Mutacao mut = new Mutacao ();
-						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, clientes, veiculos, v1);
+						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, v1);
 												
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, clientes, veiculos, k, cBuscaLocal);
+						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal);
 					
 					}
 					
@@ -122,7 +123,8 @@ public class Main {
 				}
 			}
 			
-			System.out.println(geracoes + " " + melhorRota.getCustoTotalRota());
+			BigDecimal bd = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+			System.out.println(geracoes + " " + bd);
 			geracoes++;
 
 		} // fecha while
