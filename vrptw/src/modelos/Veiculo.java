@@ -62,7 +62,7 @@ public class Veiculo {
 		resetCustoVeiculo();
 		resetTempoVeiculo();
 		
-		// percorre a rota de um veÌculo em especÌfico
+		// percorre a rota de um ve√≠culo em espec√≠fico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
 			setCustoVeiculo(matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
@@ -73,12 +73,12 @@ public class Veiculo {
 
 			// se o cliente chega dentro da janela
 			if (getTempoVeiculo() >= ordemDeVisitacao.get(row).getInicioJanela()
-					&& getTempoVeiculo() >= ordemDeVisitacao.get(row).getFimJanela()) {
+					&& getTempoVeiculo() <= ordemDeVisitacao.get(row).getFimJanela()) {
 				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
 				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
 			}
 
-			// se o cliente chega antes da janela n„o È incluso na rota
+			// se o cliente chega antes da janela n√£o √© incluso na rota
 			else if (getTempoVeiculo() < ordemDeVisitacao.get(row).getInicioJanela()) {
 				setTempoVeiculo(ordemDeVisitacao.get(row).getInicioJanela() - getTempoVeiculo());
 				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
@@ -86,7 +86,7 @@ public class Veiculo {
 				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
 				setCustoVeiculo(multa);
 			}
-			// se o cliente chega depois da janela o cliente È atendido mas È paga a multa
+			// se o cliente chega depois da janela o cliente √© atendido mas √© paga a multa
 			else if (getCustoVeiculo() > ordemDeVisitacao.get(row).getInicioJanela()) {
 				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
 				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
@@ -102,8 +102,8 @@ public class Veiculo {
 
 	@Override
 	public String toString() {
-		return "VeÌculo: [carga m·xima = " + cargaMaxima + " ,carga ocupada = " + cargaOcupada
-				+ " ,custo do veÌculo = " + custoVeiculo + "]\n";
+		return "Ve√≠culo: [carga m√°xima = " + cargaMaxima + " ,carga ocupada = " + cargaOcupada
+				+ " ,custo do ve√≠culo = " + custoVeiculo + "]\n";
 	}
 
 }// fecha classe
