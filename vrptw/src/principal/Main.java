@@ -18,9 +18,9 @@ public class Main {
 		double menorCusto = 0; // menor custo encontrado na população inicial
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
-		int numeroDeRotas = 30; // mu tamanho da população inicial
-		int gmax = 100;// número de gerações
-		int descendentes = 150; // lamba, numero de descendentes
+		int numeroDeRotas = 50; // mu tamanho da população inicial
+		int gmax = 1000;// número de gerações
+		int descendentes = 250; // lamba, numero de descendentes
 		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
 		double cBuscaLocal = 0.6; // coeficiente de busca local
@@ -86,10 +86,10 @@ public class Main {
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
 						Mutacao mut = new Mutacao ();
-						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, clientes, veiculos, v1);
+						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, v1, rotaClonada.getDeposito());
 												
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, clientes, veiculos, k, cBuscaLocal);
+						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal);
 					
 					}
 					

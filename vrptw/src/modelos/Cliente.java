@@ -2,13 +2,13 @@ package modelos;
 
 public class Cliente implements Cloneable {
 
-	private float coordenadaX, coordenadaY, demanda, duracaoServico;
-	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela,
+	private double coordenadaX, coordenadaY, demanda, duracaoServico, inicioJanela, fimJanela;
+	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas,
 			numero;
 
-	public Cliente(int numero, float coordenadaX, float coordenadaY, float demanda, float duracaoServico,
-			int frequenciaVisita, int possiveisCombinacoesDeVisitas, int listaDeTodasPossiveisVisitas, int inicioJanela,
-			int fimJanela) {
+	public Cliente(int numero, double coordenadaX, double coordenadaY, double demanda, double duracaoServico,
+			int frequenciaVisita, int possiveisCombinacoesDeVisitas, int listaDeTodasPossiveisVisitas, double inicioJanela,
+			double fimJanela) {
 		this.numero = numero;
 		this.coordenadaX = coordenadaX;
 		this.coordenadaY = coordenadaY;
@@ -21,35 +21,35 @@ public class Cliente implements Cloneable {
 		this.fimJanela = fimJanela;
 	}
 
-	public float getCoordenadaX() {
+	public double getCoordenadaX() {
 		return coordenadaX;
 	}
 
-	public void setCoordenadaX(float coordenadaX) {
+	public void setCoordenadaX(double coordenadaX) {
 		this.coordenadaX = coordenadaX;
 	}
 
-	public float getCoordenadaY() {
+	public double getCoordenadaY() {
 		return coordenadaY;
 	}
 
-	public void setCoordenadaY(float coordenadaY) {
+	public void setCoordenadaY(double coordenadaY) {
 		this.coordenadaY = coordenadaY;
 	}
 
-	public float getDemanda() {
+	public double getDemanda() {
 		return demanda;
 	}
 
-	public void setDemanda(float demanda) {
+	public void setDemanda(double demanda) {
 		this.demanda = demanda;
 	}
 
-	public float getDuracaoServico() {
+	public double getDuracaoServico() {
 		return duracaoServico;
 	}
 
-	public void setDuracaoServico(float duracaoServico) {
+	public void setDuracaoServico(double duracaoServico) {
 		this.duracaoServico = duracaoServico;
 	}
 
@@ -77,19 +77,19 @@ public class Cliente implements Cloneable {
 		this.listaDeTodasPossiveisVisitas = listaDeTodasPossiveisVisitas;
 	}
 
-	public int getInicioJanela() {
+	public double getInicioJanela() {
 		return inicioJanela;
 	}
 
-	public void setInicioJanela(int inicioJanela) {
+	public void setInicioJanela(double inicioJanela) {
 		this.inicioJanela = inicioJanela;
 	}
 
-	public int getFimJanela() {
+	public double getFimJanela() {
 		return fimJanela;
 	}
 
-	public void setFimJanela(int fimJanela) {
+	public void setFimJanela(double fimJanela) {
 		this.fimJanela = fimJanela;
 	}
 
@@ -102,27 +102,28 @@ public class Cliente implements Cloneable {
 	}
 
 	/**
-	 * Calcula a distância euclidiana entre o Cliente que chama o método e o cliente
-	 * passado como parâmetro
+	 * Calcula a distÃ¢ncia euclidiana entre o Cliente que chama o mÃ©todo e o cliente
+	 * passado como parÃ¢metro
 	 * 
 	 * @param outroCliente
-	 *            A outra instância de cliente a qual se deseja calcular a distância
-	 * @return A distância euclidiana entre os dois clientes
+	 *            A outra instÃ¢ncia de cliente a qual se deseja calcular a distÃ¢ncia
+	 * @return A distÃ¢ncia euclidiana entre os dois clientes
 	 */
 	public double distanciaEuclidianaAte(Cliente outroCliente) {
-		double soma = Math.pow(this.coordenadaX + outroCliente.getCoordenadaX(), 2)
-				+ Math.pow(this.coordenadaY + outroCliente.getCoordenadaY(), 2);
+		double soma = Math.pow(this.coordenadaX - outroCliente.getCoordenadaX() 
+				       , 2)
+				+ Math.pow(this.coordenadaY - outroCliente.getCoordenadaY(), 2);
 		return Math.sqrt(soma);
 	}
 
 	/**
-	 * Calcula a distância euclidiana entre duas instâncias
+	 * Calcula a distÃ¢ncia euclidiana entre duas instÃ¢ncias
 	 * 
 	 * @param clienteA
-	 *            Primeira instância
+	 *            Primeira instÃ¢ncia
 	 * @param clienteB
-	 *            Segunda instância
-	 * @return A distância euclidiana entre os dois clientes
+	 *            Segunda instÃ¢ncia
+	 * @return A distÃ¢ncia euclidiana entre os dois clientes
 	 */
 	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB) {
 		return clienteA.distanciaEuclidianaAte(clienteB);
@@ -130,7 +131,7 @@ public class Cliente implements Cloneable {
 
 	@Override
 	public String toString() {
-		return "Cliente (numero=" + numero + ")" + " ";
+		return "(" + numero + ")" + " ";
 	}
 
 }

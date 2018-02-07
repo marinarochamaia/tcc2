@@ -25,19 +25,19 @@ public class Conversor {
 	private Cliente decodificaCliente(String[] parametros) {
 		// Decodifica os parâmetros
 		int numero = Integer.valueOf(parametros[0]);
-		float coordenadaX = Float.valueOf(parametros[1]);
-		float coordenadaY = Float.valueOf(parametros[2]);
-		float duracaoServico = Float.valueOf(parametros[3]);
-		float demanda = Float.valueOf(parametros[4]);
+		double coordenadaX = Double.valueOf(parametros[1]);
+		double coordenadaY = Double.valueOf(parametros[2]);
+		double duracaoServico = Double.valueOf(parametros[3]);
+		double demanda = Double.valueOf(parametros[4]);
 		int frequenciaVisita = Integer.valueOf(parametros[5]);
 		int possiveisCombinacoesDeVisitas = Integer.valueOf(parametros[6]);
 		int listaDeTodasPossiveisVisitas = Integer.valueOf(parametros[7]);
-		int inicioJanela = Integer.valueOf(parametros[8]);
+		double inicioJanela = Double.valueOf(parametros[8]);
 
 		// Verifica-se existe o final da janela na linha
-		int fimJanela;
+		double fimJanela;
 		if (parametros.length == 10)
-			fimJanela = Integer.valueOf(parametros[9]); // Se existe ele é decodificado
+			fimJanela = Double.valueOf(parametros[9]); // Se existe ele é decodificado
 		else
 			fimJanela = -1; // Senão é dado o valor padrão igual a -1 para o mesmo
 
