@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class BuscaLocal {
 
-	public void fazBuscaLocal(Veiculo v1, Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
+	public void fazBuscaLocal(Veiculo v1, Rota rotaClonada, double [][] matrizDeDistancias, 
 			int k, double cBuscaLocal){
 
 		Random rnd = new Random();
@@ -57,7 +57,7 @@ public class BuscaLocal {
 								v1.ordemDeVisitacao.remove(u);
 								v1.ordemDeVisitacao.add(v, clienteU);
 								
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 								
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -68,7 +68,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 						break;
 					}
@@ -109,7 +109,7 @@ public class BuscaLocal {
 								v1.ordemDeVisitacao.add(posV + 1, clienteU);
 								v1.ordemDeVisitacao.add(posV + 2, clienteX);
 
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
@@ -126,7 +126,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 						
 						break;
 
@@ -166,7 +166,7 @@ public class BuscaLocal {
 								v1.ordemDeVisitacao.add(posV + 1, clienteX);
 								v1.ordemDeVisitacao.add(posV + 2, clienteU);
 
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 								
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
@@ -184,7 +184,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 						break;
 
@@ -205,7 +205,7 @@ public class BuscaLocal {
 	
 								Collections.swap(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao, u, v);
 
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -214,7 +214,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 						break;
 						
@@ -247,7 +247,7 @@ public class BuscaLocal {
 								v1.ordemDeVisitacao.remove(x);
 								v1.ordemDeVisitacao.add(v, clienteX);
 
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -260,7 +260,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 						break;
 
@@ -290,7 +290,7 @@ public class BuscaLocal {
 								Collections.swap(v1.ordemDeVisitacao, u, v);
 								Collections.swap(v1.ordemDeVisitacao, x, y);
 
-								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -301,7 +301,7 @@ public class BuscaLocal {
 							}
 						}	
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 
 						break;
 						
@@ -344,7 +344,7 @@ public class BuscaLocal {
 									v2.ordemDeVisitacao.add(v, clienteU);
 								}
 
-								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, v);
+								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, rotaClonada, v);
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -358,7 +358,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 						
 						break;
 					}
@@ -430,7 +430,7 @@ public class BuscaLocal {
 									v2.ordemDeVisitacao.add(y, clienteV);										
 								}
 
-								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, v);;
+								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, rotaClonada, v);;
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -450,7 +450,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 						
 						break;
 
@@ -494,7 +494,7 @@ public class BuscaLocal {
 									v2.ordemDeVisitacao.add(v, clienteU);
 								}
 
-								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, (v+1));
+								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, rotaClonada, (v+1));
 
 								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
 									continue;
@@ -508,7 +508,7 @@ public class BuscaLocal {
 							}
 						}
 
-						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+						calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 						
 						break;
 					}
@@ -569,7 +569,7 @@ public class BuscaLocal {
 									v2.ordemDeVisitacao.add(x, clienteU);
 									v2.ordemDeVisitacao.add(x, clienteV);
 									
-									calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, v);
+									calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, rotaClonada, v);
 
 								}
 									if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
@@ -588,7 +588,7 @@ public class BuscaLocal {
 								}
 							}
 
-							calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+							calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, rotaClonada);
 							
 							break;
 
@@ -603,12 +603,12 @@ public class BuscaLocal {
 	}//fim da buscalocal
 
 
-	public void calculaCustoFuncaoObjetivo(Veiculo v1, double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
+	public void calculaCustoFuncaoObjetivo(Veiculo v1, double[][] matrizDeDistancias, Rota rotaClonada) {
 
 		rotaClonada.resetCustoTotalRota();
 		v1.resetCustoVeiculo();
 		v1.resetTempoVeiculo();
-		v1.calculaCustos(matrizDeDistancias, multa);
+		v1.calculaCustos(matrizDeDistancias);
 		rotaClonada.setCustoTotalRota(v1.getCustoVeiculo());
 
 		for(int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
@@ -616,26 +616,26 @@ public class BuscaLocal {
 			v3.resetCustoVeiculo();
 			v3.resetTempoVeiculo();
 			if(v3 != v1) {
-				v3.calculaCustos(matrizDeDistancias, multa);
+				v3.calculaCustos(matrizDeDistancias);
 				rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
 			}
 			
 		}
 	}
 	
-	public void calculaCustoFuncaoObjetivoDoisVeiculos(Veiculo v1, double[][] matrizDeDistancias, int multa, Rota rotaClonada, int v) {
+	public void calculaCustoFuncaoObjetivoDoisVeiculos(Veiculo v1, double[][] matrizDeDistancias, Rota rotaClonada, int v) {
 
 		Veiculo v2 = rotaClonada.listaVeiculos.get(v);
 
 		rotaClonada.resetCustoTotalRota();
 		v1.resetCustoVeiculo();
 		v1.resetTempoVeiculo();
-		v1.calculaCustos(matrizDeDistancias, multa);
+		v1.calculaCustos(matrizDeDistancias);
 		rotaClonada.setCustoTotalRota(v1.getCustoVeiculo());
 
 		v2.resetCustoVeiculo();
 		v2.resetTempoVeiculo();
-		v2.calculaCustos(matrizDeDistancias, multa);
+		v2.calculaCustos(matrizDeDistancias);
 		rotaClonada.setCustoTotalRota(v2.getCustoVeiculo());
 		
 		for(int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
@@ -643,7 +643,7 @@ public class BuscaLocal {
 			v3.resetCustoVeiculo();
 			v3.resetTempoVeiculo();
 			if(v3 != v1 && v3 != v2) {
-				v3.calculaCustos(matrizDeDistancias, multa);
+				v3.calculaCustos(matrizDeDistancias);
 				rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
 			}
 			

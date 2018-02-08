@@ -21,9 +21,9 @@ public class Main {
 		int numeroDeRotas = 50; // mu tamanho da população inicial
 		int gmax = 1000;// número de gerações
 		int descendentes = 250; // lamba, numero de descendentes
-		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
-		double cBuscaLocal = 0.6; // coeficiente de busca local
+		double cBuscaLocal = 0.3; // coeficiente de busca local
+		int controle;
 
 
 		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os indíviduos criados através da busca local
@@ -35,7 +35,7 @@ public class Main {
 		// matriz que salva as distâncias de todos os clientes para os outros
 		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()]; 
 
-		Rota melhorRota = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
+		Rota melhorRota = new Rota(clientes, veiculos, clientes.size(), veiculos.size(), matrizDeDistancias);
 		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será
 		// lido
 		Conversor conversor = new Conversor(args[0]);
@@ -46,10 +46,16 @@ public class Main {
 
 		// criação da população inicial (pais)
 		for (int i = 0; i < numeroDeRotas; i++) {
-			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-			r.criaRotas();
-			if(r.getVeiculosUtilizados() <= veiculos.size())
-				populacao.add(r);	
+			Rota r = new Rota(clientes, veiculos, clientes.size(), veiculos.size(), matrizDeDistancias);
+			controle = r.criaRotas();
+			if(r.getVeiculosUtilizados() <= veiculos.size() && controle == 1)
+				populacao.add(r);
+			else {
+				controle = r.criaRotas();
+				while(controle == -1)
+					controle = r.criaRotas();
+			}
+	
 		}
 
 		// busca pelo menor custo da população inicial
@@ -70,7 +76,7 @@ public class Main {
 			for (Rota r : populacao) {
 
 				// a rota é clonada
-				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
+				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), veiculos.size(),matrizDeDistancias);
 				rotaClonada = (Rota) r.getClone(rotaClonada);
 
 				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
@@ -86,10 +92,11 @@ public class Main {
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
 						Mutacao mut = new Mutacao ();
-						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, v1, rotaClonada.getDeposito());
+						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, v1, rotaClonada.getDeposito());
+
 												
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal);
+						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, k, cBuscaLocal);
 					
 					}
 					

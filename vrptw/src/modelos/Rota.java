@@ -8,7 +8,7 @@ import modelos.Veiculo;
 
 public class Rota implements Cloneable, Comparable<Rota> {
 
-	private int multa, numeroDeClientes, numeroDeVeiculos, veiculosUtilizados;
+	private int numeroDeClientes, numeroDeVeiculos, veiculosUtilizados, possivel;
 
 	private Cliente deposito; 
 	private double custoTotalRota;
@@ -18,11 +18,10 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	public ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
 	double[][] matrizDeDistancias = new double[listaClientes.size()][listaClientes.size()];
 
-	public Rota(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos, int numeroDeClientes, int multa,
+	public Rota(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos, int numeroDeClientes,
 			int numeroDeVeiculos, double[][] matrizDeDistancias) {
 
 		this.numeroDeClientes = numeroDeClientes;
-		this.multa = multa;
 		this.numeroDeVeiculos = numeroDeVeiculos;
 		this.listaClientes = clientes;
 		this.listaVeiculos = veiculos;
@@ -35,14 +34,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 	public void setNumeroDeClientes(int numeroDeClientes) {
 		this.numeroDeClientes = numeroDeClientes;
-	}
-
-	public int getMulta() {
-		return multa;
-	}
-
-	public void setMulta(int multa) {
-		this.multa = multa;
 	}
 
 	public int getNumeroDeVeiculos() {
@@ -81,8 +72,9 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		this.custoTotalRota = 0;
 	}
 
-	public void criaRotas() {
+	public int criaRotas() {
 
+		int controle;
 		// arraylist para salvar a rota inicial partindo de zero(depósito) até o máximo
 		// de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último
 		// cliente em ordem
@@ -106,14 +98,20 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		listaClientes.add(getDeposito());// o depósito deve vir primeiro
 		listaClientes.addAll(sequenciaDeVisitas);
 	
-		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
+		controle = criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias);
+		if(controle == -1) {
+			return -1;
+		}
+		
+		return 1;
+			
 
 	}// fecha o cria Rotas
 
 
 	
-	public void criaOrdemDeVisitacao(int numeroDeVeiculos, ArrayList<Veiculo> listaVeiculos, ArrayList<Cliente> listaClientes,
-			Cliente deposito, double [][] matrizDeDistancias, int multa) {
+	public int criaOrdemDeVisitacao(int numeroDeVeiculos, ArrayList<Veiculo> listaVeiculos, ArrayList<Cliente> listaClientes,
+			Cliente deposito, double [][] matrizDeDistancias) {
 		
 		int contadorDeCliente = 0;
 		resetCustoTotalRota();	
@@ -173,11 +171,17 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				break;
 
 			setVeiculosUtilizados(j);
-		
+
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
-			veiculo.calculaCustos(matrizDeDistancias, multa);
-			setCustoTotalRota(veiculo.getCustoVeiculo());
+			possivel = veiculo.calculaCustos(matrizDeDistancias);
+			if(possivel == 1)
+				setCustoTotalRota(veiculo.getCustoVeiculo());
+			else if(possivel == -1)
+				return -1;
+				
 		}
+		
+		return 1;
 
 	}
 

@@ -57,44 +57,41 @@ public class Veiculo {
 		this.cargaMaxima = cargaMaxima;
 	}
 
-	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
-		
+	public int calculaCustos(double[][] matrizDeDistancias) {
+
 		resetCustoVeiculo();
 		resetTempoVeiculo();
-		
-		// percorre a rota de um veículo em específico
-		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
-			setCustoVeiculo(matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
-			                              .getNumero()]);
-			setTempoVeiculo(matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
-			                                                 
-			                                                                              .getNumero()]);
+		ArrayList<Cliente> restante = new ArrayList<>();
+		restante.addAll(ordemDeVisitacao);
+		int controle = 0;
 
-			// se o cliente chega dentro da janela
-			if (getTempoVeiculo() >= ordemDeVisitacao.get(row).getInicioJanela()
-					&& getTempoVeiculo() <= ordemDeVisitacao.get(row).getFimJanela()) {
-				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-			}
+		do {
+			// percorre a rota de um veículo em específico
+			for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
-			// se o cliente chega antes da janela não é incluso na rota
-			else if (getTempoVeiculo() < ordemDeVisitacao.get(row).getInicioJanela()) {
-				setTempoVeiculo(ordemDeVisitacao.get(row).getInicioJanela() - getTempoVeiculo());
-				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-				setCustoVeiculo(ordemDeVisitacao.get(row).getInicioJanela() - getTempoVeiculo());
-				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-				setCustoVeiculo(multa);
-			}
-			// se o cliente chega depois da janela o cliente é atendido mas é paga a multa
-			else if (getCustoVeiculo() > ordemDeVisitacao.get(row).getFimJanela()) {
-				setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-				setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
-				setCustoVeiculo(multa);
-			} // fecha if 
+				setCustoVeiculo(matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
+				                                                                              .getNumero()]);
+				setTempoVeiculo(matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row)
 
-		} // fecha for
-		
+				                                                                              .getNumero()]);
+
+				// se o cliente chega dentro da janela
+				if (getTempoVeiculo() >= ordemDeVisitacao.get(row).getInicioJanela()
+						&& getTempoVeiculo() <= ordemDeVisitacao.get(row).getFimJanela()) {
+					setTempoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
+					setCustoVeiculo(ordemDeVisitacao.get(row).getDuracaoServico());
+				}
+			} // fecha for
+			controle++;
+			
+			if(controle > ordemDeVisitacao.size())
+				return -1;
+				
+		}while (restante.size() !=0);
+
+		return 1;
+
 
 	} // fecha calculaCustos
 
