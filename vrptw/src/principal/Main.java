@@ -18,16 +18,15 @@ public class Main {
 		double menorCusto = 0; // menor custo encontrado na população inicial
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
-		int numeroDeRotas = 50; // mu tamanho da população inicial
+		int numeroDeRotas = 10; // mu tamanho da população inicial
 		int gmax = 1000;// número de gerações
-		int descendentes = 250; // lamba, numero de descendentes
-		double cMutacao = 0.8; // coeficiente de mutação
-		double cBuscaLocal = 0.3; // coeficiente de busca local
+		int descendentes = 50; // lamba, numero de descendentes
+		double cMutacao = 0.6; // coeficiente de mutação
+		double cBuscaLocal = 0.6; // coeficiente de busca local
 		int controle;
 
-
-		ArrayList<Rota> aux = new ArrayList<>(); // array auxiliar para guardar todas os indíviduos criados através da busca local
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
+		ArrayList<Rota> aux = new ArrayList<>();
 		ArrayList<Rota> novaPopulacao = new ArrayList<>();
 		ArrayList<Cliente> clientes = new ArrayList<>(); // lista de clientes passados pelo arquivo
 		ArrayList<Veiculo> veiculos = new ArrayList<>(); // lista de veículos passados pelo arquivo
@@ -48,9 +47,10 @@ public class Main {
 		for (int i = 0; i < numeroDeRotas; i++) {
 			Rota r = new Rota(clientes, veiculos, clientes.size(), veiculos.size(), matrizDeDistancias);
 			controle = r.criaRotas();
-			if(r.getVeiculosUtilizados() <= veiculos.size() && controle == 1)
+			if(r.getVeiculosUtilizados() <= veiculos.size() && controle == 1) {
+				System.out.println("Rota viável");
 				populacao.add(r);
-			else {
+			}else {
 				controle = r.criaRotas();
 				while(controle == -1)
 					controle = r.criaRotas();
@@ -65,7 +65,6 @@ public class Main {
 				menorCusto = r.getCustoTotalRota();
 			}
 		}
-
 
 		// número de gerações que serão criadas
 		int geracoes = 0;
@@ -83,31 +82,28 @@ public class Main {
 
 					// são selecionados números aleatórios que serão utilizados para pegar os veículos
 					Random rnd = new Random();
-					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados()- 1);
+					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
 
 					// os veículos são selecionados
 					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
-					
+
 					//gerar (lambda/mu) filhos
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
 						Mutacao mut = new Mutacao ();
-						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, v1, rotaClonada.getDeposito());
+						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, i, v1, rotaClonada.getDeposito());
 
-												
 						BuscaLocal bl = new BuscaLocal();
 						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, k, cBuscaLocal);
-					
+
 					}
-					
+
 					// as novas rotas são adicionadas em um array auxiliar
 					aux.add(rotaClonada);
-				
+
 				}
+			}		
 
-			}
-
-			// é feito um merge da nova população e da população inicial
 			novaPopulacao.addAll(populacao);
 			novaPopulacao.addAll(aux);
 
@@ -123,12 +119,12 @@ public class Main {
 			menorCustoDescendente = Double.MAX_VALUE;
 			for (Rota r : novaPopulacao) {
 
-				if (menorCustoDescendente > r.getCustoTotalRota()) {
+				if (menorCustoDescendente >	r.getCustoTotalRota()) {
 					menorCustoDescendente = r.getCustoTotalRota();
 					melhorRota = r;
 				}
 			}
-			
+
 			System.out.println(geracoes + " " + melhorRota.getCustoTotalRota());
 			geracoes++;
 
@@ -143,7 +139,7 @@ public class Main {
 		for(int i = 0; i < melhorRota.getNumeroDeVeiculos(); i++) {
 			System.out.println((i+1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 		}
-		
+
 		BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
 		System.out.println("Custo antes da estratégia evolutiva: " + bd1);
 
@@ -151,5 +147,4 @@ public class Main {
 		System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
 	}// fecha a main
-
 }// fecha a classe
