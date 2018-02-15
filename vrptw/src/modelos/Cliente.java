@@ -4,7 +4,7 @@ public class Cliente implements Cloneable {
 
 	private double coordenadaX, coordenadaY, demanda, duracaoServico, inicioJanela, fimJanela;
 	private int frequenciaVisita, possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas,
-			numero;
+	numero;
 
 	public Cliente(int numero, double coordenadaX, double coordenadaY, double demanda, double duracaoServico,
 			int frequenciaVisita, int possiveisCombinacoesDeVisitas, int listaDeTodasPossiveisVisitas, double inicioJanela,
@@ -101,37 +101,36 @@ public class Cliente implements Cloneable {
 		this.numero = numero;
 	}
 
-	/**
-	 * Calcula a distância euclidiana entre o Cliente que chama o método e o cliente
-	 * passado como parâmetro
-	 * 
-	 * @param outroCliente
-	 *            A outra instância de cliente a qual se deseja calcular a distância
-	 * @return A distância euclidiana entre os dois clientes
-	 */
+	//Calcula a dist�ncia euclidiana entre o Cliente que chama o m�todo e o cliente
+	//passado como par�metro
 	public double distanciaEuclidianaAte(Cliente outroCliente) {
 		double soma = Math.pow(this.coordenadaX - outroCliente.getCoordenadaX() 
-				       , 2)
+				, 2)
 				+ Math.pow(this.coordenadaY - outroCliente.getCoordenadaY(), 2);
 		return Math.sqrt(soma);
 	}
 
-	/**
-	 * Calcula a distância euclidiana entre duas instâncias
-	 * 
-	 * @param clienteA
-	 *            Primeira instância
-	 * @param clienteB
-	 *            Segunda instância
-	 * @return A distância euclidiana entre os dois clientes
-	 */
+	// Calcula a dist�ncia euclidiana entre duas inst�ncias
+
 	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB) {
 		return clienteA.distanciaEuclidianaAte(clienteB);
 	}
 
 	@Override
+	protected Object clone() throws CloneNotSupportedException {
+
+		Cliente c = new Cliente(numero, coordenadaX, coordenadaY, demanda, 
+				duracaoServico, frequenciaVisita, possiveisCombinacoesDeVisitas, 
+				listaDeTodasPossiveisVisitas, inicioJanela, fimJanela);
+
+		return c;
+	}
+
+	@Override
 	public String toString() {
+
 		return "(" + numero + ")" + " ";
+
 	}
 
 }

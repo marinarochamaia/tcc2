@@ -15,13 +15,8 @@ public class Conversor {
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
 
-	/**
-	 * Transforma uma lista de parâmetros em um objeto do tipo Cliente
-	 * 
-	 * @param parâmetros
-	 *            Vetor de String com os parâmetros do novo objeto Cliente
-	 * @return Objeto Cliente com os parâmetros informados
-	 */
+	//Transforma uma lista de parâmetros em um objeto do tipo Cliente
+
 	private Cliente decodificaCliente(String[] parametros) {
 		// Decodifica os parâmetros
 		int numero = Integer.valueOf(parametros[0]);
@@ -48,22 +43,15 @@ public class Conversor {
 
 	}
 
-	/**
-	 * Converte as informações contidas em um arquivo em objetos do tipo Veículo e
-	 * Cliente, devidamente parametrizados
-	 * 
-	 * @param clientes
-	 *            Lista onde serão armazenados os objetos do tipo Cliente
-	 * @param veiculos
-	 *            Lista onde serão armazenados os objetos do tipo Veiculo
-	 */
+	// Converte as informações contidas em um arquivo em objetos do tipo Veículo e
+	//Cliente, devidamente parametrizados
 	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos) {
 		try {
 			int posicaoDaLinha = 1; // Contador da posição da linha atual
 			int quantidadeDeVeiculos = 0; // Contador da quantidade de veículos
 			int quantidadeDeClientes = 0; // Contador da quantidade de clientes
 			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo)); // Leitor que utiliza buffer
-																							// para a leitura do arquivo
+			// para a leitura do arquivo
 
 			// Lê-se a primeira linha
 			String linhaAtual = leitor.readLine();
@@ -73,7 +61,7 @@ public class Conversor {
 			while (linhaAtual != null) {
 				linhaAtual = linhaAtual.trim(); // Remove os espaços em branco no início e no final da String
 				String[] parametros = linhaAtual.split(" "); // Recupera os parâmetros que estão separados por um espaço
-																// em branco
+				// em branco
 
 				switch (posicaoDaLinha) {
 				case 1: // Se for a primeira linha do arquivo, então contém o tipo do problema,
@@ -91,7 +79,7 @@ public class Conversor {
 					break;
 
 				case 2: // Se for a segunda linha do arquivo, que contém a limitação de dias e a carga
-						// máxima dos veículos
+					// máxima dos veículos
 					int cargaMaxima = Integer.valueOf(parametros[1]); // Obtêm-se a carga máxima
 
 					// Cria-se os objetos de veículos
@@ -112,7 +100,6 @@ public class Conversor {
 		} catch (Exception e) {
 			System.out.println("Erro durante leitura de arquivo: " + e.getMessage());
 		}
-
 	}
 
 	public double[][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
@@ -138,5 +125,4 @@ public class Conversor {
 
 		return matrizDeDistancias;
 	}
-
 }
