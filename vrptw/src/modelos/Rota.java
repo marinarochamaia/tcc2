@@ -60,7 +60,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	public void setVeiculosUtilizados(int veiculosUtilizados) {
 		this.veiculosUtilizados = veiculosUtilizados;
 	}
-
+	
 	public Cliente getDeposito() {
 		return deposito;
 	}
@@ -92,7 +92,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		// cria uma rota partindo de zero(depósito) até o maximo de clientes
 		for (Cliente auxiliar : listaClientes)
 			sequenciaDeVisitas.add(auxiliar);
-
+		
 		// o deposito que sempre é o primeiro cliente é instanciado
 		setDeposito(sequenciaDeVisitas.get(0));
 
@@ -105,14 +105,14 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		Collections.shuffle(sequenciaDeVisitas);
 		listaClientes.add(getDeposito());// o depósito deve vir primeiro
 		listaClientes.addAll(sequenciaDeVisitas);
-
+	
 		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
 
 	}// fecha o cria Rotas
-
+	
 	public void criaOrdemDeVisitacao(int numeroDeVeiculos, ArrayList<Veiculo> listaVeiculos, ArrayList<Cliente> listaClientes,
 			Cliente deposito, double [][] matrizDeDistancias, int multa) {
-
+		
 		int contadorDeCliente = 0;
 		resetCustoTotalRota();
 
@@ -170,35 +170,35 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				break;
 
 			setVeiculosUtilizados(j);
-
+		
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa);
 			setCustoTotalRota(veiculo.getCustoVeiculo());
 		}
 	}
 
-	// Esse método chama o Object's clone().
-	public Rota getClone(Rota r) {
-		try {
-
-			r.multa = this.multa;
-			r.numeroDeClientes = this.numeroDeClientes;
-			r.numeroDeVeiculos = this.numeroDeVeiculos;
-			r.veiculosUtilizados = this.veiculosUtilizados;
-			r.deposito = (Cliente) this.deposito.clone();
-			r.custoTotalRota = this.custoTotalRota;
-			r.conversor = this.conversor;
-			r.listaClientes = new ArrayList<>(this.listaClientes);
-			r.listaVeiculos = new ArrayList<>(this.listaVeiculos);
-			r.matrizDeDistancias = this.matrizDeDistancias;
-
-			return r;
-
-		} catch (CloneNotSupportedException e) {
-			System.out.println(" Rota não pode ser clonada. ");
-			return this;
-		}
-	}
+    // Esse método chama o Object's clone().
+    public Rota getClone(Rota r) {
+        try {
+                    
+                    r.multa = this.multa;
+                    r.numeroDeClientes = this.numeroDeClientes;
+                    r.numeroDeVeiculos = this.numeroDeVeiculos;
+                    r.veiculosUtilizados = this.veiculosUtilizados;
+                    r.deposito = (Cliente) this.deposito.clone();
+                    r.custoTotalRota = this.custoTotalRota;
+                    r.conversor = this.conversor;
+                    r.listaClientes = new ArrayList<>(this.listaClientes);
+                    r.listaVeiculos = new ArrayList<>(this.listaVeiculos);
+                    r.matrizDeDistancias = this.matrizDeDistancias;
+                    
+                    return r;
+                    
+        } catch (CloneNotSupportedException e) {
+            System.out.println(" Rota não pode ser clonada. ");
+            return this;
+        }
+    }
 
 	public int compareTo(Rota rota) {
 		if (this.custoTotalRota < rota.custoTotalRota) {
@@ -207,7 +207,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		if (this.custoTotalRota > rota.custoTotalRota) {
 			return 1;
 		}
-
 		return 0;
 	}
 

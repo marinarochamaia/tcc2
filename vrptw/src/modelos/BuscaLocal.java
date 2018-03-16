@@ -57,8 +57,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									v1.ordemDeVisitacao.remove(v);
 									v1.ordemDeVisitacao.add(u, clienteU);
@@ -102,8 +104,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									int pos = v1.ordemDeVisitacao.indexOf(clienteU);
 									v1.ordemDeVisitacao.remove(pos);
@@ -152,8 +156,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									int pos = v1.ordemDeVisitacao.indexOf(clienteU);
 									v1.ordemDeVisitacao.remove(pos);
@@ -191,8 +197,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 							}
@@ -231,8 +239,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 									int pos = v1.ordemDeVisitacao.indexOf(clienteX);
@@ -273,8 +283,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									Collections.swap(v1.ordemDeVisitacao, u, v);
 									Collections.swap(v1.ordemDeVisitacao, x, y);
@@ -326,8 +338,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, v);
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									v2.ordemDeVisitacao.remove(v);
 									v2.ordemDeVisitacao.add(v, clienteV);
@@ -405,8 +419,10 @@ public class BuscaLocal {
 								calculaCustoFuncaoObjetivoDoisVeiculos(v1, matrizDeDistancias, multa, rotaClonada, v);;
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									v2.ordemDeVisitacao.remove(x);
 									v2.ordemDeVisitacao.add(x, clienteX);
@@ -483,8 +499,10 @@ public class BuscaLocal {
 									continue;
 
 								//se acha um custo menor, pára, se não desfaz as trocas continua a percorrer a ordem de visitação
-								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal)
-									break;
+								if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+									criaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+									continue;
+								}
 								else {
 									v2.ordemDeVisitacao.remove(x);
 									v2.ordemDeVisitacao.add(x, clienteX);
@@ -504,10 +522,10 @@ public class BuscaLocal {
 						break;
 
 					}
-
+					
 					}//fecha switch
 				}//fecha for
-			} //fecha while
+			}
 		}	//fecha if
 	}//fim da buscalocal
 
@@ -545,5 +563,17 @@ public class BuscaLocal {
 				rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
 			}
 		}
+	}
+	
+	public void criaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos) {
+		
+		for(int i = 0; i > listaVeiculos.size(); i++) {
+			Veiculo v = listaVeiculos.get(i);
+			for(int j = 0; j < v.ordemDeVisitacao.size(); j++) {
+					giantTour.add(i, v.ordemDeVisitacao.get(j));
+					
+			}
+		}
+	
 	}
 }

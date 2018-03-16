@@ -3,7 +3,6 @@ package modelos;
 import java.util.ArrayList;
 
 public class Veiculo implements Cloneable {
-	
 	private int cargaMaxima;
 	private double cargaOcupada, custoVeiculo, tempoVeiculo;
 
@@ -44,6 +43,7 @@ public class Veiculo implements Cloneable {
 	public double getTempoVeiculo() {
 		return tempoVeiculo;
 	}
+
 
 	public Veiculo(int cargaMaxima) {
 
