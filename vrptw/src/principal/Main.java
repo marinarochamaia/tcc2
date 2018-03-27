@@ -19,7 +19,7 @@ public class Main {
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
 		int numeroDeRotas = 50; // mu tamanho da população inicial
-		int gmax = 100;// número de gerações
+		int gmax = 10000;// número de gerações
 		int descendentes = 250; // lamba, numero de descendentes
 		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
