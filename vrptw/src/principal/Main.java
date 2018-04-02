@@ -4,16 +4,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
+import estrategiaEvolutiva.BuscaLocal;
+import estrategiaEvolutiva.Mutacao;
 import io.Conversor;
 import modelos.Cliente;
-import modelos.Mutacao;
 import modelos.Rota;
 import modelos.Veiculo;
-import modelos.BuscaLocal;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CloneNotSupportedException {
 
 		double menorCusto = 0; // menor custo encontrado na população inicial
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações

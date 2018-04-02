@@ -117,7 +117,7 @@ public class Cliente implements Cloneable {
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException {
 
 		Cliente c = new Cliente(numero, coordenadaX, coordenadaY, demanda, 
 				duracaoServico, frequenciaVisita, possiveisCombinacoesDeVisitas, 
