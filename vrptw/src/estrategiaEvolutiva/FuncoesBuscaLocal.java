@@ -8,53 +8,56 @@ import modelos.Veiculo;
 
 public class FuncoesBuscaLocal {
 
-	
-	public void calculaCustoFuncaoObjetivo(Veiculo v1, double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
+	//função para calcular custo da função objetivo
+	public void calculaCustoFuncaoObjetivo(double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
 
+		//o custo total da rota é resetado
 		rotaClonada.resetCustoTotalRota();
-		v1.calculaCustos(matrizDeDistancias, multa);
-		rotaClonada.setCustoTotalRota(v1.getCustoVeiculo());
 
-		for (int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
+		//a lista de veículos utilizados é percorrida
+		for (int l = 0; l <= rotaClonada.getVeiculosUtilizados(); l++) {
+
+			//um veículo é selecionado no array de veículos
 			Veiculo v3 = rotaClonada.listaVeiculos.get(l);
-			if (l != rotaClonada.listaVeiculos.indexOf(v1)) {
-				v3.calculaCustos(matrizDeDistancias, multa);
-				rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
-			}
+
+			//o custo do veículo analisado é calculado
+			v3.calculaCustos(matrizDeDistancias, multa);
+			//é somado o custo deste veículo ao custo total da rota 
+			rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
+
 		}
 	}
 
-	public void calculaCustoFuncaoObjetivoDoisVeiculos(Veiculo v1, double[][] matrizDeDistancias, int multa,
-			Rota rotaClonada, int v) {
+	//função para atualizar as posições dos clientes após a busca local
+	public void atualizaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos, int veiculosUtilizados) {
 
-		rotaClonada.resetCustoTotalRota();
-		Veiculo v2 = rotaClonada.listaVeiculos.get(v);
+		giantTour.clear();
 
-		v1.calculaCustos(matrizDeDistancias, multa);
-		rotaClonada.setCustoTotalRota(v1.getCustoVeiculo());
 
-		v2.calculaCustos(matrizDeDistancias, multa);
-		rotaClonada.setCustoTotalRota(v2.getCustoVeiculo());
+		//a lista de veículos é percorrida
+		for(int i = 0; i <= veiculosUtilizados; i++) {
 
-		for (int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
-			Veiculo v3 = rotaClonada.listaVeiculos.get(l);
-			if (l != rotaClonada.listaVeiculos.indexOf(v1) && l != v) {
-				v3.calculaCustos(matrizDeDistancias, multa);
-				rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
-			}
-		}
-	}
-
-	public void atualizaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos) {
-
-		for (int i = 0; i > listaVeiculos.size(); i++) {
+			//um veículo é selecionado
 			Veiculo v = listaVeiculos.get(i);
-			for (int j = 0; j < v.ordemDeVisitacao.size(); j++) {
-				if(v.ordemDeVisitacao.get(j).getNumero() != 0)
-					giantTour.add(i, v.ordemDeVisitacao.get(j));
 
+			//a lista de clientes deste veículo é percorrida
+			for(int j = 0; j < v.ordemDeVisitacao.size(); j++) {
+
+				Cliente clienteAtual = v.ordemDeVisitacao.get(j);
+
+				//verificação se o cliente atual não é o depósito
+				if(clienteAtual.getNumero() == 0) 				
+					continue;
+				else 
+				{
+					//o cliente atual é adicionado ao giant tour
+					giantTour.add(clienteAtual);
+
+				}
 			}
-		}
 
+
+		}
 	}
 }
+		

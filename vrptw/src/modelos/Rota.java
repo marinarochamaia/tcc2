@@ -94,18 +94,19 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			sequenciaDeVisitas.add(auxiliar);
 		
 		// o deposito que sempre é o primeiro cliente é instanciado
-		setDeposito(sequenciaDeVisitas.get(0));
+		setDeposito(listaClientes.get(0));
 
-		// confere se a primeira posição é rrealmente o depósito, se sim este é removido
-		if (sequenciaDeVisitas.get(0).getNumero() == 0)
-			sequenciaDeVisitas.remove(getDeposito());
+		sequenciaDeVisitas.remove(0);
 
+		
 		// a lista de clientes é limpa para receber a lista gerada aleatoriamente
 		listaClientes.clear();
 		Collections.shuffle(sequenciaDeVisitas);
 		listaClientes.add(getDeposito());// o depósito deve vir primeiro
 		listaClientes.addAll(sequenciaDeVisitas);
+
 	
+		
 		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
 
 	}// fecha o cria Rotas
@@ -148,11 +149,11 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				// que já está ocupada for menor
 				// que a capacidade máxima do veículo este é incluído a rota deste veículo
 				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
-					if (clienteAtual.getNumero() == 0)
-						continue;
-					possivelRotaVeiculo.add(clienteAtual);
-					veiculo.setCargaOcupada(clienteAtual.getDemanda());
-					contadorDeCliente++;
+					if (clienteAtual.getNumero() != 0) {
+						possivelRotaVeiculo.add(clienteAtual);
+						veiculo.setCargaOcupada(clienteAtual.getDemanda());
+						contadorDeCliente++;
+					}
 
 				}
 				// se não, é feito um break e inicia a rota do próximo veículo

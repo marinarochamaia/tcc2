@@ -41,12 +41,12 @@ public class BuscaLocalRotasIguais {
 				v1.ordemDeVisitacao.add(posV + 1, clienteU);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -58,7 +58,7 @@ public class BuscaLocalRotasIguais {
 		}
 		
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 	
@@ -98,12 +98,12 @@ public class BuscaLocalRotasIguais {
 				v1.ordemDeVisitacao.add(posV + 2, clienteX);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -121,7 +121,7 @@ public class BuscaLocalRotasIguais {
 		}
 		
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 	
@@ -162,12 +162,12 @@ public class BuscaLocalRotasIguais {
 				v1.ordemDeVisitacao.add(posV + 2, clienteU);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -185,7 +185,7 @@ public class BuscaLocalRotasIguais {
 		}
 		
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 
@@ -209,12 +209,12 @@ public class BuscaLocalRotasIguais {
 				Collections.swap(v1.ordemDeVisitacao, u, v);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -224,7 +224,7 @@ public class BuscaLocalRotasIguais {
 		}
 
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 	
@@ -237,7 +237,7 @@ public class BuscaLocalRotasIguais {
 		//percorre o array da ordem de visitação
 		for(int u = 0; u < v1.ordemDeVisitacao.size() - 2; u++) {
 			int x = u + 1;
-			for(int v = x + 1; v < v1.ordemDeVisitacao.size()-1; v++) {
+			for(int v = x + 1; v < v1.ordemDeVisitacao.size() - 1; v++) {
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
@@ -255,12 +255,12 @@ public class BuscaLocalRotasIguais {
 				v1.ordemDeVisitacao.add(v+1, clienteX);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -276,7 +276,7 @@ public class BuscaLocalRotasIguais {
 		}
 
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 	
@@ -307,12 +307,12 @@ public class BuscaLocalRotasIguais {
 				Collections.swap(v1.ordemDeVisitacao, x, y);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -324,7 +324,7 @@ public class BuscaLocalRotasIguais {
 		}	
 
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 	}
 	
 	//são visitados dois clientes, X e Y, e é feita a inversão das posições dos clientes que estão entre estes
@@ -385,12 +385,12 @@ public class BuscaLocalRotasIguais {
 				}
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos);
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados());
 					continue;
 				}
 				//se não hover melhora, a troca é desfeita
@@ -403,7 +403,7 @@ public class BuscaLocalRotasIguais {
 			}
 		}	
 		//e é calculado novamente o custo (pois foi defeita a troca)
-		fbl.calculaCustoFuncaoObjetivo(v1, matrizDeDistancias, multa, rotaClonada);
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 	

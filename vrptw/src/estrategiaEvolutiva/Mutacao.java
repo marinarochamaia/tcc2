@@ -14,12 +14,17 @@ public class Mutacao {
 		Random rnd = new Random();
 		double m = rnd.nextDouble();
 
+		
+		
 		for(int j = 0; j < rotaClonada.listaClientes.size(); j++) {
-
+			
 			if(m <= cMutacao) {
+				
+				if(rotaClonada.listaClientes.get(i) == deposito || rotaClonada.listaClientes.get(j) == deposito)
+					continue;
 
 					Collections.swap(rotaClonada.listaClientes, i, j);
-					Collections.swap(rotaClonada.listaClientes, i+5, j);
+
 					
 			}
 		}

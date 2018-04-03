@@ -136,7 +136,7 @@ public class BuscaLocal {
 
 					case 12: {
 
-						blrd.trocaDuasPosicoes(rotaClonada, v1, k, multa, matrizDeDistancias);
+						blrd.trocaDuasPosicoesComDuasPosicoes(rotaClonada, v1, k, multa, matrizDeDistancias);
 
 						break;
 
