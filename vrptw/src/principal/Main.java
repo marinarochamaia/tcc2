@@ -18,9 +18,9 @@ public class Main {
 		double menorCusto = 0; // menor custo encontrado na população inicial
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
-		int numeroDeRotas = 50; // mu tamanho da população inicial
-		int gmax = 1;// número de gerações
-		int descendentes = 250; // lamba, numero de descendentes
+		int numeroDeRotas = 5; // mu tamanho da população inicial
+		int gmax = 10000;// número de gerações
+		int descendentes = 25; // lamba, numero de descendentes
 		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
 		double cBuscaLocal = 0.3; // coeficiente de busca local
@@ -66,11 +66,13 @@ public class Main {
 		while (geracoes < gmax) {
 			// para cada indivíduo da população (pai) 
 			for (Rota r : populacao) {
-
+	
 				// a rota é clonada
 				Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(),matrizDeDistancias);
 				rotaClonada = (Rota) r.getClone(rotaClonada);
-
+				
+				Cliente deposito = rotaClonada.getDeposito();
+				
 				for(int lv = 0; lv < r.getVeiculosUtilizados(); lv++) {
 
 					// são selecionados números aleatórios que serão utilizados para pegar os veículos
@@ -79,15 +81,19 @@ public class Main {
 
 					// os veículos são selecionados
 					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
-
+					v1 = (Veiculo) rotaClonada.listaVeiculos.get(k).clone();
+					Veiculo v2 = rotaClonada.listaVeiculos.get(k + 1);
+					v2 = (Veiculo) rotaClonada.listaVeiculos.get(k + 1).clone();
+					//System.out.println(rotaClonada.listaClientes.size());
+					
 					//gerar (lambda/mu) filhos
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
 						Mutacao mut = new Mutacao ();
-						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, v1, rotaClonada.getDeposito());
+						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, rotaClonada.getDeposito());
 
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(v1, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal);
+						bl.fazBuscaLocal(v1, v2, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal, deposito);
 
 					}
 
@@ -132,6 +138,7 @@ public class Main {
 		for(int i = 0; i < melhorRota.getNumeroDeVeiculos(); i++) {
 			System.out.println((i+1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 		}
+
 
 		BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
 		System.out.println("Custo antes da estratégia evolutiva: " + bd1);

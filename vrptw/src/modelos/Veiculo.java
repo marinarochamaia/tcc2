@@ -90,7 +90,7 @@ public class Veiculo implements Cloneable {
 	} // fecha calculaCustos
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         Veiculo v = new Veiculo(cargaMaxima);
         
         v.cargaOcupada = this.cargaOcupada;
