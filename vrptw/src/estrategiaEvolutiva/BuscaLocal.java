@@ -12,7 +12,7 @@ import modelos.Veiculo;
 public class BuscaLocal {
 
 	public void fazBuscaLocal(Veiculo v1, Veiculo v2, Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
-			int k, double cBuscaLocal, Cliente deposito) throws CloneNotSupportedException{
+			double cBuscaLocal, Cliente deposito) throws CloneNotSupportedException{
 
 		Random rnd = new Random();
 		double bl = rnd.nextDouble();
@@ -47,6 +47,7 @@ public class BuscaLocal {
 				for(Integer o : operacoes) {
 
 					switch (o) {
+					
 					case 1: {
 
 						blri.inserirApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
@@ -56,12 +57,13 @@ public class BuscaLocal {
 					}
 
 					case 2: {
-
+						
 						blri.inserirDoisApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
 
 						break;
 
 					}
+					
 					case 3: {
 
 						blri.inserirDoisAposInvertido(rotaClonada, v1, matrizDeDistancias, multa, deposito);
@@ -77,7 +79,6 @@ public class BuscaLocal {
 						break;
 
 					}
-
 
 					case 5: {
 
@@ -145,19 +146,15 @@ public class BuscaLocal {
 
 					case 13: {
 
-						blri.doisopt(rotaClonada, v1, matrizDeDistancias, multa, k, deposito);
+						blri.doisopt(rotaClonada, v1, matrizDeDistancias, multa, deposito);
 
 						break;
 
 					}
-
-
-					}//fecha switch
-				}//fecha for
+					
+					}
+				}
 			}
-
-		} // fecha if
-	}// fim da buscalocal
-
-
+		}
+	}
 }

@@ -16,7 +16,6 @@ public class Conversor {
 	}
 
 	//Transforma uma lista de parâmetros em um objeto do tipo Cliente
-
 	private Cliente decodificaCliente(String[] parametros) {
 		// Decodifica os parâmetros
 		int numero = Integer.valueOf(parametros[0]);
@@ -43,7 +42,7 @@ public class Conversor {
 
 	}
 
-	// Converte as informações contidas em um arquivo em objetos do tipo Veículo e
+	//Converte as informações contidas em um arquivo em objetos do tipo Veículo e
 	//Cliente, devidamente parametrizados
 	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos) {
 		try {
@@ -97,11 +96,15 @@ public class Conversor {
 			}
 
 			leitor.close();
+			
 		} catch (Exception e) {
+			
 			System.out.println("Erro durante leitura de arquivo: " + e.getMessage());
+			
 		}
 	}
 
+	//calcula a distância euclidiana de um cliente ao outro
 	public double[][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
 
 		// arraylist para calcular o custo total de cada rota
@@ -109,7 +112,7 @@ public class Conversor {
 		double[][] matrizDeDistancias = new double[numeroDeClientes][numeroDeClientes];
 
 		// laço para preencher a matriz com as distâncias entre clientes calculadas
-		// atravás da distância euclidiana
+		// através da distância euclidiana
 
 		// percorre as linhas da matriz de distâncias
 		for (int row = 0; row < numeroDeClientes; row++) {
@@ -120,8 +123,9 @@ public class Conversor {
 				else
 					matrizDeDistancias[row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row),
 							clientes.get(column));
-			} // fecha segundo for
-		} // fecha o primeiro for
+			
+			}
+		}
 
 		return matrizDeDistancias;
 	}

@@ -15,7 +15,7 @@ public class FuncoesBuscaLocal {
 		rotaClonada.resetCustoTotalRota();
 
 		//a lista de veículos utilizados é percorrida
-		for (int l = 0; l <= rotaClonada.getVeiculosUtilizados(); l++) {
+		for (int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
 
 			//um veículo é selecionado no array de veículos
 			Veiculo v3 = rotaClonada.listaVeiculos.get(l);

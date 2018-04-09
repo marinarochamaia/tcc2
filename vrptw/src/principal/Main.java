@@ -45,10 +45,14 @@ public class Main {
 
 		// criação da população inicial (pais)
 		for (int i = 0; i < numeroDeRotas; i++) {
+			
 			Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			r.criaRotas();
+	
 			if(r.getVeiculosUtilizados() <= veiculos.size())
 				populacao.add(r);	
+			else
+				System.out.println("Rota infactível");
 		}
 
 		// busca pelo menor custo da população inicial
@@ -78,14 +82,17 @@ public class Main {
 					// são selecionados números aleatórios que serão utilizados para pegar os veículos
 					Random rnd = new Random();
 					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
-
+					int n;
 					// os veículos são selecionados
 					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
 					v1 = (Veiculo) rotaClonada.listaVeiculos.get(k).clone();
-					Veiculo v2 = rotaClonada.listaVeiculos.get(k + 1);
-					v2 = (Veiculo) rotaClonada.listaVeiculos.get(k + 1).clone();
-					//System.out.println(rotaClonada.listaClientes.size());
+					if(k < rotaClonada.getVeiculosUtilizados() - 1) {
+						n = k + 1;
+					}else
+						n = lv;
 					
+					Veiculo v2 = rotaClonada.listaVeiculos.get(n);
+					v2 = (Veiculo) rotaClonada.listaVeiculos.get(n).clone();
 					//gerar (lambda/mu) filhos
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
@@ -93,7 +100,7 @@ public class Main {
 						mut.fazMutacao(rotaClonada, cMutacao, i, matrizDeDistancias, multa, rotaClonada.getDeposito());
 
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(v1, v2, rotaClonada, matrizDeDistancias, multa, k, cBuscaLocal, deposito);
+						bl.fazBuscaLocal(v1, v2, rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito);
 
 					}
 
