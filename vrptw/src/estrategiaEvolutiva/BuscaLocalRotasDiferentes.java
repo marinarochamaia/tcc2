@@ -76,7 +76,7 @@ public class BuscaLocalRotasDiferentes {
 		//percorre o array da ordem de visitação
 		for(int u = 1; u < v1.ordemDeVisitacao.size() - 1; u++) {
 			int x = u + 1;
-			for(int v = x + 1; v < v1.ordemDeVisitacao.size(); v++) {
+			for(int v = x + 1; v < v1.ordemDeVisitacao.size() - 2; v++) {
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
@@ -143,7 +143,7 @@ public class BuscaLocalRotasDiferentes {
 		//percorre o array da ordem de visitação
 		for(int u = 1; u < v1.ordemDeVisitacao.size() - 1; u++) {
 			int x = u + 1;
-			for(int v = x + 1; v < v1.ordemDeVisitacao.size(); v++) {
+			for(int v = x + 1; v < v1.ordemDeVisitacao.size() - 2; v++) {
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(u).getNumero() == 0)
@@ -276,7 +276,7 @@ public class BuscaLocalRotasDiferentes {
 
 		//calcula-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-		
+
 		//percorre o array da ordem de visitação
 		for(int u = 1; u < v1.ordemDeVisitacao.size() - 1; u++) {
 			int x = u + 1;
@@ -287,7 +287,7 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(x >= v1.ordemDeVisitacao.size() || v1.ordemDeVisitacao.get(x).getNumero() == 0)
 					continue;
-				if(v >= v2.ordemDeVisitacao.size() || v2.ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= v2.ordemDeVisitacao.size() - 1 || v2.ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
 		
 				//os clientes que serão visitados são selecionados

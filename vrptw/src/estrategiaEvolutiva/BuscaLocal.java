@@ -51,7 +51,7 @@ public class BuscaLocal {
 					case 1: {
 
 						blri.inserirApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-						
+
 						break;
 						
 					}
@@ -59,7 +59,7 @@ public class BuscaLocal {
 					case 2: {
 						
 						blri.inserirDoisApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-
+						
 						break;
 
 					}
@@ -67,7 +67,7 @@ public class BuscaLocal {
 					case 3: {
 
 						blri.inserirDoisAposInvertido(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-
+						
 						break;
 
 					}
@@ -75,7 +75,7 @@ public class BuscaLocal {
 					case 4: {
 
 						blri.swap(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-
+						
 						break;
 
 					}
@@ -99,23 +99,23 @@ public class BuscaLocal {
 					case 7: {
 
 						blrd.insereApos(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
-						
+
 						break;
 
 					}
 
 					case 8: {
-
+						
 						blrd.insereDuasPosicoesAposUma(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
-
+						
 						break;
 
 					}
 
 					case 9: {
-
+						
 						blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
-
+						
 						break;
 
 					}
@@ -130,7 +130,6 @@ public class BuscaLocal {
 					case 11: {
 
 						blrd.trocaDuasPosicoesComUmaPosicao(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
-
 	
 						break;
 

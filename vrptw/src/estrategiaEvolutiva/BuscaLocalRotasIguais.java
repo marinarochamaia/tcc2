@@ -17,7 +17,7 @@ public class BuscaLocalRotasIguais {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-
+		
 		//percorre o array da ordem de visitação
 		for(int u = 1; u < v1.ordemDeVisitacao.size() - 1; u++) {
 			for(int v = u + 1; v < v1.ordemDeVisitacao.size(); v++) {	
@@ -43,6 +43,7 @@ public class BuscaLocalRotasIguais {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 					continue;
 				}
@@ -329,14 +330,15 @@ public class BuscaLocalRotasIguais {
 
 		//calcula-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-		
+
 		Random rnd = new Random();
-		int k = rnd.nextInt(v1.ordemDeVisitacao.size());
+		int k = rnd.nextInt(5);
 		
 		//o array de ordem de visitação é clonado para que possa ser usado caso a troca deva ser desfeita
 		ArrayList<Cliente> old = new ArrayList<>();
 		
 		for(int c = 0; c < v1.ordemDeVisitacao.size(); c++) {
+			
 			Cliente clienteClonado = v1.ordemDeVisitacao.get(c);
 			
 			clienteClonado = (Cliente) v1.ordemDeVisitacao.get(c).clone();
@@ -345,9 +347,9 @@ public class BuscaLocalRotasIguais {
 		}
 
 		//percorre o array da ordem de visitação até a metade
-		for(int i = 0; i < v1.ordemDeVisitacao.size() / 2; i++) {
+		for(int i = 1; i < v1.ordemDeVisitacao.size() / 2; i++) {
 			//percorre todo o array de ordem de visitação
-			for(int j = 0; j < v1.ordemDeVisitacao.size() - 1; j++) {
+			for(int j = 1; j < v1.ordemDeVisitacao.size() - 1; j++) {
 
 				//o primeiro cliente visitado é o da posição i
 				Cliente x = v1.ordemDeVisitacao.get(i);
@@ -386,6 +388,7 @@ public class BuscaLocalRotasIguais {
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
+				
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {

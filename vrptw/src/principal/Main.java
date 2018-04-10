@@ -19,9 +19,10 @@ public class Main {
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
 		int numeroDeRotas = 5; // mu tamanho da população inicial
-		int gmax = 10000;// número de gerações
+		int gmax = 20000;// número de gerações
 		int descendentes = 25; // lamba, numero de descendentes
 		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
+		int controle = 0;
 		double cMutacao = 0.8; // coeficiente de mutação
 		double cBuscaLocal = 0.3; // coeficiente de busca local
 
@@ -82,17 +83,15 @@ public class Main {
 					// são selecionados números aleatórios que serão utilizados para pegar os veículos
 					Random rnd = new Random();
 					int k = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
-					int n;
-					// os veículos são selecionados
-					Veiculo v1 = rotaClonada.listaVeiculos.get(k);
-					v1 = (Veiculo) rotaClonada.listaVeiculos.get(k).clone();
-					if(k < rotaClonada.getVeiculosUtilizados() - 1) {
-						n = k + 1;
-					}else
-						n = lv;
+					int n = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
 					
+					while(k == n) {
+						n = rnd.nextInt(rotaClonada.getVeiculosUtilizados());
+					}
+					// os veículos são selecionados
+					Veiculo v1 = rotaClonada.listaVeiculos.get(k);		
 					Veiculo v2 = rotaClonada.listaVeiculos.get(n);
-					v2 = (Veiculo) rotaClonada.listaVeiculos.get(n).clone();
+
 					//gerar (lambda/mu) filhos
 					for(int i = 0; i < (descendentes/numeroDeRotas); i++) {
 
@@ -129,8 +128,19 @@ public class Main {
 					menorCustoDescendente = r.getCustoTotalRota();
 					melhorRota = r;
 				}
+				else
+					controle++;
 			}
 
+			
+			if(controle > 2000)
+				cBuscaLocal = 0.6;
+			else if(controle > 4000) {
+				cMutacao = 0.6;
+			}
+			else if(controle > 6000)
+				cBuscaLocal = 0.8;
+			
 			System.out.println(geracoes + " " + melhorRota.getCustoTotalRota());
 			geracoes++;
 

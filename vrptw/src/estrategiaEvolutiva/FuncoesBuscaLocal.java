@@ -35,7 +35,7 @@ public class FuncoesBuscaLocal {
 		giantTour.add(deposito);
 
 		//a lista de veículos é percorrida
-		for(int i = 0; i <= veiculosUtilizados; i++) {
+		for(int i = 0; i < veiculosUtilizados; i++) {
 
 			//um veículo é selecionado
 			Veiculo v = listaVeiculos.get(i);
@@ -58,6 +58,7 @@ public class FuncoesBuscaLocal {
 
 
 		}
+
 	}
 }
 		
