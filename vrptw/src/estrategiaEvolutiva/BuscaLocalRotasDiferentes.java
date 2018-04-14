@@ -22,6 +22,8 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
 
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
@@ -35,7 +37,7 @@ public class BuscaLocalRotasDiferentes {
 					//remove-se o cliente U no primeiro veículo
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 					//insere-se o cliente U após o cliente V no segundo veículo
-					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteU);
+					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteU);
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
@@ -84,6 +86,10 @@ public class BuscaLocalRotasDiferentes {
 				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
+					continue;
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2).getNumero() == 0)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -152,7 +158,10 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
-			
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2).getNumero() == 0)
+					continue;
 				
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
@@ -289,7 +298,9 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
-		
+				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
+
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);

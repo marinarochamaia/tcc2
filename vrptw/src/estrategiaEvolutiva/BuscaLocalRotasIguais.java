@@ -26,7 +26,9 @@ public class BuscaLocalRotasIguais {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
-
+				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
+				
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 
@@ -34,7 +36,8 @@ public class BuscaLocalRotasIguais {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 
 				//o cliente U é inserido após o cliente V
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteU);
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v + 1, clienteU);
+				
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -229,6 +232,8 @@ public class BuscaLocalRotasIguais {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+					continue;
 
 				//o cliente que será adicionado é selecionado
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
@@ -343,7 +348,10 @@ public class BuscaLocalRotasIguais {
 				Cliente x = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(i);
 				//o segundo cliente visitado é o da posição i + k (uma varíavel qualquer) mod tamanho do vetor
 				Cliente y = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get((i+d)%rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size());
-
+				
+				if(x.getNumero() == 0 || y.getNumero() == 0)
+					continue;
+				
 				//as posições dos clientes que sofrerão mudanças nas posições são encontradas
 				int posX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.indexOf(x) + 1;
 				int posY = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.indexOf(y) - 1;
