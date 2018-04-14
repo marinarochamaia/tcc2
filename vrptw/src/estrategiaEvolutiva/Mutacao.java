@@ -13,7 +13,7 @@ public class Mutacao {
 		Random rnd = new Random();
 		double m = rnd.nextDouble();
 
-		
+
 		//o giant tour é percorrido
 		for(int j = 0; j < rotaClonada.listaClientes.size(); j++) {
 			
@@ -21,15 +21,14 @@ public class Mutacao {
 			if(m <= cMutacao) {
 				
 				//se os clientes visitados forem o depósito ou iguais a mutação não é feita
-				if(rotaClonada.listaClientes.get(i) == deposito || rotaClonada.listaClientes.get(j) == deposito || i == j)
+				if(rotaClonada.listaClientes.get(i).getNumero() == 0 || rotaClonada.listaClientes.get(j).getNumero() == 0 || i == j)
 					continue;
 
 					Collections.swap(rotaClonada.listaClientes, i, j);
-					Collections.swap(rotaClonada.listaClientes, i + 5, j);
 					
 			}
 		}
-		
+
 		//o giant tour é subdividido em ordens de visitação de cada veículo
 		rotaClonada.criaOrdemDeVisitacao(rotaClonada.listaVeiculos.size(), rotaClonada.listaVeiculos, rotaClonada.listaClientes, deposito,
 					matrizDeDistancias , multa);

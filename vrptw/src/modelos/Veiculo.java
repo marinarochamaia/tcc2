@@ -52,57 +52,55 @@ public class Veiculo implements Cloneable {
 
 	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
 		
-		//o custo e o tempo do veículo são resetados
-		setCustoVeiculo(0);
-		setTempoVeiculo(0);
-		
+	
 		//variáveis para armazenar os valores de tempo e custo dos veículos
-		double tempoVeiculo = 0;
-		double custoVeiculo = 0;
+		double auxTempo = 0.0;
+		double auxCusto = 0.0;
 
 		//percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
 			//o tempo e o custo inicialmente são dados pela distância de um ponto ao outro
-			tempoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
-			custoVeiculo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
+			auxTempo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
+			auxCusto += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 
-			
 			//se o veículo chega dentro da janela
 			//soma-se ao tempo a duração do serviço
-			if (tempoVeiculo >= ordemDeVisitacao.get(row).getInicioJanela()
-					&& tempoVeiculo <= ordemDeVisitacao.get(row).getFimJanela()) {
-				
-				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
+			if (auxTempo >= ordemDeVisitacao.get(row).getInicioJanela()
+					&& auxTempo <= ordemDeVisitacao.get(row).getFimJanela()) {
 
+				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 			}
 			// se o veículo chega antes da janela
 			//soma-se ao tempo o tempo de espera e a duração do serviço
 			//soma-se ao custo o tempo de espera e a multa
-			else if (tempoVeiculo < ordemDeVisitacao.get(row).getInicioJanela()) {
+			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {
 				
-				double tempoDeEspera = ordemDeVisitacao.get(row).getInicioJanela() - tempoVeiculo;
-				tempoVeiculo += tempoDeEspera;
-				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
-				custoVeiculo += tempoDeEspera;
-				custoVeiculo += multa;
-				
+				double tempoDeEspera = ordemDeVisitacao.get(row).getInicioJanela() - auxTempo;
+
+				auxTempo += tempoDeEspera;
+				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
+				auxCusto += tempoDeEspera;
+				auxCusto += multa;
+
 			}
 			// se o veículo chega depois da janela
 			//soma-se ao tempo a duração do serviço
 			//soma-se ao custo a multa
-			else if (tempoVeiculo > ordemDeVisitacao.get(row).getFimJanela()) {
+			else if (auxTempo > ordemDeVisitacao.get(row).getFimJanela()) {
 				
-				tempoVeiculo += ordemDeVisitacao.get(row).getDuracaoServico();
-				custoVeiculo += multa;
-				
+				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
+				auxCusto += multa;
+
 			}		
 		}
-		
+		//o custo e o tempo do veículo são resetados
+		setCustoVeiculo(0);
+		setTempoVeiculo(0);
 		//as variáveis do veículo são setadas
-		setTempoVeiculo(tempoVeiculo);
-		setCustoVeiculo(custoVeiculo);
-		
+		setTempoVeiculo(auxTempo);
+		setCustoVeiculo(auxCusto);
+
 	}
 
     @Override

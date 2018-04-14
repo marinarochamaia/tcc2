@@ -15,15 +15,13 @@ public class FuncoesBuscaLocal {
 		rotaClonada.resetCustoTotalRota();
 
 		//a lista de veículos utilizados é percorrida
-		for (int l = 0; l < rotaClonada.getVeiculosUtilizados(); l++) {
-
-			//um veículo é selecionado no array de veículos
-			Veiculo v3 = rotaClonada.listaVeiculos.get(l);
+		for (int l = 1; l < rotaClonada.getVeiculosUtilizados(); l++) {
 
 			//o custo do veículo analisado é calculado
-			v3.calculaCustos(matrizDeDistancias, multa);
+			rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
+			
 			//é somado o custo deste veículo ao custo total da rota 
-			rotaClonada.setCustoTotalRota(v3.getCustoVeiculo());
+			rotaClonada.setCustoTotalRota(rotaClonada.listaVeiculos.get(l).getCustoVeiculo());
 
 		}
 	}
@@ -37,13 +35,11 @@ public class FuncoesBuscaLocal {
 		//a lista de veículos é percorrida
 		for(int i = 0; i < veiculosUtilizados; i++) {
 
-			//um veículo é selecionado
-			Veiculo v = listaVeiculos.get(i);
-
 			//a lista de clientes deste veículo é percorrida
-			for(int j = 0; j < v.ordemDeVisitacao.size(); j++) {
+			for(int j = 0; j < listaVeiculos.get(i).ordemDeVisitacao.size(); j++) {
 
-				Cliente clienteAtual = v.ordemDeVisitacao.get(j);
+				Cliente clienteAtual = listaVeiculos.get(i).ordemDeVisitacao.get(j);
+	
 
 				//verificação se o cliente atual não é o depósito
 				if(clienteAtual.getNumero() == 0) 				

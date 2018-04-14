@@ -7,11 +7,10 @@ import java.util.Random;
 
 import modelos.Cliente;
 import modelos.Rota;
-import modelos.Veiculo;
 
 public class BuscaLocal {
 
-	public void fazBuscaLocal(Veiculo v1, Veiculo v2, Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
+	public void fazBuscaLocal(int k, int n, Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
 			double cBuscaLocal, Cliente deposito) throws CloneNotSupportedException{
 
 		Random rnd = new Random();
@@ -41,7 +40,7 @@ public class BuscaLocal {
 				BuscaLocalRotasDiferentes blrd = new BuscaLocalRotasDiferentes();
 				BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais();
 				
-				ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+				ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 13));
 				Collections.shuffle(operacoes);	
 
 				for(Integer o : operacoes) {
@@ -49,24 +48,24 @@ public class BuscaLocal {
 					switch (o) {
 					
 					case 1: {
-
-						blri.inserirApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-
+						
+						blri.inserirApos(rotaClonada, k, matrizDeDistancias, multa, deposito);
+						
 						break;
 						
 					}
 
 					case 2: {
-						
-						blri.inserirDoisApos(rotaClonada, v1, matrizDeDistancias, multa, deposito);
-						
+
+						blri.inserirDoisApos(rotaClonada, k, matrizDeDistancias, multa, deposito);
+
 						break;
 
 					}
 					
 					case 3: {
 
-						blri.inserirDoisAposInvertido(rotaClonada, v1, matrizDeDistancias, multa, deposito);
+						blri.inserirDoisAposInvertido(rotaClonada, k, matrizDeDistancias, multa, deposito);
 						
 						break;
 
@@ -74,7 +73,7 @@ public class BuscaLocal {
 
 					case 4: {
 
-						blri.swap(rotaClonada, v1, matrizDeDistancias, multa, deposito);
+						blri.swap(rotaClonada, k, matrizDeDistancias, multa, deposito);
 						
 						break;
 
@@ -82,7 +81,7 @@ public class BuscaLocal {
 
 					case 5: {
 
-						blri.trocaDuasPosicoesComUmaPosicao(rotaClonada, v1, matrizDeDistancias, multa, deposito);
+						blri.trocaDuasPosicoesComUmaPosicao(rotaClonada, k, matrizDeDistancias, multa, deposito);
 
 						break;
 
@@ -90,46 +89,46 @@ public class BuscaLocal {
 
 					case 6: {
 
-						blri.trocaDuasPosicoesComDuasPosicoes(rotaClonada, v1, matrizDeDistancias, multa, deposito);
+						blri.trocaDuasPosicoesComDuasPosicoes(rotaClonada, k, matrizDeDistancias, multa, deposito);
 
 						break;
 
 					}
 
 					case 7: {
-
-						blrd.insereApos(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+						
+						blrd.insereApos(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 						break;
 
 					}
 
 					case 8: {
-						
-						blrd.insereDuasPosicoesAposUma(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+
+						blrd.insereDuasPosicoesAposUma(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 						
 						break;
 
 					}
 
 					case 9: {
-						
-						blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+
+						blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 						
 						break;
 
 					}
 
 					case 10: {
-
-						blrd.trocaPosicoes(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+						
+						blrd.trocaPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 						break;
 					}
 
 					case 11: {
 
-						blrd.trocaDuasPosicoesComUmaPosicao(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+						blrd.trocaDuasPosicoesComUmaPosicao(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 	
 						break;
 
@@ -137,7 +136,7 @@ public class BuscaLocal {
 
 					case 12: {
 
-						blrd.trocaDuasPosicoesComDuasPosicoes(rotaClonada, v1, v2, multa, matrizDeDistancias, deposito);
+						blrd.trocaDuasPosicoesComDuasPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 						break;
 
@@ -145,7 +144,7 @@ public class BuscaLocal {
 
 					case 13: {
 
-						blri.doisopt(rotaClonada, v1, matrizDeDistancias, multa, deposito);
+						blri.doisopt(rotaClonada, k, matrizDeDistancias, multa, deposito);
 
 						break;
 
