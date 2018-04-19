@@ -208,7 +208,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		}
 		return 0;
 	}
-
+    
 	@Override
 	public String toString() {
 		return listaClientes.toString();

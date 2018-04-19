@@ -35,6 +35,7 @@ public class Main {
 		// matriz que salva as distâncias de todos os clientes para os outros
 		double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()]; 
 		Rota melhorRota = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
+		melhorRota.setCustoTotalRota(Double.MAX_VALUE);
 		
 		// args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será
 		// lido
@@ -120,10 +121,9 @@ public class Main {
 			menorCustoDescendente = Double.MAX_VALUE;
 			for (int i = 0; i < novaPopulacao.size(); i++) {
 
-				if (menorCustoDescendente >	novaPopulacao.get(i).getCustoTotalRota()) {
+				if (menorCustoDescendente >= novaPopulacao.get(i).getCustoTotalRota())
 					menorCustoDescendente = novaPopulacao.get(i).getCustoTotalRota();
-					melhorRota = novaPopulacao.get(i);
-				}
+				
 			}
 
 			BigDecimal bd3 = new BigDecimal(menorCustoDescendente).setScale(2, RoundingMode.HALF_EVEN);			
@@ -131,6 +131,13 @@ public class Main {
 			geracoes++;
 
 		} // fecha while
+
+		for (int i = 0; i < novaPopulacao.size(); i++) {
+			if(novaPopulacao.get(i).getCustoTotalRota() < melhorRota.getCustoTotalRota()) {
+				melhorRota = (Rota) novaPopulacao.get(i).getClone(melhorRota);
+			}
+		}
+
 
 		// menor custo final é encontrado
 		if (menorCusto < menorCustoDescendente) {
