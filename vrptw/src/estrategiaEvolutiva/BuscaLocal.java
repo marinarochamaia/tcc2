@@ -19,7 +19,7 @@ public class BuscaLocal {
 		//a busca local só é feita se o fator pl for atendido
 		if (bl <= cBuscaLocal){
 			int count = 0;
-			while(count <= rotaClonada.listaClientes.size()/2) {	
+			while(count <= 1) {	
 				count++;
 
 				//1) remove u e insere após v;

@@ -211,6 +211,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
     
 	@Override
 	public String toString() {
-		return listaClientes.toString();
+		return listaClientes.toString() + "\n";
 	}
 }
