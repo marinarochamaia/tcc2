@@ -28,7 +28,7 @@ public class FuncoesBuscaLocal {
 
 	//função para atualizar as posições dos clientes após a busca local
 	public void atualizaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos, int veiculosUtilizados, Cliente deposito) {
-
+		
 		giantTour.clear();
 		giantTour.add(deposito);
 
@@ -39,13 +39,9 @@ public class FuncoesBuscaLocal {
 			for(int j = 0; j < listaVeiculos.get(i).ordemDeVisitacao.size(); j++) {
 
 				Cliente clienteAtual = listaVeiculos.get(i).ordemDeVisitacao.get(j);
-	
 
 				//verificação se o cliente atual não é o depósito
-				if(clienteAtual.getNumero() == 0) 				
-					continue;
-				else 
-				{
+				if(clienteAtual.getNumero() != 0) {
 					//o cliente atual é adicionado ao giant tour
 					giantTour.add(clienteAtual);
 
@@ -55,6 +51,7 @@ public class FuncoesBuscaLocal {
 
 		}
 
+		
 	}
 }
 		

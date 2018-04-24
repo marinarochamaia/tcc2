@@ -151,7 +151,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 						possivelRotaVeiculo.add(clienteAtual);
 						veiculo.setCargaOcupada(clienteAtual.getDemanda());
 					}
-					contadorDeCliente++;
+					contadorDeCliente++;					
 				}
 				// se não, é feito um break e inicia a rota do próximo veículo
 				else
@@ -164,11 +164,12 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				veiculo.ordemDeVisitacao.add(deposito);
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
+
 			} else
 				break;
 
 			setVeiculosUtilizados(j+1);
-
+	
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa);
 			setCustoTotalRota(veiculo.getCustoVeiculo());

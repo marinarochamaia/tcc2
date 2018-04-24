@@ -72,7 +72,7 @@ public class BuscaLocalRotasIguais {
 		//percorre o array da ordem de visitação
 		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			int x = u + 1;
-			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); v++) {
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
