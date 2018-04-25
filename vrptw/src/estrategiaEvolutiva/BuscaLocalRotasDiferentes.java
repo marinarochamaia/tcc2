@@ -50,7 +50,7 @@ public class BuscaLocalRotasDiferentes {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -122,7 +122,7 @@ public class BuscaLocalRotasDiferentes {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -185,7 +185,7 @@ public class BuscaLocalRotasDiferentes {
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
-					continue;
+					break;
 				
 				
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
@@ -253,7 +253,7 @@ public class BuscaLocalRotasDiferentes {
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
-					continue;
+					break;
 				
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -341,7 +341,7 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 					
 				}
 				//se não hover melhora, a troca é desfeita
@@ -432,7 +432,7 @@ public class BuscaLocalRotasDiferentes {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {

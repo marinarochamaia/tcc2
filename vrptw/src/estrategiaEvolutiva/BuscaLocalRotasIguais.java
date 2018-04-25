@@ -47,7 +47,7 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -100,7 +100,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -157,7 +157,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -201,7 +201,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else
@@ -249,7 +249,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -301,7 +301,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
@@ -389,7 +389,7 @@ public class BuscaLocalRotasIguais {
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					break;
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
