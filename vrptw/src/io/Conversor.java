@@ -35,6 +35,7 @@ public class Conversor {
 		else
 			fimJanela = -1; // Senão é dado o valor padrão igual a -1 para o mesmo
 
+		//o cliente é instanciado
 		Cliente cliente = new Cliente(numero, coordenadaX, coordenadaY, demanda, duracaoServico, frequenciaVisita,
 				possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela);
 
@@ -49,8 +50,7 @@ public class Conversor {
 			int posicaoDaLinha = 1; // Contador da posição da linha atual
 			int quantidadeDeVeiculos = 0; // Contador da quantidade de veículos
 			int quantidadeDeClientes = 0; // Contador da quantidade de clientes
-			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo)); // Leitor que utiliza buffer
-			// para a leitura do arquivo
+			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo)); // Leitor que utiliza buffer para a leitura do arquivo
 
 			// Lê-se a primeira linha
 			String linhaAtual = leitor.readLine();

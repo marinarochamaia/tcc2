@@ -168,6 +168,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			} else
 				break;
 
+			//os veículos utilizados são setados
 			setVeiculosUtilizados(j+1);
 	
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
@@ -201,17 +202,23 @@ public class Rota implements Cloneable, Comparable<Rota> {
     }
 
 	public int compareTo(Rota rota) {
+		
 		if (this.custoTotalRota < rota.custoTotalRota) {
 			return -1;
 		}
+		
 		if (this.custoTotalRota > rota.custoTotalRota) {
 			return 1;
 		}
+		
 		return 0;
+		
 	}
     
 	@Override
 	public String toString() {
+		
 		return listaClientes.toString() + "\n";
+		
 	}
 }

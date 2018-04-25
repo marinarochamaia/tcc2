@@ -29,7 +29,10 @@ public class FuncoesBuscaLocal {
 	//função para atualizar as posições dos clientes após a busca local
 	public void atualizaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos, int veiculosUtilizados, Cliente deposito) {
 		
+		//o giant tour é limpo para receber a nova configuração
 		giantTour.clear();
+		
+		//é adicionado o depósito
 		giantTour.add(deposito);
 
 		//a lista de veículos é percorrida
@@ -47,11 +50,7 @@ public class FuncoesBuscaLocal {
 
 				}
 			}
-
-
 		}
-
-		
 	}
 }
 		

@@ -22,10 +22,12 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				
+				//verificação se a posição onde será inserido o cliente não é a posição do depósito
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
 					continue;
 
-				//os clientes que serão visitados são selecionados
+				//o cliente que será visitado é selecionado
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 
 				//a carga ocupado do veículo que terá um cliente a mais é atualizada
@@ -49,14 +51,16 @@ public class BuscaLocalRotasDiferentes {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
 					break;
+					
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
 
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
-
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
 				}
@@ -65,7 +69,6 @@ public class BuscaLocalRotasDiferentes {
 
 		//e é calculado novamente o custo (pois foi defeita a troca)
 		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 
 	}
 
@@ -87,6 +90,8 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				
+				//verificação se as posições onde serão inseridos os clientes não são posições do depósito
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
 					continue;
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2).getNumero() == 0)
@@ -110,6 +115,7 @@ public class BuscaLocalRotasDiferentes {
 					//os cliente U e X são inseridos após o cliente V
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteU);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 2, clienteX);
+					
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
@@ -121,16 +127,21 @@ public class BuscaLocalRotasDiferentes {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
 					break;
+					
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
+					
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 					
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteX);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+				
 				}
 			}
 		}
@@ -158,6 +169,8 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				
+				//verificação se as posições onde serão inseridos os clientes não são posições do depósito
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
 					continue;
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2).getNumero() == 0)
@@ -166,7 +179,6 @@ public class BuscaLocalRotasDiferentes {
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
-
 
 				//a carga ocupado do veículo que terá dois clientes a mais é atualizada
 				double cargaOcupadaV2 = rotaClonada.listaVeiculos.get(n).getCargaOcupada() + clienteU.getDemanda() + clienteX.getDemanda();
@@ -182,11 +194,11 @@ public class BuscaLocalRotasDiferentes {
 					//são inseridos X e U no segundo veículo
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteX);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 2, clienteU);
+					
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
-					break;
-				
+					continue;
 				
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -194,16 +206,21 @@ public class BuscaLocalRotasDiferentes {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					
+					break;
+				
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
+				
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteX);
 					
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+				
 				}
 			}
 		}
@@ -240,6 +257,7 @@ public class BuscaLocalRotasDiferentes {
 				//verificação se a carga máxima do veículo é respeitada
 				//se for, a troca do cliente U com o cliente V é feita
 				if(cargaOcupadaV1 <= rotaClonada.listaVeiculos.get(k).getCargaMaxima() && cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
+				
 					//remove-se a posição u no primeiro veículo
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 					//insere-se nesta posição o cliente V
@@ -253,7 +271,7 @@ public class BuscaLocalRotasDiferentes {
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
-					break;
+					continue;
 				
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -261,16 +279,21 @@ public class BuscaLocalRotasDiferentes {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					continue;
+					
+					break;
+					
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
+					
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(v);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteV);
 
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(u);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
+				
 				}
 			}
 		}
@@ -298,6 +321,8 @@ public class BuscaLocalRotasDiferentes {
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v).getNumero() == 0)
 					continue;
+				
+				//verificação se a posição onde será inserido o cliente não é posição do depósito
 				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1).getNumero() == 0)
 					continue;
 
@@ -328,6 +353,7 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteU);
 					//insere-se o cliente X após a posição v 
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteX);
+					
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
@@ -341,11 +367,13 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
 					break;
 					
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
+					
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteV);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteX);
@@ -353,6 +381,7 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteV);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+				
 				}
 			}
 		}
@@ -361,7 +390,6 @@ public class BuscaLocalRotasDiferentes {
 		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
 	}
-	
 	
 	//visita-se quatro clientes, U, X, V e Y, e então troca-se as posições de U e X com as posições de V e Y
 	public void trocaDuasPosicoesComDuasPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
@@ -420,6 +448,7 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteY);
 					//insere-se o cliente X nesta poosição
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(y, clienteX);										
+				
 				}
 				//se a carga máxima não for respeitada continua-se percorrendo o array de ordem de visitação
 				else
@@ -431,11 +460,15 @@ public class BuscaLocalRotasDiferentes {
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+					
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
 					break;
+				
 				}
 				//se não hover melhora, a troca é desfeita
 				else {
+					
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteV);
 
@@ -447,6 +480,7 @@ public class BuscaLocalRotasDiferentes {
 
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteY);											
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+				
 				}
 			}
 		}
@@ -455,5 +489,4 @@ public class BuscaLocalRotasDiferentes {
 		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
-	
 }

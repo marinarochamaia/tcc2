@@ -21,6 +21,7 @@ public class Mutacao {
             //a mutação só é feita se o fator de mutação for atendido
             if (m <= cMutacao) {
 
+            	//enquanto k for igual a j é selecionado um novo valor
                 do {
                     k = rnd.nextInt(rotaClonada.listaClientes.size());
                 } while (j == k);
