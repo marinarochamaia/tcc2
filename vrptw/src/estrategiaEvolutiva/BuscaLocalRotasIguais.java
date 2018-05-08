@@ -49,6 +49,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -106,6 +108,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -166,6 +170,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -214,17 +220,21 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
 				}
 				//se não hover melhora, a troca é desfeita
-				else
+				else {
+					
 					Collections.swap(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao, u, v);
 
 					//e é calculado novamente o custo (pois foi defeita a troca)
 					fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
+					
+				}
 			}
 		}
 	}
@@ -270,6 +280,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -324,6 +336,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -416,6 +430,8 @@ public class BuscaLocalRotasIguais {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 

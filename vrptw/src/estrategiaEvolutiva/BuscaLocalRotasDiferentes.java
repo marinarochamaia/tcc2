@@ -53,6 +53,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -128,6 +130,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -207,6 +211,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -279,6 +285,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -364,6 +372,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 
@@ -458,6 +468,8 @@ public class BuscaLocalRotasDiferentes {
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					continue;
 

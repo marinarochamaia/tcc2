@@ -19,7 +19,7 @@ public class Main {
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoTotal = 0; // menor custo Final
 		int numeroDeRotas = 5; // mu, tamanho da população inicial
-		int gmax = 10000;// número de gerações
+		int gmax = 1000;// número de gerações
 		int descendentes = 25; // lamba, número de descendentes
 		int multa = 0;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; // coeficiente de mutação
@@ -128,9 +128,7 @@ public class Main {
 			Collections.sort(populacao);
 
 			// é feito um corte para mu indivíduos
-			for (int p = (populacao.size() - 1); p >= numeroDeRotas; p--) {
-				populacao.remove(p);
-			}
+			populacao.subList(numeroDeRotas, populacao.size()).clear();
 
 			// busca pelo menor custo da nova populacao
 			menorCustoDescendente = Double.MAX_VALUE;
@@ -140,13 +138,17 @@ public class Main {
 					menorCustoDescendente = populacao.get(i).getCustoTotalRota();
 				}
 			}
-
+			
+			//a lista auxiliar é limpa
+			aux.clear();
+			
 			//a melhor rota é selecionada
 			melhorRota = (Rota) populacao.get(0).getClone(melhorRota);
 
 			//é impresso o custo encontrado nessa geração
 			BigDecimal bd3 = new BigDecimal(menorCustoDescendente).setScale(2, RoundingMode.HALF_EVEN);
 			System.out.println(geracoes + " " + bd3);
+			
 			geracoes++;
 
 		}
@@ -154,16 +156,20 @@ public class Main {
 
 		// menor custo final é encontrado
 		if (menorCusto < menorCustoDescendente) {
+			
 			menorCustoTotal = menorCusto;
+			
 		} else {
 
 			menorCustoTotal = menorCustoDescendente;
+			
+		}
+		
+		//é impressa a melhor rota
+		for (int i = 0; i < melhorRota.getNumeroDeVeiculos(); i++) {
+			
+			System.out.println((i + 1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 
-			//é impressa a melhor rota
-			for (int i = 0; i < melhorRota.getNumeroDeVeiculos(); i++) {
-				System.out.println((i + 1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
-
-			}
 		}
 
 		//é impresso o menor custo antes da estratégia evolutiva
