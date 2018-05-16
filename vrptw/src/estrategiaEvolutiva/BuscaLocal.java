@@ -18,12 +18,17 @@ public class BuscaLocal {
 
 		//a busca local só é feita se o fator pl for atendido
 		if (bl <= cBuscaLocal){
-			for(int k = 0; k < rotaClonada.getNumeroDeVeiculos(); k++) {
-				for(int n = k + 1; n < rotaClonada.getNumeroDeVeiculos(); n++) {
 
-					int count = 0;
-					while(count <= rotaClonada.listaClientes.size()/10) {	
-						count++;
+			int count = 0;
+			
+			while(count <= rotaClonada.listaClientes.size()/10) {	
+				count++;			
+
+				for(int k = 0; k < rotaClonada.getNumeroDeVeiculos(); k++) {
+					for(int n = 1; n < rotaClonada.getNumeroDeVeiculos(); n++) {
+
+						if(k == n)
+							continue;
 
 						//1) remove u e insere após v;
 						//2) remove u e x e insere u e x após v;

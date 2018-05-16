@@ -18,8 +18,11 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			for(int v = u + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {	
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			for(int v =  1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				
+				if(u == v)
+					continue;
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito 
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
@@ -76,9 +79,12 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = u + 1;
-			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); v++) {
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 1;
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); v++) {
+				
+				if(u == x || u == v || x == v)
+					continue;
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
@@ -138,10 +144,13 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = u + 1;
-			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 1;
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 
+				if(u == x || u == v || x == v)
+					continue;
+				
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
 					continue;
@@ -200,8 +209,11 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			for(int v = u + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			for(int v = 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				
+				if(u == v)
+					continue;
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
@@ -246,9 +258,13 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = u + 1;
-			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 1;
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				
+				if(u == x || u == v || x == v)
+					continue;
+
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
@@ -309,10 +325,14 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = u + 1;
-			for(int v = x + 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
-				int y = v + 1;
+		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 1;
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				int y = 3;
+				
+				if(u == x || u == v || u == y || x == v || x == y || v == y)
+					continue;
+
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito							
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
@@ -380,9 +400,9 @@ public class BuscaLocalRotasIguais {
 		}
 
 		//percorre o array da ordem de visitação até a metade
-		for(int i = 2; i < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() / 2; i++) {
+		for(int i = 0; i < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() / 2; i++) {
 			//percorre todo o array de ordem de visitação
-			for(int j = 2; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; j++) {
+			for(int j = 0; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); j++) {
 
 				//o primeiro cliente visitado é o da posição i
 				Cliente x = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(i);
