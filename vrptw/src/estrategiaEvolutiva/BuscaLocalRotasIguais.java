@@ -21,17 +21,18 @@ public class BuscaLocalRotasIguais {
 		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			for(int v =  1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
+				//verificação se as posições não são iguais
 				if(u == v)
 					continue;
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito 
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
 
 				//verificação se a posição onde será inserido o cliente não é a posição do depósito 
-				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1) == deposito)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -81,17 +82,18 @@ public class BuscaLocalRotasIguais {
 		//percorre o array da ordem de visitação
 		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			int x = 1;
-			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); v++) {
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
+				//verificação se as posições não são iguais
 				if(u == x || u == v || x == v)
 					continue;
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -148,15 +150,16 @@ public class BuscaLocalRotasIguais {
 			int x = 1;
 			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 
+				//verificação se as posições não são iguais
 				if(u == x || u == v || x == v)
 					continue;
 				
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -212,13 +215,14 @@ public class BuscaLocalRotasIguais {
 		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			for(int v = 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
+				//verificação se as posições não são iguais
 				if(u == v)
 					continue;
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
 
 				//é feito o swap(troca de posições)
@@ -261,21 +265,21 @@ public class BuscaLocalRotasIguais {
 		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			int x = 1;
 			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
-				
+
+				//verificação se as posições não são iguais
 				if(u == x || u == v || x == v)
 					continue;
 
-
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
 
 				//verificação se a posição onde será inserido o cliente não é a posição do depósito
-				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1).getNumero() == 0)
+				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1) == deposito)
 					continue;
 
 				//o cliente que será adicionado é selecionado
@@ -330,18 +334,18 @@ public class BuscaLocalRotasIguais {
 			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				int y = 3;
 				
+				//verificação se as posições não são iguais
 				if(u == x || u == v || u == y || x == v || x == y || v == y)
 					continue;
 
-
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito							
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u).getNumero() == 0)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v).getNumero() == 0)
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
 					continue;
-				if(y >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(y).getNumero() == 0)
+				if(y >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(y) == deposito)
 					continue;
 
 				//é feito o swap (troca de posições) entre os clientes visitados
@@ -401,8 +405,8 @@ public class BuscaLocalRotasIguais {
 
 		//percorre o array da ordem de visitação até a metade
 		for(int i = 0; i < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() / 2; i++) {
-			//percorre todo o array de ordem de visitação
-			for(int j = 0; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size(); j++) {
+			//percorre todo o array de ordem de visitação 
+			for(int j = 0; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; j++) {
 
 				//o primeiro cliente visitado é o da posição i
 				Cliente x = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(i);
@@ -410,7 +414,7 @@ public class BuscaLocalRotasIguais {
 				Cliente y = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get((i+d)%rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size());
 
 				//se os clientes selecionados forem o depósito não é feita a troca
-				if(x.getNumero() == 0 || y.getNumero() == 0)
+				if(x == deposito || y == deposito)
 					continue;
 
 				//as posições dos clientes que sofrerão mudanças nas posições são encontradas
