@@ -24,8 +24,8 @@ public class BuscaLocal {
 			while(count <= rotaClonada.listaClientes.size()/10) {	
 				count++;			
 
-				for(int k = 0; k < rotaClonada.getNumeroDeVeiculos(); k++) {
-					for(int n = 1; n < rotaClonada.getNumeroDeVeiculos(); n++) {
+				for(int k = 0; k < rotaClonada.getVeiculosUtilizados(); k++) {
+					for(int n = 1; n < rotaClonada.getVeiculosUtilizados(); n++) {
 
 						if(k == n)
 							continue;

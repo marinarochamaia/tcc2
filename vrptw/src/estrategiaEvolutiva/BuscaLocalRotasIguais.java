@@ -11,6 +11,7 @@ public class BuscaLocalRotasIguais {
 
 	FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
 
+	//1
 	//visita-se dois clientes U e V, o cliente U é inserido após o cliente V	
 	public void inserirApos(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
 
@@ -18,21 +19,17 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			for(int v =  1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
 				//verificação se as posições não são iguais
 				if(u == v)
 					continue;
-
+				
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito 
 				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
 					continue;
 				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
-					continue;
-
-				//verificação se a posição onde será inserido o cliente não é a posição do depósito 
-				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1) == deposito)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -42,8 +39,7 @@ public class BuscaLocalRotasIguais {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 
 				//o cliente U é inserido após o cliente V
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v + 1, clienteU);
-
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteU);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -73,6 +69,7 @@ public class BuscaLocalRotasIguais {
 		}
 	}
 
+	//2
 	//visita-se três clientes, U, X e V, os clientes U e X são inseridos após o cliente V
 	public void inserirDoisApos(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
 
@@ -80,96 +77,115 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = 1;
-			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 2;
+			for(int v = 3; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
 				//verificação se as posições não são iguais
-				if(u == x || u == v || x == v)
+				if(u == x || u == v || x == v) {
+					x++;
 					continue;
+				}
 
 				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito) {
+					x++;
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
+				}
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito) {
+					x++;
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
+				}
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito) {
+					x++;
 					continue;
+				}
+				
+				//os clientes que serão visitados são selecionados
+				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
+				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
+				
+				//o cliente U é removido de sua posição e inserido após a posição de v
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteU);
+
+				//o cliente X é removido de sua posição e inserido após a posição de v
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteX);
+
+				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
+				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+
+				x++;
+				
+				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+
+					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+					
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+
+					continue;
+
+				}
+				//se não hover melhora, a troca é desfeita
+				else {
+
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
+
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+
+					//e é calculado novamente o custo (pois foi defeita a troca)
+					fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+
+				}
+			}
+		}
+	}
+
+	//3
+	//visita-se três clientes, U, X e V, os clientes X e U são inseridos após o cliente V (inverso da anterior)
+	public void inserirDoisAposInvertido(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
+
+		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+
+		//percorre o array da ordem de visitação
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 2;
+			for(int v = 3; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				
+				//verificação se as posições não são iguais
+				if(u == x || u == v || x == v) {
+					x++;
+					continue;
+				}
+
+				//verificação se as posições analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito) {
+					x++;
+					continue;
+				}
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito) {
+					x++;
+					continue;
+				}
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito) {
+					x++;
+					continue;
+				}
 
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
 
-				//o cliente U é removido de sua posição e inserido após a posição de v
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteU);
-
 				//o cliente X é removido de sua posição e inserido após a posição de v
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteX);
-
-				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
-				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-					
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-
-					continue;
-
-				}
-				//se não hover melhora, a troca é desfeita
-				else {
-
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
-
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
-
-					//e é calculado novamente o custo (pois foi defeita a troca)
-					fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
-				}
-			}
-		}
-	}
-
-	//visita-se três clientes, U, X e V, os clientes X e U são inseridos após o cliente V (inverso da anterior)
-	public void inserirDoisAposInvertido(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
-
-		//calcula-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-
-		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = 1;
-			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
-
-				//verificação se as posições não são iguais
-				if(u == x || u == v || x == v)
-					continue;
 				
-				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
-					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
-					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
-					continue;
-
-				//os clientes que serão visitados são selecionados
-				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
-				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);					
-
-				//o cliente X é removido de sua posição e inserido após a posição de v
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteX);
-
 				//o cliente U é removido de sua posição e inserido após a posição de v
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteU);
@@ -177,6 +193,8 @@ public class BuscaLocalRotasIguais {
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
+				x++;
+				
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
 				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
@@ -191,11 +209,11 @@ public class BuscaLocalRotasIguais {
 				//se não hover melhora, a troca é desfeita
 				else {
 
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
-
-					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
+					
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteU);
+					rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
 					//e é calculado novamente o custo (pois foi defeita a troca)
 					fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -204,7 +222,7 @@ public class BuscaLocalRotasIguais {
 			}
 		}
 	}
-
+	//4
 	//é feito o SWAP (troca de posições) entre os dois clientes visitados, U e V
 	public void swap(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
 
@@ -212,8 +230,8 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			for(int v = 1; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
 				
 				//verificação se as posições não são iguais
 				if(u == v)
@@ -255,32 +273,37 @@ public class BuscaLocalRotasIguais {
 		}
 	}
 
+	//5
 	//visita-se três clientes, U, X e V, troca-se as posições de U e X com a posição de V
 	public void trocaDuasPosicoesComUmaPosicao(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
-
+		
 		//calcula-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = 1;
-			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 2;
+			for(int v = 3; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2; v++) {
 
 				//verificação se as posições não são iguais
-				if(u == x || u == v || x == v)
+				if(u == x || u == v || x == v) {
+					x++;
 					continue;
+				}
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito) {
+					x++;
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
+				}
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito) {
+					x++;
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
+				}
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito) {
+					x++;
 					continue;
-
-				//verificação se a posição onde será inserido o cliente não é a posição do depósito
-				if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v + 1) == deposito)
-					continue;
+				}
 
 				//o cliente que será adicionado é selecionado
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
@@ -290,10 +313,12 @@ public class BuscaLocalRotasIguais {
 
 				//o cliente X é removido e inserido após a posição de V
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteX);
-				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v + 1, clienteX);
+				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(v, clienteX);
 
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				
+				x++;
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
@@ -321,7 +346,8 @@ public class BuscaLocalRotasIguais {
 			}
 		}
 	}
-
+	
+	//6
 	//visita-se quatro clientes, U, X, V e Y, e então troca-se as posições de U e X com as posições de V e Y
 	public void trocaDuasPosicoesComDuasPosicoes(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {
 
@@ -329,31 +355,49 @@ public class BuscaLocalRotasIguais {
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//percorre o array da ordem de visitação
-		for(int u = 0; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			int x = 1;
-			for(int v = 2; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
-				int y = 3;
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+			int x = 2;
+			for(int v = 3; v < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; v++) {
+				int y = 4;
 				
 				//verificação se as posições não são iguais
-				if(u == x || u == v || u == y || x == v || x == y || v == y)
+				if(u == x || u == v || u == y || x == v || x == y || v == y) {
+					x++;
+					y++;
 					continue;
+				}
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito							
-				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito)
+				if(u >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u) == deposito) {
+					x++;
+					y++;
 					continue;
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
+				}
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito) {
+					x++;
+					y++;
 					continue;
-				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito)
+				}
+				if(v >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(v) == deposito) {
+					x++;
+					y++;
 					continue;
-				if(y >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(y) == deposito)
+				}
+				if(y >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(y) == deposito) {
+					x++;
+					y++;
 					continue;
+				}
 
 				//é feito o swap (troca de posições) entre os clientes visitados
 				Collections.swap(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao, u, v);
 				Collections.swap(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao, x, y);
-
+				
 				//calcula-se a nova função objetivo (custo) para comparar se houve melhora ou não
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				
+				x++;
+				y++;
 
 				//compara-se o novo custo com o anterior para saber se houve melhora ou não
 				//se houver o GiantTour é atualizado e a busca local continua a partir do próximo cliente
@@ -380,6 +424,7 @@ public class BuscaLocalRotasIguais {
 		}	
 	}
 
+	//13
 	//são visitados dois clientes, X e Y, e é feita a inversão das posições dos clientes que estão entre estes
 	//os clientes X e Y não mudam de posição, apenas os clientes entre eles
 	public void doisopt(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) throws CloneNotSupportedException {
@@ -404,9 +449,9 @@ public class BuscaLocalRotasIguais {
 		}
 
 		//percorre o array da ordem de visitação até a metade
-		for(int i = 0; i < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() / 2; i++) {
+		for(int i = 1; i < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() / 2; i++) {
 			//percorre todo o array de ordem de visitação 
-			for(int j = 0; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; j++) {
+			for(int j = 1; j < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; j++) {
 
 				//o primeiro cliente visitado é o da posição i
 				Cliente x = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(i);
