@@ -177,7 +177,7 @@ public class BuscaLocalRotasIguais {
 					x++;
 					continue;
 				}
-
+				
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
@@ -222,6 +222,7 @@ public class BuscaLocalRotasIguais {
 			}
 		}
 	}
+	
 	//4
 	//é feito o SWAP (troca de posições) entre os dois clientes visitados, U e V
 	public void swap(Rota rotaClonada, int k, double [][] matrizDeDistancias, int multa, Cliente deposito) {

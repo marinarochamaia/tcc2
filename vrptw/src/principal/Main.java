@@ -17,11 +17,11 @@ public class Main {
 
 		double menorCusto = 0; // menor custo encontrado na população inicial
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
-		double menorCustoTotal = 0; // menor custo Final
+		double menorCustoFinal = 0; // menor custo Final
 		int numeroDeRotas = 5; // mu, tamanho da população inicial
 		int gmax = 100;// número de gerações
 		int descendentes = 25; // lamba, número de descendentes
-		int multa = 100;// multa aplicada às rotas que não chegarem dentro da janela
+		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.6; // coeficiente de mutação
 		double cBuscaLocal = 0.6; // coeficiente de busca local
 
@@ -66,7 +66,6 @@ public class Main {
 				System.out.println("Rota infactível");
 			}
 		}
-
 
 		// busca pelo menor custo da população inicial
 		menorCusto = Double.MAX_VALUE;
@@ -140,15 +139,14 @@ public class Main {
 
 		}
 
-
 		// menor custo final é encontrado
 		if (menorCusto < menorCustoDescendente) {
 
-			menorCustoTotal = menorCusto;
+			menorCustoFinal = menorCusto;
 
 		} else {
 
-			menorCustoTotal = menorCustoDescendente;
+			menorCustoFinal = menorCustoDescendente;
 
 		}
 
@@ -164,7 +162,7 @@ public class Main {
 		System.out.println("Custo antes da estratégia evolutiva: " + bd1);
 
 		//é impresso o menor custo depois da estratégia evolutiva
-		BigDecimal bd2 = new BigDecimal(menorCustoTotal).setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
 		System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
 	}
