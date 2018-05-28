@@ -21,7 +21,7 @@ public class BuscaLocal {
 
 			int count = 0;
 			
-			while(count <= rotaClonada.listaClientes.size()/10) {	
+			while(count <= rotaClonada.listaClientes.size()/2) {	
 				count++;			
 
 				for(int k = 0; k < rotaClonada.getVeiculosUtilizados(); k++) {
@@ -48,7 +48,7 @@ public class BuscaLocal {
 						BuscaLocalRotasDiferentes blrd = new BuscaLocalRotasDiferentes();
 						BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais(); 
 
-						ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
+						ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 10, 11, 12));
 						Collections.shuffle(operacoes);	
 
 						for(Integer o : operacoes) {
