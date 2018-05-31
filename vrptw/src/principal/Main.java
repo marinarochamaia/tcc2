@@ -19,11 +19,11 @@ public class Main {
 		double menorCustoDescendente = 0;// menor custo encontrado nas novas gerações
 		double menorCustoFinal = 0; // menor custo Final
 		int numeroDeRotas = 5; // mu, tamanho da população inicial
-		int gmax = 1000;// número de gerações
-		int descendentes = 25; // lamba, número de descendentes
-		int multa = 1000;// multa aplicada às rotas que não chegarem dentro da janela
-		double cMutacao = 0.3; // coeficiente de mutação
-		double cBuscaLocal = 0.8; // coeficiente de busca local
+		int gmax = 5000;// número de gerações
+		int descendentes = 250; // lamba, número de descendentes
+		int multa = 0;// multa aplicada às rotas que não chegarem dentro da janela
+		double cMutacao = 0.8; // coeficiente de mutação
+		double cBuscaLocal = 0.3; // coeficiente de busca local
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> aux = new ArrayList<>();
@@ -136,6 +136,17 @@ public class Main {
 			System.out.println(geracoes + " " + bd3);
 
 			geracoes++;
+			
+			if(geracoes == 500) {
+				cMutacao = 0.6;
+				cBuscaLocal = 0.6;
+			}
+			if(geracoes == 1000) {
+				cMutacao = 0.4;
+				cBuscaLocal = 0.8;
+			}
+			if(geracoes == 2000)
+				cMutacao = 0.3;
 
 		}
 

@@ -101,8 +101,7 @@ public class Cliente implements Cloneable {
 		this.numero = numero;
 	}
 
-	//Calcula a distância euclidiana entre o Cliente que chama o método e o cliente
-	//passado como parâmetro
+	//calcula a distância euclidiana entre o Cliente que chama o método e o cliente passado como parâmetro
 	public double distanciaEuclidianaAte(Cliente outroCliente) {
 		
 		double soma = Math.pow(this.coordenadaX - outroCliente.getCoordenadaX(), 2)
@@ -112,7 +111,7 @@ public class Cliente implements Cloneable {
 	
 	}
 
-	// Calcula a distância euclidiana entre duas instâncias
+	//calcula a distância euclidiana entre duas instâncias
 	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB) {
 		
 		return clienteA.distanciaEuclidianaAte(clienteB);

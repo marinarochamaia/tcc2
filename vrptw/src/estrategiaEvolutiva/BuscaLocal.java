@@ -13,21 +13,25 @@ public class BuscaLocal {
 	public void fazBuscaLocal(Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
 			double cBuscaLocal, Cliente deposito) throws CloneNotSupportedException{
 
+		//um número aleatório entre 0 e 1 é selecionado para ser o coeficiente que deve ser atendido para a busca local ser feita
 		Random rnd = new Random();
 		double bl = rnd.nextDouble();
 
-		//a busca local só é feita se o fator pl for atendido
+		//a busca local só é feita se o coeficiente (fator pl) for atendido
 		if (bl <= cBuscaLocal){
 
 			int count = 0;
-			
-			while(count <= rotaClonada.listaClientes.size()/2) {	
+
+			//critério de parada
+			while(count < rotaClonada.listaClientes.size()/20) {	
 				count++;			
 
+				//a lista de veículos utilizados é percorrida para que todos possam passar pela busca local 
 				for(int k = 0; k < rotaClonada.getVeiculosUtilizados(); k++) {
-					for(int n = 1; n < rotaClonada.getVeiculosUtilizados(); n++) {
+					for(int n = 0; n < rotaClonada.getVeiculosUtilizados(); n++) {
 
-						if(k == n)
+						//se os veículos forem iguais, as buscas são feitas na mesma rota
+						if(k == n) 
 							continue;
 
 						//1) remove u e insere após v;
@@ -36,19 +40,12 @@ public class BuscaLocal {
 						//4) troca u e v; (SWAP)
 						//5) troca u e x com v;
 						//6) troca u e x com v e y;
-						//7) remove u e insere após v em veículos diferentes;
-						//8) remove u e x e insere u e x após v;
-						//9) remove u e x e insere x e u após v em veículos diferentes; (posições invertidas)
-						//10) troca u e v em veículos diferentes;
-						//11) troca u e x com v em veículos diferentes;
-						//12) troca u e x com v e y em veículos diferentes;
-						//13) operação 2opt
+						//7) operação 2opt
 
-
+						BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais();
 						BuscaLocalRotasDiferentes blrd = new BuscaLocalRotasDiferentes();
-						BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais(); 
 
-						ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 3, 4, 5, 10, 11, 12));
+						ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13));
 						Collections.shuffle(operacoes);	
 
 						for(Integer o : operacoes) {
@@ -105,15 +102,22 @@ public class BuscaLocal {
 
 							case 7: {
 
-								blrd.insereApos(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
+								blri.doisopt(rotaClonada, k, matrizDeDistancias, multa, deposito);
 
 								break;
 
 							}
 
+							//7) remove u e insere após v em veículos diferentes;
+							//8) remove u e x e insere u e x após v;
+							//9) remove u e x e insere x e u após v em veículos diferentes; (posições invertidas)
+							//10) troca u e v em veículos diferentes;
+							//11) troca u e x com v em veículos diferentes;
+							//12) troca u e x com v e y em veículos diferentes;
+
 							case 8: {
 
-								blrd.insereDuasPosicoesAposUma(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
+								blrd.insereApos(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 								break;
 
@@ -121,7 +125,7 @@ public class BuscaLocal {
 
 							case 9: {
 
-								blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
+								blrd.insereDuasPosicoesAposUma(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 								break;
 
@@ -129,12 +133,20 @@ public class BuscaLocal {
 
 							case 10: {
 
+								blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
+
+								break;
+
+							}
+
+							case 11: {
+
 								blrd.trocaPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 								break;
 							}
 
-							case 11: {
+							case 12: {
 
 								blrd.trocaDuasPosicoesComUmaPosicao(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
@@ -142,27 +154,19 @@ public class BuscaLocal {
 
 							}
 
-							case 12: {
+							case 13: {
 
 								blrd.trocaDuasPosicoesComDuasPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
 
 								break;
 
 							}
-
-							case 13: {
-
-								blri.doisopt(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
-								break;
-
 							}
-
-							}
-						}			
+						}
 					}
 				}
 			}
 		}
 	}
 }
+

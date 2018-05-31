@@ -12,10 +12,12 @@ public class Conversor {
 	private String nomeDoArquivo;
 
 	public Conversor(String nomeDoArquivo) {
+		
 		this.nomeDoArquivo = nomeDoArquivo;
+		
 	}
 
-	//Transforma uma lista de parâmetros em um objeto do tipo Cliente
+	//transforma uma lista de parâmetros em um objeto do tipo Cliente
 	private Cliente decodificaCliente(String[] parametros) {
 		// Decodifica os parâmetros
 		int numero = Integer.valueOf(parametros[0]);
@@ -28,12 +30,14 @@ public class Conversor {
 		int listaDeTodasPossiveisVisitas = Integer.valueOf(parametros[7]);
 		double inicioJanela = Double.valueOf(parametros[8]);
 
-		// Verifica-se existe o final da janela na linha
+		//verifica-se existe o final da janela na linha
 		double fimJanela;
+		//se existe ele é decodificado
 		if (parametros.length == 10)
-			fimJanela = Double.valueOf(parametros[9]); // Se existe ele é decodificado
+			fimJanela = Double.valueOf(parametros[9]);
+		 //senão é dado o valor padrão igual a -1 para o mesmo
 		else
-			fimJanela = -1; // Senão é dado o valor padrão igual a -1 para o mesmo
+			fimJanela = -1;
 
 		//o cliente é instanciado
 		Cliente cliente = new Cliente(numero, coordenadaX, coordenadaY, demanda, duracaoServico, frequenciaVisita,
@@ -43,56 +47,76 @@ public class Conversor {
 
 	}
 
-	//Converte as informações contidas em um arquivo em objetos do tipo Veículo e
-	//Cliente, devidamente parametrizados
+	//converte as informações contidas em um arquivo em objetos do tipo Veículo e Cliente, devidamente parametrizados
 	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos) {
+		
 		try {
-			int posicaoDaLinha = 1; // Contador da posição da linha atual
-			int quantidadeDeVeiculos = 0; // Contador da quantidade de veículos
-			int quantidadeDeClientes = 0; // Contador da quantidade de clientes
-			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo)); // Leitor que utiliza buffer para a leitura do arquivo
+			
+			//contador da posição da linha atual
+			int posicaoDaLinha = 1;
+			//contador da quantidade de veículos
+			int quantidadeDeVeiculos = 0;
+			//contador da quantidade de clientes
+			int quantidadeDeClientes = 0;
+			//leitor que utiliza buffer para a leitura do arquivo
+			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo));
 
-			// Lê-se a primeira linha
+			//lê-se a primeira linha
 			String linhaAtual = leitor.readLine();
 
-			// Enquanto ela não for igual a NULL, ou seja, enquanto não acabar de ler o
-			// arquivo (EOF)
+			//enquanto ela não for igual a NULL, ou seja, enquanto não acabar de ler o arquivo (EOF)
 			while (linhaAtual != null) {
-				linhaAtual = linhaAtual.trim(); // Remove os espaços em branco no início e no final da String
-				String[] parametros = linhaAtual.split(" "); // Recupera os parâmetros que estão separados por um espaço
-				// em branco
+				
+				//remove os espaços em branco no início e no final da String
+				linhaAtual = linhaAtual.trim();
+				//recupera os parâmetros que estão separados por um espaço em branco
+				String[] parametros = linhaAtual.split(" ");
 
 				switch (posicaoDaLinha) {
-				case 1: // Se for a primeira linha do arquivo, então contém o tipo do problema,
-					// a quantidade de clientes e veículos e a quantidade máxima de dias
+				
+				//se for a primeira linha do arquivo, então contém o tipo do problema, a quantidade de clientes e veículos e a quantidade máxima de dias
+				case 1: {
 
-					// Obtêm-se a quantidade de veículos e a quantidade de clientes
+					//obtêm-se a quantidade de veículos e a quantidade de clientes
 					quantidadeDeVeiculos = Integer.valueOf(parametros[1]);
 					quantidadeDeClientes = Integer.valueOf(parametros[2]);
 
-					// Determina-se o tamanho da lista de ambos modelos
-					// veiculos = new ArrayList<Veiculo>(quantidadeDeVeiculos);
+					//determina-se o tamanho da lista de ambos modelos
+					//veiculos = new ArrayList<Veiculo>(quantidadeDeVeiculos);
 					veiculos.ensureCapacity(quantidadeDeVeiculos);
-					// clientes = new ArrayList<Cliente>(quantidadeDeClientes);
+					//clientes = new ArrayList<Cliente>(quantidadeDeClientes);
 					clientes.ensureCapacity(quantidadeDeClientes);
 					break;
+				}
+				
+				//se for a segunda linha do arquivo, que contém a limitação de dias e a carga máxima dos veículos	
+				case 2: {
+					
+					//obtêm-se a carga máxima
+					int cargaMaxima = Integer.valueOf(parametros[1]);
 
-				case 2: // Se for a segunda linha do arquivo, que contém a limitação de dias e a carga
-					// máxima dos veículos
-					int cargaMaxima = Integer.valueOf(parametros[1]); // Obtêm-se a carga máxima
-
-					// Cria-se os objetos de veículos
+					//cria-se os objetos de veículos
 					for (int i = 0; i < quantidadeDeVeiculos; ++i)
 						veiculos.add(new Veiculo(cargaMaxima));
 					break;
-
-				default: // Para as demais linhas, que só contém os dados dos clientes
-					clientes.add(decodificaCliente(parametros)); // Adiciona o objeto decodificado na lista de clientes
+				
+				}
+				
+				//para as demais linhas, que só contém os dados dos clientes
+				default: { 
+				
+					//adiciona o objeto decodificado na lista de clientes
+					clientes.add(decodificaCliente(parametros));
 					break;
+					
+				}
 				}
 
-				++posicaoDaLinha; // Incrementa a posição da linha
-				linhaAtual = leitor.readLine(); // Lê a próxima linha
+				//incrementa-se a posição da linha
+				++posicaoDaLinha; 
+				//lê-se a próxima linha
+				linhaAtual = leitor.readLine(); 
+				
 			}
 
 			leitor.close();
@@ -107,22 +131,20 @@ public class Conversor {
 	//calcula a distância euclidiana de um cliente ao outro
 	public double[][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
 
-		// arraylist para calcular o custo total de cada rota
-		// matriz de distâncias entre clientes
+		//arraylist para calcular o custo total de cada rota
+		//matriz de distâncias entre clientes
 		double[][] matrizDeDistancias = new double[numeroDeClientes][numeroDeClientes];
 
-		// laço para preencher a matriz com as distâncias entre clientes calculadas
-		// através da distância euclidiana
-
-		// percorre as linhas da matriz de distâncias
+		//laço para preencher a matriz com as distâncias entre clientes calculadas através da distância euclidiana
+		//percorre as linhas da matriz de distâncias
 		for (int row = 0; row < numeroDeClientes; row++) {
-			// percorre as colunas da matriz de distâncias
+			//percorre as colunas da matriz de distâncias
 			for (int column = 0; column < numeroDeClientes; column++) {
+				
 				if (row == column)
 					matrizDeDistancias[row][column] = 0.0;
 				else
-					matrizDeDistancias[row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row),
-							clientes.get(column));
+					matrizDeDistancias[row][column] = Cliente.distanciaEuclidianaEntre(clientes.get(row), clientes.get(column));
 			
 			}
 		}

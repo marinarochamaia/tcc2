@@ -52,7 +52,6 @@ public class Veiculo implements Cloneable {
 
 	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
 		
-	
 		//variáveis para armazenar os valores de tempo e custo dos veículos
 		double auxTempo = 0.0;
 		double auxCusto = 0.0;
@@ -64,16 +63,13 @@ public class Veiculo implements Cloneable {
 			auxTempo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 			auxCusto += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 
-			//se o veículo chega dentro da janela
-			//soma-se ao tempo a duração do serviço
+			//se o veículo chega dentro da janela, soma-se ao tempo a duração do serviço
 			if (auxTempo >= ordemDeVisitacao.get(row).getInicioJanela()
 					&& auxTempo <= ordemDeVisitacao.get(row).getFimJanela()) {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 			}
-			// se o veículo chega antes da janela
-			//soma-se ao tempo o tempo de espera e a duração do serviço
-			//soma-se ao custo o tempo de espera e a multa
+			//se o veículo chega antes da janela, soma-se ao tempo o tempo de espera e a duração do serviço e soma-se ao custo o tempo de espera e a multa
 			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {
 				
 				double tempoDeEspera = ordemDeVisitacao.get(row).getInicioJanela() - auxTempo;
@@ -84,9 +80,7 @@ public class Veiculo implements Cloneable {
 				auxCusto += multa;
 
 			}
-			// se o veículo chega depois da janela
-			//soma-se ao tempo a duração do serviço
-			//soma-se ao custo a multa
+			//se o veículo chega depois da janela, soma-se ao tempo a duração do serviço e soma-se ao custo a multa
 			else if (auxTempo > ordemDeVisitacao.get(row).getFimJanela()) {
 				
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
@@ -94,9 +88,11 @@ public class Veiculo implements Cloneable {
 
 			}		
 		}
+		
 		//o custo e o tempo do veículo são resetados
 		setCustoVeiculo(0);
 		setTempoVeiculo(0);
+		
 		//as variáveis do veículo são setadas
 		setTempoVeiculo(auxTempo);
 		setCustoVeiculo(auxCusto);
@@ -105,6 +101,7 @@ public class Veiculo implements Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
+    	
         Veiculo v = new Veiculo(cargaMaxima);
         
         v.cargaOcupada = this.cargaOcupada;
