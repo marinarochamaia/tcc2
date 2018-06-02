@@ -9,14 +9,14 @@ public class BuscaLocalRotasDiferentes {
 
 	FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
 
-	//1
+	//8
 	//visita-se dois clientes, o cliente U em um veículo e o cliente V em outro veículo, insere-se o cliente U após o cliente V, ambos no mesmo veículo
 	public void insereApos(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
 		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
-		//arrays para armazenar as melhores ordens de visitação geradas
+		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV2 = new ArrayList<>();
 
@@ -26,26 +26,20 @@ public class BuscaLocalRotasDiferentes {
 
 		//percorrem-se os arrays das ordens de visitações
 		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
-			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1; v++) {
-
-				//verificação se a posição onde será inserido o cliente não é a posição do depósito
-				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1) == deposito)
+			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() -  1; v++) {
+				
+				if(u == v)
 					continue;
 
 				//o cliente que será visitado é selecionado
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
-
+				
 				//a demanda do cliente que será inserido é somada à carga ocupada do segundo veículo
 				double cargaOcupadaV2 = rotaClonada.listaVeiculos.get(n).getCargaOcupada() + clienteU.getDemanda();
 
 				//verificação se a carga máxima do veículo é respeitada
 				//se for, a inserção do cliente U é feita no segundo veículo
 				if(cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
-
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente V: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v));
 
 					//o novo valor da carga ocupada é setado
 					rotaClonada.listaVeiculos.get(n).setCargaOcupada(cargaOcupadaV2);
@@ -55,9 +49,6 @@ public class BuscaLocalRotasDiferentes {
 
 					//insere-se o cliente U após o cliente V no segundo veículo
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteU);
-
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 				}
 				//se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
@@ -91,9 +82,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
 				//o custo é atualizado
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
@@ -108,7 +96,7 @@ public class BuscaLocalRotasDiferentes {
 
 	}
 
-	//2
+	//9
 	//visita-se três clientes, U e X em um veículo e V em outro veículo, insere-se os cliente U e X após o cliente V, ambos no mesmo veículo
 	public void insereDuasPosicoesAposUma(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
@@ -124,20 +112,12 @@ public class BuscaLocalRotasDiferentes {
 		melhorOrdemDeVisitacaoV2.addAll(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 		//percorrem-se os arrays das ordens de visitações
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2; u++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			int x = 1;
 			if(u == x) {
 				x++;
 			}
-			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 2; v++) {
-
-				//verificação se a posição visitada não é maior que o array ou se não é o depósito
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
-					continue;
-
-				//verificação se as posições onde serão inseridos os clientes não são a posição do depósito
-				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1) == deposito || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2) == deposito)
-					continue;
+			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1; v++) {
 
 				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
@@ -149,12 +129,7 @@ public class BuscaLocalRotasDiferentes {
 				//verificação se a carga máxima do veículo é respeitada
 				//se for, as inserções dos clientes U e X são feitas
 				if(cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
-
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente X: " + clienteX + "\nCliente V: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v));
-
+					
 					//o novo valor da carga ocupada é setado
 					rotaClonada.listaVeiculos.get(n).setCargaOcupada(cargaOcupadaV2);
 
@@ -166,11 +141,7 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteU);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 2, clienteX);
 
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-				}
-				//se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
+				} //se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
 				else 
 					continue;
 
@@ -204,9 +175,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteX);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
 
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
 				//o custo é atualizado
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
@@ -221,7 +189,7 @@ public class BuscaLocalRotasDiferentes {
 
 	}
 
-	//3
+	//10
 	//visita-se três clientes, U e X em um veículo e V em outro veículo, insere-se os cliente X e U após o cliente V, ambos no mesmo veículo (inverso da anterior)
 	public void insereDuasPosicoesAposUmaInvertido(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
@@ -237,19 +205,15 @@ public class BuscaLocalRotasDiferentes {
 		melhorOrdemDeVisitacaoV2.addAll(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 		//percorrem-se os arrays das ordens de visitações
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2; u++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			int x = 1;
 			if(u == x) {
 				x++;
 			}
-			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 2; v++) {
-
+			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size(); v++) {
+				
 				//verificação se a posição analisada não está fora do array de ordem de visitação ou se o cliente analisado não é o depósito
 				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
-					continue;
-
-				//verificação se as posições onde serão inseridos os clientes não são posições do depósito
-				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1) == deposito || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 2).getNumero() == 0)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -267,11 +231,6 @@ public class BuscaLocalRotasDiferentes {
 				//se for, a inserção dos clientes X e U é feita
 				if(cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
 
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente X: " + clienteX + "\nCliente V: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v));
-
 					//o novo valor da carga ocupada é setado
 					rotaClonada.listaVeiculos.get(n).setCargaOcupada(cargaOcupadaV2);
 
@@ -283,11 +242,7 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 1, clienteX);
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v + 2, clienteU);
 
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-				}
-				//se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
+				} //se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
 				else 
 					continue;
 
@@ -338,7 +293,7 @@ public class BuscaLocalRotasDiferentes {
 
 	}
 
-	//4
+	//11
 	//visita-se dois clientes, U e V, cada um em um veículo, e troca-se a posição dos dois
 	public void trocaPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
@@ -369,10 +324,6 @@ public class BuscaLocalRotasDiferentes {
 				//se forem, a troca do cliente U com o cliente V é feita
 				if(cargaOcupadaV1 <= rotaClonada.listaVeiculos.get(k).getCargaMaxima() && cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
 
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente V: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v));
 
 					//os novos valores das cargas ocupadas são setados
 					rotaClonada.listaVeiculos.get(k).setCargaOcupada(cargaOcupadaV1);
@@ -386,13 +337,9 @@ public class BuscaLocalRotasDiferentes {
 					//remove-se a posição v no segundo veículo
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteV);
 					//insere-se nesta posição o cliente U
-					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteU);	
+					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(v, clienteU);
 
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-				}
-				//se as cargas máximas não forem respeitadas, continua-se percorrendo o array de ordem de visitação
+				} //se as cargas máximas não forem respeitadas, continua-se percorrendo o array de ordem de visitação
 				else
 					continue;
 
@@ -427,9 +374,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(u);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
 				//o custo é atualizado
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
@@ -444,7 +388,7 @@ public class BuscaLocalRotasDiferentes {
 
 	}
 
-	//5
+	//12
 	//visita-se três clientes, U e X em um veículo e V em outro, troca-se as posições de U e X com a posição de V
 	public void trocaDuasPosicoesComUmaPosicao(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
@@ -468,16 +412,8 @@ public class BuscaLocalRotasDiferentes {
 			}
 			for(int v = 1; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1; v++) {
 
-				//verificação se as posições não são iguais
-				if(u == v) 
-					continue;
-
 				//verificação se a posição analisada não está fora do array de ordem de visitação e se o cliente analisado não é o depósito
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito) 
-					continue;
-
-				//verificação se a posição onde será inserido o cliente não é posição do depósito
-				if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v + 1) == deposito)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0) 
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -492,11 +428,6 @@ public class BuscaLocalRotasDiferentes {
 				//verificação se as cargas máximas dos veículos são respeitadas
 				//se forem, a troca dos clientes U e X com V é feita
 				if(cargaOcupadaV1 <= rotaClonada.listaVeiculos.get(k).getCargaMaxima() && cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
-
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente X: " + clienteX + "\nCliente V: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v));
 
 					//os novos valores das cargas ocupadas são setados
 					rotaClonada.listaVeiculos.get(k).setCargaOcupada(cargaOcupadaV1);
@@ -517,9 +448,6 @@ public class BuscaLocalRotasDiferentes {
 
 					//remove-se a posição v do segundo veículo
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteV);
-
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 				}
 				//se a carga máxima não for respeitada, continua-se percorrendo o array da ordem de visitação
@@ -558,9 +486,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
 
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
 				//o custo é atualizado
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
@@ -575,7 +500,7 @@ public class BuscaLocalRotasDiferentes {
 
 	}
 
-	//6
+	//13
 	//visita-se quatro clientes, U, X, V e Y, e então troca-se as posições de U e X com as posições de V e Y
 	public void trocaDuasPosicoesComDuasPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
@@ -593,9 +518,9 @@ public class BuscaLocalRotasDiferentes {
 		//percorrem-se os arrays das ordens de visitações
 		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			for(int v = 1; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1; v++) {
-				int x = 2;
-				int y = 2;
-
+				int x = 1;
+				int y = 1;
+				
 				//verificação se as posições não são iguais
 				if(u == x)
 					x++;
@@ -603,9 +528,9 @@ public class BuscaLocalRotasDiferentes {
 					y++;
 
 				//verificação se as posiçoes analisadas não estão fora do array de ordem de visitação e se os clientes analisados não são o depósito
-				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x) == deposito)
+				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
 					continue;
-				if(y >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(y) == deposito)
+				if(y >= rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(y).getNumero() == 0)
 					continue;
 
 				//os clientes que serão visitados são selecionados
@@ -613,7 +538,7 @@ public class BuscaLocalRotasDiferentes {
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
 				Cliente clienteV = rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(v);
 				Cliente clienteY = rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.get(y);
-
+				
 				//a carga ocupado dos veículos que sofrerão mudanças são calculadas
 				double cargaOcupadaV1 = rotaClonada.listaVeiculos.get(k).getCargaOcupada() - clienteU.getDemanda() - clienteX.getDemanda() +
 						clienteV.getDemanda() + clienteY.getDemanda();
@@ -623,11 +548,6 @@ public class BuscaLocalRotasDiferentes {
 				//verificação se as carga máximas dos veículos são respeitadas
 				//se forem, as trocas dos clientes U e X com V e Y é feita
 				if(cargaOcupadaV1 <= rotaClonada.listaVeiculos.get(k).getCargaMaxima() && cargaOcupadaV2 <= rotaClonada.listaVeiculos.get(n).getCargaMaxima()) {
-
-					//System.out.println("Antes V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Antes V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-					//System.out.println("Cliente U: " + clienteU + "\nCliente V: " + clienteV + "\nCliente X: " + clienteX + "\nCliente Y: " + clienteY);
 
 					//os novos valores das cargas ocupadas são setados
 					rotaClonada.listaVeiculos.get(k).setCargaOcupada(cargaOcupadaV1);
@@ -652,9 +572,6 @@ public class BuscaLocalRotasDiferentes {
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteY);
 					//insere-se o cliente X nesta posição
 					rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.add(y, clienteX);		
-
-					//System.out.println("Depois V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-					//System.out.println("Depois V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 				} //se a carga máxima não for respeitada, continua-se percorrendo o array de ordem de visitação
 				else 
@@ -695,9 +612,6 @@ public class BuscaLocalRotasDiferentes {
 
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteY);											
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
-
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 				
 				//o custo é atualizado
 				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);

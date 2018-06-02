@@ -23,7 +23,7 @@ public class BuscaLocal {
 			int count = 0;
 
 			//critério de parada
-			while(count < rotaClonada.listaClientes.size()/20) {	
+			while(count < rotaClonada.listaClientes.size() /10) {	
 				count++;			
 
 				//a lista de veículos utilizados é percorrida para que todos possam passar pela busca local 
@@ -160,7 +160,7 @@ public class BuscaLocal {
 
 								break;
 
-							}
+							}							
 							}
 						}
 					}

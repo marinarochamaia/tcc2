@@ -165,9 +165,9 @@ public class Rota implements Cloneable, Comparable<Rota> {
 				veiculo.ordemDeVisitacao.addAll(possivelRotaVeiculo);
 				veiculo.ordemDeVisitacao.add(deposito);
 
-			} else
+			} else 
 				break;
-
+			
 			//os veículos utilizados são setados
 			setVeiculosUtilizados(j+1);
 	
