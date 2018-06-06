@@ -18,10 +18,11 @@ public class Main {
 		double menorCusto = 0; //menor custo encontrado na população inicial
 		double menorCustoDescendente = 0; //menor custo encontrado nas novas gerações
 		double menorCustoFinal = 0; //menor custo Final
-		int numeroDeRotas = 5; //mu, tamanho da população inicial
 		int gmax = 5000; //número de gerações
+		int numeroDeRotas = 5; //mu, tamanho da população inicial
 		int descendentes = 25; //lamba, número de descendentes
-		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
+		int criterioParadaBL = 10; //critério de parada da busca local
+		int multa = 0; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
 		double cBuscaLocal = 0.3; //coeficiente de busca local
 
@@ -98,7 +99,7 @@ public class Main {
 
 					//a busca local é feita
 					BuscaLocal bl = new BuscaLocal();
-					bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito);
+					bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);
 
 					//as novas rotas são adicionadas em um array auxiliar
 					aux.add(rotaClonada);
@@ -114,7 +115,7 @@ public class Main {
 
 			// é feito um corte para mu indivíduos
 			populacao.subList(numeroDeRotas, populacao.size()).clear();
-
+			
 			// busca pelo menor custo da nova populacao
 			menorCustoDescendente = Double.MAX_VALUE;
 			for (int i = 0; i < populacao.size(); i++) {
@@ -136,16 +137,22 @@ public class Main {
 
 			geracoes++;
 			
-			if(geracoes == 500) {
+			if(geracoes == 1000) {
 				cMutacao = 0.6;
 				cBuscaLocal = 0.6;
 			}
-			if(geracoes == 1000) {
-				cMutacao = 0.4;
+			if(geracoes == 2000) {
+				cMutacao = 0.3;
 				cBuscaLocal = 0.8;
 			}
-			if(geracoes == 2000)
-				cMutacao = 0.3;
+			if(geracoes == 3000) {
+				cMutacao = 0.6;
+				cBuscaLocal = 0.6;
+			}
+			if(geracoes == 4000) {
+				cMutacao = 0.8;
+				cBuscaLocal = 0.3;
+			}
 
 		}
 

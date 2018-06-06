@@ -112,7 +112,7 @@ public class BuscaLocalRotasDiferentes {
 		melhorOrdemDeVisitacaoV2.addAll(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 		//percorrem-se os arrays das ordens de visitações
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2; u++) {
 			int x = 1;
 			if(u == x) {
 				x++;
@@ -205,12 +205,12 @@ public class BuscaLocalRotasDiferentes {
 		melhorOrdemDeVisitacaoV2.addAll(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
 
 		//percorrem-se os arrays das ordens de visitações
-		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
+		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 2; u++) {
 			int x = 1;
 			if(u == x) {
 				x++;
 			}
-			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size(); v++) {
+			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() - 1; v++) {
 				
 				//verificação se a posição analisada não está fora do array de ordem de visitação ou se o cliente analisado não é o depósito
 				if(x >= rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1 || rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x).getNumero() == 0)
