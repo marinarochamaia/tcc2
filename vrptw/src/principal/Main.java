@@ -23,8 +23,8 @@ public class Main {
 		int descendentes = 25; //lamba, número de descendentes
 		int criterioParadaBL = 10; //critério de parada da busca local
 		int multa = 0; //multa aplicada às rotas que não chegarem dentro da janela
-		double cMutacao = 0.8; //coeficiente de mutação
-		double cBuscaLocal = 0.3; //coeficiente de busca local
+		double cMutacao = 0.6; //coeficiente de mutação
+		double cBuscaLocal = 0.6; //coeficiente de busca local
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> aux = new ArrayList<>();
@@ -138,18 +138,14 @@ public class Main {
 			geracoes++;
 			
 			if(geracoes == 1000) {
-				cMutacao = 0.6;
-				cBuscaLocal = 0.6;
-			}
-			if(geracoes == 2000) {
 				cMutacao = 0.3;
 				cBuscaLocal = 0.8;
 			}
-			if(geracoes == 3000) {
+			if(geracoes == 2000) {
 				cMutacao = 0.6;
 				cBuscaLocal = 0.6;
 			}
-			if(geracoes == 4000) {
+			if(geracoes == 3500) {
 				cMutacao = 0.8;
 				cBuscaLocal = 0.3;
 			}

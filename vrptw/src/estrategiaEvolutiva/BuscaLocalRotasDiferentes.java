@@ -93,6 +93,13 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
@@ -186,7 +193,13 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+		
 	}
 
 	//10
@@ -290,6 +303,12 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
@@ -385,6 +404,12 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
@@ -497,6 +522,12 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
@@ -624,6 +655,13 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
+		
+		//atualiza-se o custo
+		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		
+
+		//o giant tour é atualizado
+		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 }

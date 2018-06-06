@@ -105,10 +105,17 @@ public class BuscaLocal {
 									break;
 
 								}
-
-
-
 								}
+								
+	                            FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
+	                            double custo = rotaClonada.getCustoTotalRota();
+	                            fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+	                            
+	                           if (custo != rotaClonada.getCustoTotalRota()) {
+	                               System.err.println(custo);
+	                               System.err.println(rotaClonada.getCustoTotalRota());
+	                               System.exit(0);
+	                           }
 							}
 						}
 						else {
@@ -174,7 +181,18 @@ public class BuscaLocal {
 									break;
 
 								}
-								}							
+								}
+								
+	                            FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
+	                            double custo = rotaClonada.getCustoTotalRota();
+	                            fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+	                            
+	                           if (custo != rotaClonada.getCustoTotalRota()) {
+	                               System.err.println(custo);
+	                               System.err.println(rotaClonada.getCustoTotalRota());
+	                               System.exit(0);
+	                           }
+
 							}
 						}
 					}
