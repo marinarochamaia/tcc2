@@ -50,12 +50,15 @@ public class Veiculo implements Cloneable {
 		this.cargaMaxima = cargaMaxima;
 	}
 
-	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
+	public boolean calculaCustos(double[][] matrizDeDistancias, int multa) {
 		
 		//variáveis para armazenar os valores de tempo e custo dos veículos
 		double auxTempo = 0.0;
 		double auxCusto = 0.0;
 
+		boolean semMulta = true;
+
+		
 		//percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
 
@@ -68,6 +71,8 @@ public class Veiculo implements Cloneable {
 					&& auxTempo <= ordemDeVisitacao.get(row).getFimJanela()) {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
+				semMulta = true;
+				
 			}
 			//se o veículo chega antes da janela, soma-se ao tempo o tempo de espera e a duração do serviço e soma-se ao custo o tempo de espera e a multa
 			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {
@@ -78,6 +83,7 @@ public class Veiculo implements Cloneable {
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 				auxCusto += tempoDeEspera;
 				auxCusto += multa;
+				semMulta = false;
 
 			}
 			//se o veículo chega depois da janela, soma-se ao tempo a duração do serviço e soma-se ao custo a multa
@@ -85,6 +91,7 @@ public class Veiculo implements Cloneable {
 				
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 				auxCusto += multa;
+				semMulta = false;
 
 			}		
 		}
@@ -96,7 +103,9 @@ public class Veiculo implements Cloneable {
 		//as variáveis do veículo são setadas
 		setTempoVeiculo(auxTempo);
 		setCustoVeiculo(auxCusto);
-
+		
+		return semMulta;
+			
 	}
 
     @Override

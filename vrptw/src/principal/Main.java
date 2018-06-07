@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.*;
 
 import estrategiaEvolutiva.BuscaLocal;
+import estrategiaEvolutiva.FuncoesBuscaLocal;
 import estrategiaEvolutiva.Mutacao;
 import io.Conversor;
 import modelos.Cliente;
@@ -169,6 +170,16 @@ public class Main {
 			System.out.println((i + 1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 
 		}
+		
+		boolean semMulta;
+		
+		FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
+		semMulta = fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, melhorRota);
+		
+		if(semMulta)
+			System.out.println("Rota atende a janela de tempo!");
+		else
+			System.out.println("Rota não atende a janela de tempo!");
 
 		//é impresso o menor custo antes da estratégia evolutiva
 		BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);

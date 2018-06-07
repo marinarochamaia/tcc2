@@ -113,6 +113,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		int contadorDeCliente = 0;
 		resetCustoTotalRota();
 
+		
 		//percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 
@@ -174,8 +175,11 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa);
 			setCustoTotalRota(veiculo.getCustoVeiculo());
+			
+
 
 		}
+
 	}
 
     public Rota getClone(Rota r) {

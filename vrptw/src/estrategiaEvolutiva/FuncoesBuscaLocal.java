@@ -9,21 +9,25 @@ import modelos.Veiculo;
 public class FuncoesBuscaLocal {
 
 	//função para calcular custo da função objetivo
-	public void calculaCustoFuncaoObjetivo(double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
+	public boolean calculaCustoFuncaoObjetivo(double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
 
 		//o custo total da rota é resetado
 		rotaClonada.resetCustoTotalRota();
+		
+		boolean semMulta = true;
 
 		//a lista de veículos utilizados é percorrida
 		for (int l = 1; l < rotaClonada.getVeiculosUtilizados(); l++) {
 
 			//o custo do veículo analisado é calculado
-			rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
+			semMulta = rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
 			
 			//é somado o custo deste veículo ao custo total da rota 
 			rotaClonada.setCustoTotalRota(rotaClonada.listaVeiculos.get(l).getCustoVeiculo());
 
 		}
+		
+		return semMulta;
 	}
 
 	//função para atualizar as posições dos clientes após a busca local
