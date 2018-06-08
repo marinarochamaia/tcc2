@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Veiculo implements Cloneable {
 	
 	private int cargaMaxima;
-	private double cargaOcupada, custoVeiculo, tempoVeiculo;
+	private double cargaOcupada, distanciaPercorridaVeiculo, tempoVeiculo;
 
 	public ArrayList<Cliente> ordemDeVisitacao = new ArrayList<>();
 
@@ -29,12 +29,12 @@ public class Veiculo implements Cloneable {
 		this.cargaOcupada = 0;
 	}
 
-	public void setCustoVeiculo(double custoVeiculo) {
-		this.custoVeiculo = custoVeiculo;
+	public void setDistanciaPercorridaVeiculo(double distanciaPercorridaVeiculo) {
+		this.distanciaPercorridaVeiculo = distanciaPercorridaVeiculo;
 	}
 
-	public double getCustoVeiculo() {
-		return custoVeiculo;
+	public double getDistanciaPercorridaVeiculo() {
+		return distanciaPercorridaVeiculo;
 	}
 
 	public void setTempoVeiculo(double tempoVeiculo) {
@@ -54,7 +54,7 @@ public class Veiculo implements Cloneable {
 		
 		//variáveis para armazenar os valores de tempo e custo dos veículos
 		double auxTempo = 0.0;
-		double auxCusto = 0.0;
+		double auxDistanciaPercorrida = 0.0;
 
 		boolean semMulta = true;
 
@@ -64,7 +64,7 @@ public class Veiculo implements Cloneable {
 
 			//o tempo e o custo inicialmente são dados pela distância de um ponto ao outro
 			auxTempo += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
-			auxCusto += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
+			auxDistanciaPercorrida += matrizDeDistancias[ordemDeVisitacao.get(row - 1).getNumero()][ordemDeVisitacao.get(row).getNumero()];
 
 			//se o veículo chega dentro da janela, soma-se ao tempo a duração do serviço
 			if (auxTempo >= ordemDeVisitacao.get(row).getInicioJanela()
@@ -81,8 +81,7 @@ public class Veiculo implements Cloneable {
 
 				auxTempo += tempoDeEspera;
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-				auxCusto += tempoDeEspera;
-				auxCusto += multa;
+				auxDistanciaPercorrida += multa;
 				semMulta = false;
 
 			}
@@ -90,19 +89,19 @@ public class Veiculo implements Cloneable {
 			else if (auxTempo > ordemDeVisitacao.get(row).getFimJanela()) {
 				
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-				auxCusto += multa;
+				auxDistanciaPercorrida += multa;
 				semMulta = false;
 
 			}		
 		}
 		
 		//o custo e o tempo do veículo são resetados
-		setCustoVeiculo(0);
+		setDistanciaPercorridaVeiculo(0);
 		setTempoVeiculo(0);
 		
 		//as variáveis do veículo são setadas
 		setTempoVeiculo(auxTempo);
-		setCustoVeiculo(auxCusto);
+		setDistanciaPercorridaVeiculo(auxDistanciaPercorrida);
 		
 		return semMulta;
 			
@@ -114,7 +113,7 @@ public class Veiculo implements Cloneable {
         Veiculo v = new Veiculo(cargaMaxima);
         
         v.cargaOcupada = this.cargaOcupada;
-        v.custoVeiculo = this.custoVeiculo;
+        v.distanciaPercorridaVeiculo = this.distanciaPercorridaVeiculo;
         v.tempoVeiculo = this.tempoVeiculo;
         v.ordemDeVisitacao = new ArrayList<>(ordemDeVisitacao);
         
@@ -126,7 +125,7 @@ public class Veiculo implements Cloneable {
 	public String toString() {
 	
 		return "Veículo: [carga máxima = " + cargaMaxima + " ,carga ocupada = " + cargaOcupada
-				+ " ,custo do veículo = " + custoVeiculo + "]\n";
+				+ " ,custo do veículo = " + distanciaPercorridaVeiculo + "]\n";
 	
 	}
 

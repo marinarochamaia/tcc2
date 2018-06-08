@@ -9,12 +9,12 @@ public class BuscaLocalRotasDiferentes {
 
 	FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
 
-	//8
+	//1
 	//visita-se dois clientes, o cliente U em um veículo e o cliente V em outro veículo, insere-se o cliente U após o cliente V, ambos no mesmo veículo
 	public void insereApos(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distancia antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -55,18 +55,15 @@ public class BuscaLocalRotasDiferentes {
 				else
 					continue;				
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a distância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//se for melhor, salva-se a melhor ordem para depois a trocar ser desfeita
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-
-					//o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-
-					//o custo de antes da busca local é atualizado
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
+					
+					//a distância de antes da busca local é atualizado
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//a melhor ordem de visitação é atualizada
 					melhorOrdemDeVisitacaoV1.clear();
@@ -82,9 +79,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 			}
 		}
 
@@ -95,20 +89,20 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
 		
-		//atualiza-se o custo
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//atualiza-se a distância e o tempo
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 		//o giant tour é atualizado
 		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
-	//9
+	//2
 	//visita-se três clientes, U e X em um veículo e V em outro veículo, insere-se os cliente U e X após o cliente V, ambos no mesmo veículo
 	public void insereDuasPosicoesAposUma(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distância antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -152,18 +146,15 @@ public class BuscaLocalRotasDiferentes {
 				else 
 					continue;
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a distância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//senão, salva-se as melhores ordens para depois a troca ser desfeita
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
 
-					//o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-
-					//o custo de antes da busca local é atualizado
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					//a distância de antes da busca local é atualizado
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//os arrays das melhores ordens de visitação são atualizados
 					melhorOrdemDeVisitacaoV1.clear();
@@ -182,9 +173,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.remove(clienteX);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
 
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 			}
 		}
 
@@ -194,17 +182,17 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
-		//atualiza-se o custo
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//atualiza-se a distância e o tempo
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 	}
 
-	//10
+	//3
 	//visita-se três clientes, U e X em um veículo e V em outro veículo, insere-se os cliente X e U após o cliente V, ambos no mesmo veículo (inverso da anterior)
 	public void insereDuasPosicoesAposUmaInvertido(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distancia antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -256,18 +244,15 @@ public class BuscaLocalRotasDiferentes {
 				else 
 					continue;
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a disntância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//se for melhor salva a melhor ordem para depois destrocar
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
-
-					// o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//os arrays das melhores ordens de visitações são atualizados
 					melhorOrdemDeVisitacaoV1.clear();
@@ -286,12 +271,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(posU, clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(posX, clienteX);
 
-				//System.out.println("Depois TROCA V1: " + rotaClonada.listaVeiculos.get(k).ordemDeVisitacao);
-				//System.out.println("Depois TROCA V2: " + rotaClonada.listaVeiculos.get(n).ordemDeVisitacao);
-
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 			}
 		}
 
@@ -301,20 +280,20 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
-		//atualiza-se o custo
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//atualiza-se a distância e o tempo
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 		//o giant tour é atualizado
 		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
-	//11
+	//4
 	//visita-se dois clientes, U e V, cada um em um veículo, e troca-se a posição dos dois
 	public void trocaPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distancia antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -359,18 +338,15 @@ public class BuscaLocalRotasDiferentes {
 				else
 					continue;
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a distância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//se for melhor, salvam-se as melhores ordens para depois desfazer a troca
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
 
-					//o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-
-					//o custo de antes da busca local é atualizado
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					//a distância de antes da busca local é atualizado
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();
@@ -390,9 +366,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(u);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 			}
 		}
 
@@ -402,20 +375,20 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
-		//atualiza-se o custo
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//atualiza-se a distância e o custo
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 		//o giant tour é atualizado
 		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
-	//12
+	//5
 	//visita-se três clientes, U e X em um veículo e V em outro, troca-se as posições de U e X com a posição de V
 	public void trocaDuasPosicoesComUmaPosicao(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distancia antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -476,18 +449,15 @@ public class BuscaLocalRotasDiferentes {
 				else
 					continue;
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a distância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//se for melhor salvam-se as melhores ordens para depois desfazer a troca
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
 
-					//o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-
-					//o custo de antes da busca local é atualizado 
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					//a distancia de antes da busca local é atualizado 
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();
@@ -508,9 +478,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(u, clienteU);
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
 
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-
 			}
 		}
 
@@ -520,20 +487,20 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
-		//atualiza-se o custo
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//atualiza-se a distância e o tempo
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 		//o giant tour é atualizado
 		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
 
 	}
 
-	//13
+	//6
 	//visita-se quatro clientes, U, X, V e Y, e então troca-se as posições de U e X com as posições de V e Y
 	public void trocaDuasPosicoesComDuasPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
-		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		//guarda-se a distância antes de ser realizada a busca local para comparar se houve ou não melhora
+		double distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -605,18 +572,15 @@ public class BuscaLocalRotasDiferentes {
 				else 
 					continue;
 
-				//atualiza-se o custo da função objetivo para comparar se houve melhora ou não
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+				//atualiza-se a distância da função objetivo para comparar se houve melhora ou não
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 
-				//compara-se o novo custo com o anterior para saber se houve melhora ou não
+				//compara-se a nova distância com a anterior para saber se houve melhora ou não
 				//se for melhor, salvam-se a melhores ordens para depois desfazer as trocas
-				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
+				if(rotaClonada.getDistanciaTotalRota() < distanciaAntesBuscaLocal) {
 
-					//o giant tour é atualizado
-					fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);
-
-					//o custo de antes da busca local é atualizado
-					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					//a distância de antes da busca local é atualizado
+					distanciaAntesBuscaLocal = rotaClonada.getDistanciaTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();
@@ -641,9 +605,6 @@ public class BuscaLocalRotasDiferentes {
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.remove(clienteY);											
 				rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.add(x, clienteX);
 				
-				//o custo é atualizado
-				fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
-				
 			}
 		}
 
@@ -653,8 +614,8 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 		
-		//o custo é atualizado
-		fbl.calculaCustoFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
+		//a distância e o tempo são atualizados
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 		
 		//o giant tour é atualizado
 		fbl.atualizaGiantTour(rotaClonada.listaClientes, rotaClonada.listaVeiculos, rotaClonada.getVeiculosUtilizados(), deposito);

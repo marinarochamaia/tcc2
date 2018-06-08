@@ -11,7 +11,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	private int multa, numeroDeClientes, numeroDeVeiculos, veiculosUtilizados;
 
 	private Cliente deposito; 
-	private double custoTotalRota;
+	private double distanciaTotalRota, tempoTotalRota;
 
 	Conversor conversor;
 	public ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -69,18 +69,30 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		this.deposito = deposito;
 	}
 
-	public double getCustoTotalRota() {
-		return custoTotalRota;
+	public double getDistanciaTotalRota() {
+		return distanciaTotalRota;
 	}
 
-	public void setCustoTotalRota(double custoTotalRota) {
-		this.custoTotalRota += custoTotalRota;
+	public void setDistanciaTotalRota(double distanciaTotalRota) {
+		this.distanciaTotalRota += distanciaTotalRota;
 	}
 
-	public void resetCustoTotalRota() {
-		this.custoTotalRota = 0;
+	public void resetDistanciaTotalRota() {
+		this.distanciaTotalRota = 0;
+	}
+	
+	public double getTempoTotalRota() {
+		return tempoTotalRota;
 	}
 
+	public void setTempoTotalRota(double tempoTotalRota) {
+		this.tempoTotalRota += tempoTotalRota;
+	}
+
+	public void resetTempoTotalRota() {
+		this.tempoTotalRota = 0;
+	}
+	
 	public void criaRotas() {
 
 		//arraylist para salvar a rota inicial partindo de zero (depósito) até o máximo de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último
@@ -102,7 +114,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		listaClientes.add(deposito);
 		listaClientes.addAll(sequenciaDeVisitas);
 
-
 		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
 
 	}
@@ -111,8 +122,8 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			Cliente deposito, double [][] matrizDeDistancias, int multa) {
 		
 		int contadorDeCliente = 0;
-		resetCustoTotalRota();
-
+		resetDistanciaTotalRota();
+		resetTempoTotalRota();
 		
 		//percorre os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
@@ -124,7 +135,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			
 			//os valores salvos são resetados
 			veiculo.resetCargaOcupada();
-			veiculo.setCustoVeiculo(0);
+			veiculo.setDistanciaPercorridaVeiculo(0);
 			veiculo.setTempoVeiculo(0);
 
 			//arraylist para salvar a rota aleátoria que será criada
@@ -174,10 +185,9 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	
 			// calcula o custo de cada veículo e adiciona ao custo total da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa);
-			setCustoTotalRota(veiculo.getCustoVeiculo());
-			
-
-
+			setDistanciaTotalRota(veiculo.getDistanciaPercorridaVeiculo());
+			setTempoTotalRota(veiculo.getTempoVeiculo());
+	
 		}
 
 	}
@@ -190,7 +200,8 @@ public class Rota implements Cloneable, Comparable<Rota> {
                     r.numeroDeVeiculos = this.numeroDeVeiculos;
                     r.veiculosUtilizados = this.veiculosUtilizados;
                     r.deposito = (Cliente) this.deposito.clone();
-                    r.custoTotalRota = this.custoTotalRota;
+                    r.distanciaTotalRota = this.distanciaTotalRota;
+                    r.tempoTotalRota = this.tempoTotalRota;
                     r.conversor = this.conversor;
                     r.listaClientes = new ArrayList<>(this.listaClientes);
                     r.listaVeiculos = new ArrayList<>(this.listaVeiculos);
@@ -206,11 +217,11 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 	public int compareTo(Rota rota) {
 		
-		if (this.custoTotalRota < rota.custoTotalRota) {
+		if (this.distanciaTotalRota < rota.distanciaTotalRota) {
 			return -1;
 		}
 		
-		if (this.custoTotalRota > rota.custoTotalRota) {
+		if (this.distanciaTotalRota > rota.distanciaTotalRota) {
 			return 1;
 		}
 		
