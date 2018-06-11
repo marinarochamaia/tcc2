@@ -12,9 +12,10 @@ public class FuncoesBuscaLocal {
 	public boolean calculaFuncaoObjetivo(double[][] matrizDeDistancias, int multa, Rota rotaClonada) {
 
 		//o tempo e o custo totais da rota são resetados
-		rotaClonada.resetDistanciaTotalRota();
+		rotaClonada.resetCustoTotalRota();
 		rotaClonada.resetTempoTotalRota();
-		
+
+		//variável para indicar se a rota atende ou não à restrição de tempo
 		boolean semMulta = true;
 
 		//a lista de veículos utilizados é percorrida
@@ -22,22 +23,23 @@ public class FuncoesBuscaLocal {
 
 			//o custo do veículo analisado é calculado
 			semMulta = rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
-			
-			//é somado o custo deste veículo ao custo total da rota 
-			rotaClonada.setDistanciaTotalRota(rotaClonada.listaVeiculos.get(l).getDistanciaPercorridaVeiculo());
-			rotaClonada.setTempoTotalRota(rotaClonada.listaVeiculos.get(l).getTempoVeiculo());
 
+			//é somado o custo deste veículo ao custo total da rota 
+			rotaClonada.setCustoTotalRota(rotaClonada.listaVeiculos.get(l).getCustoVeiculo());
+
+			//é somado o tempo deste veículo ao tempo total da rota 
+			rotaClonada.setTempoTotalRota(rotaClonada.listaVeiculos.get(l).getTempoVeiculo());
 		}
-		
+
 		return semMulta;
 	}
 
-	//função para atualizar as posições dos clientes após a busca local
+	//função para atualizar as posições dos clientes no giant tour após a busca local
 	public void atualizaGiantTour(ArrayList<Cliente> giantTour, ArrayList<Veiculo> listaVeiculos, int veiculosUtilizados, Cliente deposito) {
-		
+
 		//o giant tour é limpo para receber a nova configuração
 		giantTour.clear();
-		
+
 		//é adicionado o depósito
 		giantTour.add(deposito);
 
@@ -47,16 +49,29 @@ public class FuncoesBuscaLocal {
 			//a lista de clientes deste veículo é percorrida
 			for(int j = 0; j < listaVeiculos.get(i).ordemDeVisitacao.size(); j++) {
 
+				//o cliente da posição i é selecionado
 				Cliente clienteAtual = listaVeiculos.get(i).ordemDeVisitacao.get(j);
 
 				//verificação se o cliente atual não é o depósito
 				if(clienteAtual.getNumero() != 0) {
 					//o cliente atual é adicionado ao giant tour
 					giantTour.add(clienteAtual);
-
 				}
 			}
 		}
 	}
+
+	//função para calcular a carga ocupada dos veículos após as mudanças da busca local
+	public void calculaCargaOcupada(Cliente deposito, Veiculo veiculo) {
+
+		//a carga do veículo é resetada
+		veiculo.resetCargaOcupada();
+
+		//percorre-se a ordem de visitação deste veículo
+		for(int i = 0; i < veiculo.ordemDeVisitacao.size(); i++) {
+
+			//a demanda do cliente da posição i é adicionada à carga ocupada deste veículo
+			veiculo.setCargaOcupada(veiculo.ordemDeVisitacao.get(i).getDemanda());
+		}		
+	}
 }
-		

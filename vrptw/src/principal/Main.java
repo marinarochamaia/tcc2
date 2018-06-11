@@ -16,24 +16,22 @@ public class Main {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		double menorDistancia = 0; //menor distância encontrada na população inicial
-		double menorDistanciaDescendente = 0; //menor distância encontrada nas novas gerações
-		double menorDistanciaFinal = 0; //menor distância Final
-		int gmax = 5000; //número de gerações
-		int numeroDeRotas = 50; //mu, tamanho da população inicial
-		int descendentes = 250; //lamba, número de descendentes
+		double menorCusto = 0; //menor custo encontrado na população inicial
+		double menorCustoDescendente = 0; //menor custo encontrado nas novas gerações
+		double menorCustoFinal = 0; //menor custo final
+		int gmax = 1000; //número de gerações
+		int numeroDeRotas = 5; //mu, tamanho da população inicial
+		int numeroDeDescendentes = 25; //lamba, número de descendentes
 		int criterioParadaBL = 5; //critério de parada da busca local
-		int multa = 0; //multa aplicada às rotas que não chegarem dentro da janela
+		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
 		double cBuscaLocal = 0.3; //coeficiente de busca local
-		int melhora = 0;
-		double distanciaAnterior = 0;
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
-		ArrayList<Rota> aux = new ArrayList<>();
+		ArrayList<Rota> descendentes = new ArrayList<>();
 		ArrayList<Cliente> clientes = new ArrayList<>(); //lista de clientes passados pelo arquivo
 		ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de veículos passados pelo arquivo
-		ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas iniciais (pais)
+		ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas gerações
 
 		//args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
 		Conversor conversor = new Conversor(args[0]);
@@ -44,7 +42,6 @@ public class Main {
 
 		//array para salvar a melhor rota encontrada
 		Rota melhorRota = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-		melhorRota.setDistanciaTotalRota(Double.MAX_VALUE);
 
 		//as distâncias entre os clientes são calculadas
 		matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
@@ -61,20 +58,19 @@ public class Main {
 			rotaInicial = (Rota) r.getClone(rotaInicial);
 
 			//verificação se os veículos utilizados não são maiores do que os disponíveis
-			if (rotaInicial.getVeiculosUtilizados() <= veiculos.size()) {
-				//se os veículos utilizados são menores ou iguais aos disponíveis, a rota é incluída na população
+			//se os veículos utilizados são menores ou iguais aos disponíveis, a rota é incluída na população
+			if (rotaInicial.getVeiculosUtilizados() <= veiculos.size()) 
 				populacao.add(rotaInicial);
-			} else {
-				//se não a rota é infactível
+			//se não a rota é infactível
+			else 
 				System.out.println("Rota infactível");
-			}
 		}
 
 		//busca pela menor distância da população inicial
-		menorDistancia = Double.MAX_VALUE;
+		menorCusto = Double.MAX_VALUE;
 		for (Rota r : populacao) {
-			if (menorDistancia > r.getDistanciaTotalRota()) {
-				menorDistancia = r.getDistanciaTotalRota();
+			if (menorCusto > r.getCustoTotalRota()) {
+				menorCusto = r.getCustoTotalRota();
 			}
 		}
 
@@ -87,7 +83,7 @@ public class Main {
 			for (Rota r : populacao) {
 
 				//gerar (lambda/mu) filhos
-				for (int i = 0; i < (descendentes / numeroDeRotas); i++) {
+				for (int i = 0; i < (numeroDeDescendentes / numeroDeRotas); i++) {
 
 					//a rota é clonada
 					Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
@@ -105,86 +101,54 @@ public class Main {
 					bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);
 
 					//as novas rotas são adicionadas em um array auxiliar
-					aux.add(rotaClonada);
-
+					descendentes.add(rotaClonada);
 				}
 			}
 
-			//populacao = populacao + aux
-			populacao.addAll(aux);
+			//populacao = populacao + descendentes
+			populacao.addAll(descendentes);
 
-			// as rotas são ordenadas por valor de distâncias
+			// as rotas são ordenadas por valor de custos
 			Collections.sort(populacao);
 
-			// é feito um corte para mu indivíduos
+			// é feito um corte para mu (numeroDeRotas) indivíduos
 			populacao.subList(numeroDeRotas, populacao.size()).clear();
 
-			// busca pela menor distância da nova populacao
-			menorDistanciaDescendente = Double.MAX_VALUE;
+			//busca pelo menor custo da nova populacao
+			menorCustoDescendente = Double.MAX_VALUE;
 			for (int i = 0; i < populacao.size(); i++) {
 
-				if (menorDistanciaDescendente >= populacao.get(i).getDistanciaTotalRota()) {
-					menorDistanciaDescendente = populacao.get(i).getDistanciaTotalRota();
+				if (menorCustoDescendente >= populacao.get(i).getCustoTotalRota()) {
+					menorCustoDescendente = populacao.get(i).getCustoTotalRota();
 				}
 			}
 
 			//a lista auxiliar é limpa
-			aux.clear();
+			descendentes.clear();
 
 			//é impressa a distância encontrada nessa geração
-			BigDecimal bd3 = new BigDecimal(menorDistanciaDescendente).setScale(2, RoundingMode.HALF_EVEN);
-			System.out.println(geracoes + " " + bd3);
-
-			//auto-adaptação
-			if(distanciaAnterior == menorDistanciaDescendente)
-				melhora++;
-			else {
-
-				distanciaAnterior = menorDistanciaDescendente;
-				melhora = 0;
-
-			}
-
-			if(melhora > 10)
-				cBuscaLocal = 0.6;
-			if(melhora > 20)
-				cMutacao = 0.6;
-			if(melhora > 30)
-				cBuscaLocal = 0.8;
-			if(melhora > 40)
-				cMutacao = 0.3;
-			if(melhora > 50)
-				cBuscaLocal = 0.6;
-			if(melhora > 60)
-				cMutacao = 0.6;
-			if(melhora > 70)
-				cBuscaLocal = 0.3;
-			if(melhora > 80)
-				cMutacao = 0.8;
+			BigDecimal bd3 = new BigDecimal(menorCustoDescendente).setScale(2, RoundingMode.HALF_EVEN);
+			System.out.println((geracoes+1) + " " + bd3);
 
 			geracoes++;	
-
 		}
 
-		// menor distância final é encontrada
-		if (menorDistancia < menorDistanciaDescendente) {
-
-			menorDistanciaFinal = menorDistancia;
-
-		} else {
-
-			menorDistanciaFinal = menorDistanciaDescendente;
-
-		}
+		// menor custi final é encontrado
+		if (menorCusto < menorCustoDescendente)
+			menorCustoFinal = menorCusto;
+		else
+			menorCustoFinal = menorCustoDescendente;
 
 		//a melhor rota é selecionada
-		melhorRota = (Rota) populacao.get(0).getClone(melhorRota);
+		melhorRota = (Rota) populacao.get(0).getClone(melhorRota);		
 
 		//é impressa a melhor rota
 		for (int i = 0; i < melhorRota.getNumeroDeVeiculos(); i++) {
 
-			System.out.println((i + 1) + "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
+			BigDecimal bd4 = new BigDecimal(melhorRota.listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
 
+			System.out.println((i + 1) + "   (" + bd4 + ")      " + bd4
+					+ "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 		}
 
 		boolean semMulta;
@@ -197,20 +161,17 @@ public class Main {
 		else
 			System.out.println("Rota não atende a janela de tempo!");
 
-		//é impressa a menor distância antes da estratégia evolutiva
-		BigDecimal bd1 = new BigDecimal(menorDistancia).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Distância antes da estratégia evolutiva: " + bd1);
+		BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
+		System.out.println("Menor custo antes da estratégia: " + bd1);
 
-		//é impressa a menor distância depois da estratégia evolutiva
-		BigDecimal bd2 = new BigDecimal(menorDistanciaFinal).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Menor distância encontrada: " + bd2.doubleValue() + "\nTempo da rota: " + melhorRota.getTempoTotalRota());
+		//é impresso o menor custo encontrado
+		BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal bd3 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+		System.out.println("Menor custo encontrado: " + bd2.doubleValue() + "\nTempo da rota: " + bd3);
 
 		Calendar calendar = new GregorianCalendar();
 		Date trialTime = new Date();
 		calendar.setTime(trialTime);
-		System.out.println("Hora: " + calendar.get(Calendar.HOUR_OF_DAY));
-		System.out.println("Minuto: " + calendar.get(Calendar.MINUTE));
-		System.out.println("Segundo: " + calendar.get(Calendar.SECOND));
-
+		System.out.println("Hora: " + calendar.get(Calendar.HOUR_OF_DAY) + "   Minuto: " + calendar.get(Calendar.MINUTE));
 	}
 }

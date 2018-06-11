@@ -103,21 +103,20 @@ public class Cliente implements Cloneable {
 
 	//calcula a distância euclidiana entre o Cliente que chama o método e o cliente passado como parâmetro
 	public double distanciaEuclidianaAte(Cliente outroCliente) {
-		
+
 		double soma = Math.pow(this.coordenadaX - outroCliente.getCoordenadaX(), 2)
 				+ Math.pow(this.coordenadaY - outroCliente.getCoordenadaY(), 2);
-		
+
 		return Math.sqrt(soma);
-	
 	}
 
 	//calcula a distância euclidiana entre duas instâncias
 	public static double distanciaEuclidianaEntre(Cliente clienteA, Cliente clienteB) {
-		
+
 		return clienteA.distanciaEuclidianaAte(clienteB);
-	
 	}
 
+	//função para criar e copiar o objeto cliente
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 
@@ -126,14 +125,11 @@ public class Cliente implements Cloneable {
 				listaDeTodasPossiveisVisitas, inicioJanela, fimJanela);
 
 		return c;
-	
 	}
 
 	@Override
 	public String toString() {
 
 		return "(" + numero + ")" + " ";
-
 	}
-
 }

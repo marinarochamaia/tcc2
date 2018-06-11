@@ -23,7 +23,8 @@ public class BuscaLocal {
 			int count = 0;
 
 			//critério de parada
-			while(count < criterioParada) {	
+			while(count < criterioParada) {
+
 				count++;			
 
 				//a lista de veículos utilizados é percorrida para que todos possam passar pela busca local 
@@ -43,7 +44,7 @@ public class BuscaLocal {
 
 							BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais();
 
-							ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6,  7));
+							ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 							Collections.shuffle(operacoes);	
 
 							for(Integer o : operacoes) {
@@ -53,70 +54,57 @@ public class BuscaLocal {
 								case 1: {
 
 									blri.inserirApos(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 2: {
 
 									blri.inserirDoisApos(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 3: {
 
 									blri.inserirDoisAposInvertido(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 4: {
 
 									blri.swap(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 5: {
 
 									blri.trocaDuasPosicoesComUmaPosicao(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 6: {
 
 									blri.trocaDuasPosicoesComDuasPosicoes(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 
 								case 7: {
 
 									blri.doisopt(rotaClonada, k, matrizDeDistancias, multa, deposito);
-
 									break;
-
 								}
 								}
 							}
-						}
+						}//caso contrário, a busca é feita em veículos diferentes
 						else {
+
 							BuscaLocalRotasDiferentes blrd = new BuscaLocalRotasDiferentes();
 
-							//7) remove u e insere após v em veículos diferentes;
-							//8) remove u e x e insere u e x após v;
-							//9) remove u e x e insere x e u após v em veículos diferentes; (posições invertidas)
-							//10) troca u e v em veículos diferentes;
-							//11) troca u e x com v em veículos diferentes;
-							//12) troca u e x com v e y em veículos diferentes;
+							//1) remove u e insere após v em veículos diferentes;
+							//2) remove u e x e insere u e x após v;
+							//3) remove u e x e insere x e u após v em veículos diferentes; (posições invertidas)
+							//4) troca u e v em veículos diferentes;
+							//5) troca u e x com v em veículos diferentes;
+							//6) troca u e x com v e y em veículos diferentes;
 
 							ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
 							Collections.shuffle(operacoes);	
@@ -128,48 +116,37 @@ public class BuscaLocal {
 								case 1: {
 
 									blrd.insereApos(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
-
 								}
 
 								case 2: {
 
 									blrd.insereDuasPosicoesAposUma(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
-
 								}
 
 								case 3: {
 
 									blrd.insereDuasPosicoesAposUmaInvertido(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
-
 								}
 
 								case 4: {
 
 									blrd.trocaPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
 								}
 
 								case 5: {
 
 									blrd.trocaDuasPosicoesComUmaPosicao(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
-
 								}
 
 								case 6: {
 
 									blrd.trocaDuasPosicoesComDuasPosicoes(rotaClonada, k, n, multa, matrizDeDistancias, deposito);
-
 									break;
-
 								}
 								}						
 							}
@@ -180,4 +157,3 @@ public class BuscaLocal {
 		}
 	}
 }
-
