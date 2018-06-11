@@ -19,13 +19,13 @@ public class Main {
 		double menorCusto = 0; //menor custo encontrado na população inicial
 		double menorCustoDescendente = 0; //menor custo encontrado nas novas gerações
 		double menorCustoFinal = 0; //menor custo final
-		int gmax = 1000; //número de gerações
+		int gmax = 100; //número de gerações
 		int numeroDeRotas = 5; //mu, tamanho da população inicial
 		int numeroDeDescendentes = 25; //lamba, número de descendentes
 		int criterioParadaBL = 5; //critério de parada da busca local
 		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
-		double cBuscaLocal = 0.6; //coeficiente de busca local
+		double cBuscaLocal = 0.3; //coeficiente de busca local
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> descendentes = new ArrayList<>();
@@ -166,8 +166,7 @@ public class Main {
 
 		//é impresso o menor custo encontrado
 		BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
-		BigDecimal bd3 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
-		System.out.println("Menor custo encontrado: " + bd2.doubleValue() + "\nTempo da rota: " + bd3);
+		System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
 		Calendar calendar = new GregorianCalendar();
 		Date trialTime = new Date();
