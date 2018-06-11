@@ -25,7 +25,7 @@ public class Main {
 		int criterioParadaBL = 5; //critério de parada da busca local
 		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
-		double cBuscaLocal = 0.3; //coeficiente de busca local
+		double cBuscaLocal = 0.6; //coeficiente de busca local
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> descendentes = new ArrayList<>();
@@ -147,7 +147,7 @@ public class Main {
 
 			BigDecimal bd4 = new BigDecimal(melhorRota.listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
 
-			System.out.println((i + 1) + "   (" + bd4 + ")      " + bd4
+			System.out.println((i + 1) + "   (" + bd4 + ")      " + melhorRota.listaVeiculos.get(i).getCargaOcupada()
 					+ "   " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 		}
 

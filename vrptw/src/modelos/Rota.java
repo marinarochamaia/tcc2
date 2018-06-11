@@ -160,31 +160,62 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			//para que a ordem de visitação dos clientes não seja alterada, é salvo no
 			//auxiliar qual foi o cliente que não pôde ser inserido na ultima sequência para ser o primeiro cliente da atual sequência
 			int aux = contadorDeClientes;
+			double tempoVeiculo = 0;
 
 			//percorre as colunas de cada cliente
 			for (int column = aux; column < listaClientes.size(); column++) {
 
 				Cliente clienteAtual = listaClientes.get(column);
 
+				if(clienteAtual.getNumero() == 0)
+					continue;
+
+				tempoVeiculo += matrizDeDistancias[listaClientes.get(column - 1).getNumero()][clienteAtual.getNumero()];
+
 				//se a demanda do cliente que está sendo analisado somado a carga do veículo que já está ocupada for menor
 				//que a capacidade máxima do veículo este é incluído a rota deste veículo
-				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima()) {
+				if (veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima() && tempoVeiculo <= deposito.getFimJanela()) {
 
-					//se o cliente atual não for o depósito este é incluído na rota deste veículo
-					if(clienteAtual.getNumero() != 0) {
+					possivelRotaVeiculo.add(clienteAtual);
 
-						possivelRotaVeiculo.add(clienteAtual);
+					//a demanda deste cliente é adicionada à carga ocupada do veículo 
+					veiculo.setCargaOcupada(clienteAtual.getDemanda());			
 
-						//a demanda deste cliente é adicionada à carga ocupada do veículo 
-						veiculo.setCargaOcupada(clienteAtual.getDemanda());			
+					if(tempoVeiculo < clienteAtual.getInicioJanela()) {
+						tempoVeiculo += clienteAtual.getInicioJanela() - tempoVeiculo;
+						tempoVeiculo += clienteAtual.getDuracaoServico();
 					}
+					else
+						tempoVeiculo += clienteAtual.getDuracaoServico();
 
 					//o contador de clientes para saber quantos já foram incluídos em alguma rota
 					contadorDeClientes++;	
-				}
+
+				}						
 				//senão, é feito um break para iniciar a rota do próximo veículo
-				else
+				else if(veiculo.getCargaOcupada() + clienteAtual.getDemanda() >= veiculo.getCargaMaxima() || tempoVeiculo > deposito.getFimJanela())
 					break;
+
+				else if(veiculo.getCargaOcupada() + clienteAtual.getDemanda() <= veiculo.getCargaMaxima() && deposito.getFimJanela() < tempoVeiculo) {
+					possivelRotaVeiculo.add(clienteAtual);
+					
+					//a demanda deste cliente é adicionada à carga ocupada do veículo 
+					veiculo.setCargaOcupada(clienteAtual.getDemanda());			
+
+					if(tempoVeiculo < clienteAtual.getInicioJanela()) {
+						tempoVeiculo += clienteAtual.getInicioJanela() - tempoVeiculo;
+						tempoVeiculo += clienteAtual.getDuracaoServico();
+						
+					//o contador de clientes para saber quantos já foram incluídos em alguma rota
+					contadorDeClientes++;
+					}
+					else
+						tempoVeiculo += clienteAtual.getDuracaoServico();
+					//o contador de clientes para saber quantos já foram incluídos em alguma rota
+					contadorDeClientes++;	
+				}
+				else if(veiculo.getCargaOcupada() + clienteAtual.getDemanda() >= veiculo.getCargaMaxima() && contadorDeClientes != listaClientes.size())
+					System.out.println("Erro");
 			}
 
 			//a rota de cada veículo (que possui alguma carga) é inserido no array de ordem de visitação iniciando e terminando no depósito
