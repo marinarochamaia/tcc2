@@ -58,7 +58,7 @@ public class Veiculo implements Cloneable {
 		double auxCustoVeiculo = 0.0;
 
 		//variável para indicar se a rota atende à restrição da janela de tempo
-		boolean semMulta = false;
+		boolean semMulta = true;
 
 		//percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
@@ -72,7 +72,6 @@ public class Veiculo implements Cloneable {
 					&& auxTempo <= ordemDeVisitacao.get(row).getFimJanela()) {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-				semMulta = true;
 
 			} //se o veículo chega antes da janela, soma-se ao tempo o tempo de espera e a duração do serviço e soma-se ao custo o tempo de espera e a multa
 			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {

@@ -19,13 +19,13 @@ public class Main {
 		double menorCusto = 0; //menor custo encontrado na população inicial
 		double menorCustoDescendente = 0; //menor custo encontrado nas novas gerações
 		double menorCustoFinal = 0; //menor custo final
-		int gmax = 100; //número de gerações
+		int gmax = 1000; //número de gerações
 		int numeroDeRotas = 5; //mu, tamanho da população inicial
 		int numeroDeDescendentes = 25; //lamba, número de descendentes
 		int criterioParadaBL = 5; //critério de parada da busca local
 		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
-		double cBuscaLocal = 0.3; //coeficiente de busca local
+		double cBuscaLocal = 0.6; //coeficiente de busca local
 
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> descendentes = new ArrayList<>();
@@ -56,14 +56,10 @@ public class Main {
 			//as rotas criadas são clonadas
 			Rota rotaInicial = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			rotaInicial = (Rota) r.getClone(rotaInicial);
-
-			//verificação se os veículos utilizados não são maiores do que os disponíveis
-			//se os veículos utilizados são menores ou iguais aos disponíveis, a rota é incluída na população
-			if (rotaInicial.getVeiculosUtilizados() <= veiculos.size()) 
-				populacao.add(rotaInicial);
-			//se não a rota é infactível
-			else 
-				System.out.println("Rota infactível");
+			
+			// a rota é incluída na população
+			populacao.add(rotaInicial);
+			
 		}
 
 		//busca pela menor distância da população inicial
@@ -152,6 +148,8 @@ public class Main {
 		}
 
 		boolean semMulta;
+		
+		
 
 		FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
 		semMulta = fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, melhorRota);
