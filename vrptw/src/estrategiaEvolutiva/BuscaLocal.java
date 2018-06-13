@@ -12,6 +12,8 @@ public class BuscaLocal {
 
 	public void fazBuscaLocal(Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
 			double cBuscaLocal, Cliente deposito, int criterioParada) throws CloneNotSupportedException{
+		
+		int iguais = 0;
 
 		//um número aleatório entre 0 e 1 é selecionado para ser o coeficiente que deve ser atendido para a busca local ser feita
 		Random rnd = new Random();
@@ -22,9 +24,13 @@ public class BuscaLocal {
 
 			int count = 0;
 
+			
 			//critério de parada
 			while(count < criterioParada) {
 
+				double custoAnterior = rotaClonada.getCustoTotalRota();
+				
+				
 				count++;			
 
 				//a lista de veículos utilizados é percorrida para que todos possam passar pela busca local 
@@ -153,6 +159,14 @@ public class BuscaLocal {
 						}
 					}
 				}
+				
+				if(rotaClonada.getCustoTotalRota() == custoAnterior)
+					iguais++;
+				
+				if(iguais >= 2)
+					return;
+				
+				
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import estrategiaEvolutiva.BuscaLocal;
 import estrategiaEvolutiva.FuncoesBuscaLocal;
 import estrategiaEvolutiva.Mutacao;
 import io.Conversor;
+import io.Saida;
 import modelos.Cliente;
 import modelos.Rota;
 import modelos.Veiculo;
@@ -22,11 +23,14 @@ public class Main {
 		int gmax = 1000; //número de gerações
 		int numeroDeRotas = 5; //mu, tamanho da população inicial
 		int numeroDeDescendentes = 25; //lamba, número de descendentes
-		int criterioParadaBL = 5; //critério de parada da busca local
+		int criterioParadaBL = 10; //critério de parada da busca local
 		int multa = 1000; //multa aplicada às rotas que não chegarem dentro da janela
 		double cMutacao = 0.8; //coeficiente de mutação
 		double cBuscaLocal = 0.6; //coeficiente de busca local
-
+		long tempoInicio = System.currentTimeMillis();
+		long tempoDeExecucao;
+		
+		
 		//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 		ArrayList<Rota> descendentes = new ArrayList<>();
 		ArrayList<Cliente> clientes = new ArrayList<>(); //lista de clientes passados pelo arquivo
@@ -127,6 +131,14 @@ public class Main {
 			System.out.println((geracoes+1) + " " + bd3);
 
 			geracoes++;	
+			
+			tempoDeExecucao = (System.currentTimeMillis()-tempoInicio)/60000;
+			
+			if(tempoDeExecucao > 10)
+				break;
+
+			
+			
 		}
 
 		// menor custi final é encontrado
@@ -148,9 +160,7 @@ public class Main {
 		}
 
 		boolean semMulta;
-		
-		
-
+	
 		FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
 		semMulta = fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, melhorRota);
 
@@ -165,10 +175,20 @@ public class Main {
 		//é impresso o menor custo encontrado
 		BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
 		System.out.println("Menor custo encontrado: " + bd2.doubleValue());
+		
+		melhorRota.atualizaVeiculosUtilizados(melhorRota);
+		
+		BigDecimal bd3 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 
-		Calendar calendar = new GregorianCalendar();
-		Date trialTime = new Date();
-		calendar.setTime(trialTime);
-		System.out.println("Hora: " + calendar.get(Calendar.HOUR_OF_DAY) + "   Minuto: " + calendar.get(Calendar.MINUTE));
+		tempoDeExecucao = System.currentTimeMillis()-tempoInicio;
+		Saida criaArquivo = new Saida(args[1]);
+		
+		BigDecimal bd5 = new BigDecimal(tempoDeExecucao / 60000).setScale(2, RoundingMode.HALF_EVEN);
+		
+		System.out.println(bd5);
+		
+		criaArquivo.solucoes(bd2, bd5, bd3, melhorRota.getVeiculosUtilizados(), geracoes, semMulta);
+		
+		
 	}
 }

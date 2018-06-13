@@ -123,7 +123,6 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		listaClientes.addAll(sequenciaDeVisitas);
 
 		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
-
 	}
 
 	//função para criar a ordem de visitação de cada veículo
@@ -225,6 +224,21 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			setCustoTotalRota(veiculo.getCustoVeiculo());
 			setTempoTotalRota(veiculo.getTempoVeiculo());
 		}
+	}
+	
+	public void atualizaVeiculosUtilizados(Rota r) {
+		
+		int veiculosUtilizados = 0;
+		
+		
+		for(int i = 0; i < r.numeroDeVeiculos; i++) {
+			
+			if(r.listaVeiculos.get(i).getCustoVeiculo() != 0)
+				veiculosUtilizados++;
+		}
+		
+		r.setVeiculosUtilizados(veiculosUtilizados);
+		
 	}
 
 	//função para criar e copiar o objeto rota
