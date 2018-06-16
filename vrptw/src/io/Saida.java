@@ -16,11 +16,8 @@ public class Saida {
 	}
 		
 	public void solucoes(BigDecimal menorCustoTotal, BigDecimal tempoDeExecucao, BigDecimal tempoTotalRota, int quantidadeDeVeiculos, int geracoes, boolean factivel) {
-	
 
 		try {
-			
-			
 			
 			BufferedReader leitor;
 			//contador da posição da linha atual
@@ -37,25 +34,19 @@ public class Saida {
 		        
 		        gravarArq.newLine();
 		        gravarArq.append("" + tempoDeExecucao);
-		        gravarArq.append(linha + menorCustoTotal);
-		        gravarArq.append(linha + tempoTotalRota);
-		        gravarArq.append(linha + quantidadeDeVeiculos);
-		        gravarArq.append(linha + "\t" + geracoes);
+		        gravarArq.append(linha + linha + menorCustoTotal);
+		        gravarArq.append(linha + "\t" + tempoTotalRota);
+		        gravarArq.append(linha + linha + quantidadeDeVeiculos);
+		        gravarArq.append(linha + linha + linha+ geracoes);
 		        gravarArq.append(linha + "\t" + factivel);
 		        
 			}
-			
-	        
 	        
 			leitor.close();
-			gravarArq.close();
-			
+			gravarArq.close();	
 			
 		} catch (Exception e) {
 			System.out.println("Erro durante leitura de arquivo: " + e.getMessage());
 		}
-		
-	
 	}
-	
 }

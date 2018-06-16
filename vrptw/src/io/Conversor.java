@@ -74,7 +74,7 @@ public class Conversor {
 				case 1: {
 
 					//obtêm-se a quantidade de veículos e a quantidade de clientes
-					quantidadeDeVeiculos = Integer.valueOf(parametros[1])*2;
+					quantidadeDeVeiculos = Integer.valueOf(parametros[1])*3;
 					quantidadeDeClientes = Integer.valueOf(parametros[2]);
 
 					//determina-se o tamanho da lista de ambos modelos
