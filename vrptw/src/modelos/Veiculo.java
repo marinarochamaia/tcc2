@@ -51,14 +51,11 @@ public class Veiculo implements Cloneable {
 	}
 
 	//função para calcular o custo de um veículo e retornar um booleano que indica se a rota atende ou não à restrição da janela de tempo
-	public boolean calculaCustos(double[][] matrizDeDistancias, int multa) {
+	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
 
 		//variáveis para armazenar os valores de tempo e custo dos veículos
 		double auxTempo = 0.0;
 		double auxCustoVeiculo = 0.0;
-
-		//variável para indicar se a rota atende à restrição da janela de tempo
-		boolean semMulta = true;
 
 		//percorre a rota de um veículo em específico
 		for (int row = 1; row < ordemDeVisitacao.size(); row++) {
@@ -72,7 +69,6 @@ public class Veiculo implements Cloneable {
 					&& auxTempo <= ordemDeVisitacao.get(row).getFimJanela()) {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-				semMulta = true;
 
 			} //se o veículo chega antes da janela, soma-se ao tempo o tempo de espera e a duração do serviço e soma-se ao custo o tempo de espera
 			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {
@@ -81,14 +77,14 @@ public class Veiculo implements Cloneable {
 
 				auxTempo += tempoDeEspera;
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-				semMulta = true;
+
 
 			} //se o veículo chega depois da janela, soma-se ao tempo a duração do serviço e soma-se ao custo a multa
 			else if (auxTempo > ordemDeVisitacao.get(row).getFimJanela()) {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 				auxCustoVeiculo += multa;
-				semMulta = false;
+				
 			}		
 		}
 
@@ -98,9 +94,7 @@ public class Veiculo implements Cloneable {
 
 		//as variáveis do veículo são setadas
 		setTempoVeiculo(auxTempo);
-		setCustoVeiculo(auxCustoVeiculo);
-
-		return semMulta;	
+		setCustoVeiculo(auxCustoVeiculo);	
 	}
 
 	//função para criar e copiar o objeto veículo

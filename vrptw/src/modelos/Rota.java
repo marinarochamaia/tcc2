@@ -162,7 +162,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			int aux = contadorDeClientes;
 			//variável para armazenar o tempo gasto de cada veículo, para poder moldar as rotas
 			double tempoVeiculo = 0;
-			
+
 			//percorre as colunas de cada cliente
 			for (int column = aux; column < listaClientes.size(); column++) {
 
@@ -200,7 +200,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 					}//se o fim da janela do depósito é maior, é feito um break para começar a rota do próximo veículo
 					else 
 						break;
-					
+
 				}//se a carga não é respeitada é feito um break para começar a rota do próximo veículo
 				else 
 					break;		
@@ -225,20 +225,20 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			setTempoTotalRota(veiculo.getTempoVeiculo());
 		}
 	}
-	
+
 	public void atualizaVeiculosUtilizados(Rota r) {
-		
+
 		int veiculosUtilizados = 0;
-		
-		
+
+
 		for(int i = 0; i < r.numeroDeVeiculos; i++) {
-			
+
 			if(r.listaVeiculos.get(i).getCustoVeiculo() != 0)
 				veiculosUtilizados++;
 		}
-		
+
 		r.setVeiculosUtilizados(veiculosUtilizados);
-		
+
 	}
 
 	//função para criar e copiar o objeto rota

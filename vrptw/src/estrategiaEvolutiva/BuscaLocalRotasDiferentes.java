@@ -91,14 +91,14 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 		//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 		//a carga ocupada do segundo veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 		//atualiza-se o custo e o tempo
 		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -205,14 +205,14 @@ public class BuscaLocalRotasDiferentes {
 			rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 			//a carga ocupada do primeiro veículo é atualizada
-			fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+			fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 			//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 			rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 			rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 			//a carga ocupada do segundo veículo é atualizada
-			fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+			fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 			//atualiza-se o custo e o tempo
 			fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -325,14 +325,14 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 		//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 		//a carga ocupada do segundo veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 		//atualiza-se o custo e o tempo
 		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -437,14 +437,14 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 		//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 		//a carga ocupada do segundo veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 		//atualiza-se o custo e o custo
 		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -567,14 +567,14 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 		//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 		//a carga ocupada do segundo veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 		//atualiza-se o custo e o tempo
 		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
@@ -718,14 +718,14 @@ public class BuscaLocalRotasDiferentes {
 		rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV1);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(k));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(k));
 
 		//o array da ordem de visitação do segundo veículo é atualizado com a melhor configuração encontrada
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.clear();
 		rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.addAll(melhorOrdemDeVisitacaoV2);
 
 		//a carga ocupada do primeiro veículo é atualizada
-		fbl.calculaCargaOcupada(deposito, rotaClonada.listaVeiculos.get(n));
+		fbl.calculaCargaOcupada(rotaClonada.listaVeiculos.get(n));
 
 		//o custo e o tempo são atualizados
 		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);

@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.util.*;
 
 import estrategiaEvolutiva.BuscaLocal;
-import estrategiaEvolutiva.FuncoesBuscaLocal;
 import estrategiaEvolutiva.Mutacao;
 import io.Conversor;
 import io.Saida;
@@ -19,7 +18,7 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 15) {
+		while(contador < 12) {
 			contador++;
 			double menorCusto = 0; //menor custo encontrado na população inicial
 			double menorCustoFinal = 0; //menor custo final
@@ -32,7 +31,6 @@ public class Main {
 			double cBuscaLocal = 0.6; //coeficiente de busca local
 			long tempoInicio = System.currentTimeMillis();
 			long tempoDeExecucao;
-
 
 			//array auxiliar para guardar todas os indíviduos criados através da busca local com o merge com a população inicial
 			ArrayList<Rota> descendentes = new ArrayList<>();
@@ -129,65 +127,27 @@ public class Main {
 					break;	
 			}
 
-			//a melhor rota é selecionada
-
-
-			for(int i = 0; i < populacao.size(); i++)
-				System.out.println(populacao.get(i).getCustoTotalRota());
-
-			//é impressa a melhor rota
-			for (int i = 0; i < populacao.get(0).getNumeroDeVeiculos(); i++) {
-
-				if(populacao.get(0).listaVeiculos.get(i).getCustoVeiculo() > 0) {
-					BigDecimal bd4 = new BigDecimal(populacao.get(0).listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
-
-					System.out.println((i + 1) + "   (" + bd4 + ")      " + populacao.get(0).listaVeiculos.get(i).getCargaOcupada()
-							+ "   " + populacao.get(0).listaVeiculos.get(i).ordemDeVisitacao);
-				}
-			}
-
 			// menor custo final é encontrado
 			if (menorCusto < populacao.get(0).getCustoTotalRota())
 				menorCustoFinal = menorCusto;
 			else
 				menorCustoFinal = populacao.get(0).getCustoTotalRota();
 
-			BigDecimal bd1 = new BigDecimal(menorCusto).setScale(2, RoundingMode.HALF_EVEN);
-			System.out.println("Menor custo antes da estratégia: " + bd1);
-
 			//é impresso o menor custo encontrado
 			BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
 			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
-
-
 			BigDecimal bd3 = new BigDecimal(populacao.get(0).getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
-
-			boolean semMulta;
-
-			FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
-			semMulta = fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, populacao.get(0));
-
-			if(semMulta)
-				System.out.println("Rota atende a janela de tempo!");
-			else
-				System.out.println("Rota não atende a janela de tempo!");
 
 			tempoDeExecucao = System.currentTimeMillis()-tempoInicio;
 			Saida criaArquivo = new Saida(args[1]);
 
 			BigDecimal bd5 = new BigDecimal(tempoDeExecucao / 60000).setScale(2, RoundingMode.HALF_EVEN);
 
-			System.out.println(bd5);
-
 			populacao.get(0).atualizaVeiculosUtilizados(populacao.get(0));
-
-			criaArquivo.solucoes(bd2, bd5, bd3, populacao.get(0).getVeiculosUtilizados(), geracoes, semMulta);
 			
-			if(!semMulta)
-				contador--;
-				
-		}
+			criaArquivo.solucoes(bd2, bd5, bd3, populacao.get(0).getVeiculosUtilizados(), geracoes);
+			}
 
 	}
 }
