@@ -263,8 +263,12 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			r.custoTotalRota = this.custoTotalRota;
 			r.tempoTotalRota = this.tempoTotalRota;
 			r.conversor = this.conversor;
-			r.listaClientes = new ArrayList<>(this.listaClientes);
-			r.listaVeiculos = new ArrayList<>(this.listaVeiculos);
+			r.listaClientes = new ArrayList<>();
+			for(Cliente c : this.listaClientes)
+				r.listaClientes.add((Cliente) c.clone());
+			r.listaVeiculos = new ArrayList<>();
+			for(Veiculo v : this.listaVeiculos)
+				r.listaVeiculos.add((Veiculo) v.clone());
 			r.matrizDeDistancias = this.matrizDeDistancias;
 
 			return r;

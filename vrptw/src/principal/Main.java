@@ -18,7 +18,7 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 1) {
+		while(contador < 180) {
 			contador++;
 			int gmax = 1000; //número de gerações
 			int numeroDeRotas = 5; //mu, tamanho da população
@@ -36,15 +36,58 @@ public class Main {
 			ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de veículos passados pelo arquivo
 			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas gerações
 
-			//args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
-			Conversor conversor = new Conversor(args[0]);
-			conversor.converterArquivo(clientes, veiculos);
+			Random rnd = new Random();
+			int parametro = rnd.nextInt(5);
+
+			int contZero = 0, contUm = 0, contDois = 0, contTres = 0, contQuatro = 0, contCinco = 0;
 			
+
+			while(contZero == 15 || contUm == 15 || contDois == 15 || contTres == 15 || contQuatro == 15 || contCinco == 15) {
+				parametro = rnd.nextInt(5);
+				
+				if(contZero == 15 && contUm == 15 && contDois == 15 && contTres == 15 && contQuatro == 15 && contCinco == 15)
+					break;
+			}
+
+			switch(parametro) {
+			case 0:{
+				contZero++;
+				break;
+			}
+			case 1:{
+				contUm++;
+				break;
+			}			
+			case 2:{
+				contDois++;
+				break;
+			}
+			case 3:{
+				contTres++;
+				break;
+			}
+			case 4:{
+				contQuatro++;
+				break;
+			}
+			case 5:{
+				contCinco++;
+				break;
+			}
+			}
+
+			//args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
+			Conversor conversor = new Conversor(args[parametro]);
+			conversor.converterArquivo(clientes, veiculos);
+
 			//matriz que salva as distâncias de todos os clientes para os outros
 			double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
 			//as distâncias entre os clientes são calculadas
 			matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
+
+			Rota melhorRota = new Rota(clientes, veiculos,clientes.size(), multa, veiculos.size(), matrizDeDistancias);
+			melhorRota.setCustoTotalRota(Double.MAX_VALUE);
 
 			//criação da população inicial (pais)
 			for (int i = 0; i < numeroDeRotas; i++) {
@@ -67,7 +110,7 @@ public class Main {
 
 			//laço para fazer a mutação em todas as gerações criadas
 			while (geracoes < gmax) {			
-				
+
 				//para cada indivíduo da população (pai) 
 				for (Rota r : populacao) {
 
@@ -87,13 +130,17 @@ public class Main {
 
 						//a busca local é feita
 						BuscaLocal bl = new BuscaLocal();
-						bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);
-				
+						bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);		
+
+						if(melhorRota.getCustoTotalRota() > rotaClonada.getCustoTotalRota()) {
+							melhorRota = (Rota) rotaClonada.getClone(melhorRota);
+						}
+
 						//as novas rotas são adicionadas em um array auxiliar
 						descendentes.add(rotaClonada);
 					}	
 				}
-			
+
 				//populacao = populacao + descendentes
 				populacao.addAll(descendentes);
 
@@ -104,11 +151,11 @@ public class Main {
 
 				//a lista auxiliar é limpa
 				descendentes.clear();
-				
+
 				//é impressa a distância encontrada nessa geração
-				BigDecimal bd1 = new BigDecimal(populacao.get(0).getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+				BigDecimal bd1 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 				System.out.println((geracoes+1) + " " + bd1);
-				
+
 				geracoes++;	
 
 				tempoDeExecucao = (System.currentTimeMillis()-tempoInicio)/60000;
@@ -116,40 +163,33 @@ public class Main {
 				if(tempoDeExecucao >= 30)
 					break;	
 			}
-		
-			
+
+
 			//é impresso o menor custo encontrado
-			BigDecimal bd2 = new BigDecimal(populacao.get(0).getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+			BigDecimal bd2 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
-			
-			double custo = 0;
-			
-		
-			
-			for(int i = 0; i < populacao.get(0).listaVeiculos.size(); i++) {
-				if(populacao.get(0).listaVeiculos.get(i).getCargaOcupada() != 0) {
-					BigDecimal bd3 = new BigDecimal(populacao.get(0).listaVeiculos.get(i).getTempoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
-					BigDecimal bd6 = new BigDecimal(populacao.get(0).listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
-					custo += populacao.get(0).listaVeiculos.get(i).getCustoVeiculo();
+
+			for(int i = 0; i < melhorRota.listaVeiculos.size(); i++) {
+				if(melhorRota.listaVeiculos.get(i).getCargaOcupada() != 0) {
+					BigDecimal bd3 = new BigDecimal(melhorRota.listaVeiculos.get(i).getTempoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
+					BigDecimal bd6 = new BigDecimal(melhorRota.listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
 					System.out.println((i + 1)  + "\t\t" + bd6 + "\t\t" + bd3 + "\t\t" +
-							populacao.get(0).listaVeiculos.get(i).getCargaOcupada()
-							+ "     " + populacao.get(0).listaVeiculos.get(i).ordemDeVisitacao);
+							melhorRota.listaVeiculos.get(i).getCargaOcupada()
+							+ "     " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 				}
 			}
-			
-			System.out.println(custo);
-			
-			Saida criaArquivo = new Saida(args[1]);
-			
-			BigDecimal bd4 = new BigDecimal(populacao.get(0).getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
-			
-			populacao.get(0).atualizaVeiculosUtilizados(populacao.get(0));
-			
+
+			Saida criaArquivo = new Saida(args[parametro + 6]);
+
+			BigDecimal bd4 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+
+			melhorRota.atualizaVeiculosUtilizados(melhorRota);
+
 			tempoDeExecucao = System.currentTimeMillis() - tempoInicio;
 
 			BigDecimal bd5 = new BigDecimal(tempoDeExecucao / 60000).setScale(2, RoundingMode.HALF_EVEN);
 
-			criaArquivo.solucoes(bd2, bd5, bd4, populacao.get(0).getVeiculosUtilizados(), geracoes);
+			criaArquivo.solucoes(bd2, bd5, bd4, melhorRota.getVeiculosUtilizados(), geracoes, melhorRota.isFactivel());
 
 		}
 

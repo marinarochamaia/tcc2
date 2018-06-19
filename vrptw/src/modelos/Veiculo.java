@@ -105,7 +105,9 @@ public class Veiculo implements Cloneable {
 		v.cargaOcupada = this.cargaOcupada;
 		v.custoVeiculo = this.custoVeiculo;
 		v.tempoVeiculo = this.tempoVeiculo;
-		v.ordemDeVisitacao = new ArrayList<>(ordemDeVisitacao);
+		v.ordemDeVisitacao = new ArrayList<>();
+		for(Cliente c : this.ordemDeVisitacao)
+			v.ordemDeVisitacao.add((Cliente) c.clone());
 
 		return v;
 	}

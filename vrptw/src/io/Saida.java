@@ -16,7 +16,7 @@ public class Saida {
 	}
 		
 	//método para salvar em um arquivo externo as soluções encontradas
-	public void solucoes(BigDecimal menorCustoTotal, BigDecimal tempoDeExecucao, BigDecimal tempoTotalRota, int quantidadeDeVeiculos, int geracoes) {
+	public void solucoes(BigDecimal menorCustoTotal, BigDecimal tempoDeExecucao, BigDecimal tempoTotalRota, int quantidadeDeVeiculos, int geracoes, boolean factivel) {
 
 		try {
 			
@@ -36,7 +36,8 @@ public class Saida {
 		        gravarArq.append(linha + linha + menorCustoTotal);
 		        gravarArq.append(linha + "\t" + tempoTotalRota);
 		        gravarArq.append(linha + linha + quantidadeDeVeiculos);
-		        gravarArq.append(linha + linha + linha+ geracoes);	
+		        gravarArq.append(linha + linha + linha + geracoes);
+		        gravarArq.append(linha + linha + factivel);
 			}
 	        
 			leitor.close();
