@@ -50,8 +50,7 @@ public class Veiculo implements Cloneable {
 		this.cargaMaxima = cargaMaxima;
 	}
 
-	//função para calcular o custo de um veículo e retornar um booleano que indica se a rota atende ou não à restrição da janela de tempo
-	public void calculaCustos(double[][] matrizDeDistancias, int multa) {
+	public void calculaCustos(double[][] matrizDeDistancias, int multa, Rota r) {
 
 		//variáveis para armazenar os valores de tempo e custo dos veículos
 		double auxTempo = 0.0;
@@ -83,6 +82,7 @@ public class Veiculo implements Cloneable {
 
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 				auxCustoVeiculo += multa;
+				r.setFactivel(false);
 				
 			}		
 		}

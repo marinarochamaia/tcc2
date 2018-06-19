@@ -12,7 +12,8 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 	private Cliente deposito; 
 	private double custoTotalRota, tempoTotalRota;
-
+	private boolean factivel = true;
+	
 	Conversor conversor;
 	public ArrayList<Cliente> listaClientes = new ArrayList<>();
 	public ArrayList<Veiculo> listaVeiculos = new ArrayList<>();
@@ -74,7 +75,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	public void setCustoTotalRota(double custoTotalRota) {
-		this.custoTotalRota = custoTotalRota;
+		this.custoTotalRota += custoTotalRota;
 	}
 
 	public void resetCustoTotalRota() {
@@ -86,11 +87,19 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	public void setTempoTotalRota(double tempoTotalRota) {
-		this.tempoTotalRota = tempoTotalRota;
+		this.tempoTotalRota += tempoTotalRota;
 	}
 
 	public void resetTempoTotalRota() {
 		this.tempoTotalRota = 0;
+	}
+	
+	public boolean isFactivel() {
+		return factivel;
+	}
+
+	public void setFactivel(boolean factivel) {
+		this.factivel = factivel;
 	}
 
 	//função para criação das rotas iniciais (pais)
@@ -136,10 +145,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		//o custo e o tempo da rota são resetados
 		resetCustoTotalRota();
 		resetTempoTotalRota();
-		
-		double auxCusto = 0;
-		double auxTempo = 0;
-		
+				
 		//percorre-se os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 
@@ -223,13 +229,11 @@ public class Rota implements Cloneable, Comparable<Rota> {
 			setVeiculosUtilizados(j+1);
 
 			// calcula o custo de cada veículo e adiciona ao custo e ao tempo totais da rota
-			veiculo.calculaCustos(matrizDeDistancias, multa);
-			auxCusto += veiculo.getCustoVeiculo();
-			auxTempo += veiculo.getTempoVeiculo();
-		}
+			veiculo.calculaCustos(matrizDeDistancias, multa, r);
+			r.setCustoTotalRota(veiculo.getCustoVeiculo()); 
+			r.setTempoTotalRota(veiculo.getTempoVeiculo());		}
 		
-		r.setCustoTotalRota(auxCusto); 
-		r.setTempoTotalRota(auxTempo);
+
 	}
 
 	public void atualizaVeiculosUtilizados(Rota r) {

@@ -22,10 +22,10 @@ public class FuncoesBuscaLocal {
 		for (int l = 0; l < rotaClonada.listaVeiculos.size(); l++) {
 
 			//o custo do veículo analisado é calculado
-			rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
+			rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa, rotaClonada);
 			
 			auxCusto += rotaClonada.listaVeiculos.get(l).getCustoVeiculo();
-			rotaClonada.listaVeiculos.get(l).getTempoVeiculo();		
+			auxTempo += rotaClonada.listaVeiculos.get(l).getTempoVeiculo();		
 		}
 
 		rotaClonada.setCustoTotalRota(auxCusto); 
