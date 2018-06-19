@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.*;
 
 import estrategiaEvolutiva.BuscaLocal;
+import estrategiaEvolutiva.FuncoesBuscaLocal;
 import estrategiaEvolutiva.Mutacao;
 import io.Conversor;
 import io.Saida;
@@ -18,11 +19,9 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 12) {
+		while(contador < 1) {
 			contador++;
-			double menorCusto = 0; //menor custo encontrado na população inicial
-			double menorCustoFinal = 0; //menor custo final
-			int gmax = 1000; //número de gerações
+			int gmax = 10; //número de gerações
 			int numeroDeRotas = 5; //mu, tamanho da população
 			int numeroDeDescendentes = 25; //lamba, número de descendentes
 			int criterioParadaBL = 10; //critério de parada da busca local
@@ -42,6 +41,8 @@ public class Main {
 			Conversor conversor = new Conversor(args[0]);
 			conversor.converterArquivo(clientes, veiculos);
 
+			FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
+
 			//matriz que salva as distâncias de todos os clientes para os outros
 			double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
@@ -53,23 +54,17 @@ public class Main {
 				//a rota é instanciada
 				Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 				//a função para mudar as rotas é chamada
-				r.criaRotas();
+				r.criaRotas(r);
 
 				//as rotas criadas são clonadas
 				Rota rotaInicial = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 				rotaInicial = (Rota) r.getClone(rotaInicial);
 
+				fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaInicial);
+
 				// a rota é incluída na população
 				populacao.add(rotaInicial);
 
-			}
-
-			//busca pela menor distância da população inicial
-			menorCusto = Double.MAX_VALUE;
-			for (Rota r : populacao) {
-				if (menorCusto > r.getCustoTotalRota()) {
-					menorCusto = r.getCustoTotalRota();
-				}
 			}
 
 			//contador para o número de gerações que serão criadas
@@ -77,6 +72,10 @@ public class Main {
 
 			//laço para fazer a mutação em todas as gerações criadas
 			while (geracoes < gmax) {
+
+				for(Rota r: descendentes)
+					fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, r);
+
 				//para cada indivíduo da população (pai) 
 				for (Rota r : populacao) {
 
@@ -98,15 +97,19 @@ public class Main {
 						BuscaLocal bl = new BuscaLocal();
 						bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);
 
+						fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);	
+
 						//as novas rotas são adicionadas em um array auxiliar
 						descendentes.add(rotaClonada);
-					}
+						//System.out.println("DESCENDENTES: " + rotaClonada.getCustoTotalRota());
+					}	
+
+
 				}
 
 				//populacao = populacao + descendentes
 				populacao.addAll(descendentes);
 
-				// as rotas são ordenadas por valor de custos
 				Collections.sort(populacao);
 
 				// é feito um corte para mu (numeroDeRotas) indivíduos
@@ -127,16 +130,6 @@ public class Main {
 					break;	
 			}
 
-			// menor custo final é encontrado
-			if (menorCusto < populacao.get(0).getCustoTotalRota())
-				menorCustoFinal = menorCusto;
-			else
-				menorCustoFinal = populacao.get(0).getCustoTotalRota();
-
-			//é impresso o menor custo encontrado
-			BigDecimal bd2 = new BigDecimal(menorCustoFinal).setScale(2, RoundingMode.HALF_EVEN);
-			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
-
 			BigDecimal bd3 = new BigDecimal(populacao.get(0).getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 
 			tempoDeExecucao = System.currentTimeMillis()-tempoInicio;
@@ -145,9 +138,21 @@ public class Main {
 			BigDecimal bd5 = new BigDecimal(tempoDeExecucao / 60000).setScale(2, RoundingMode.HALF_EVEN);
 
 			populacao.get(0).atualizaVeiculosUtilizados(populacao.get(0));
-			
-			criaArquivo.solucoes(bd2, bd5, bd3, populacao.get(0).getVeiculosUtilizados(), geracoes);
+
+			//é impresso o menor custo encontrado
+			BigDecimal bd2 = new BigDecimal(populacao.get(0).getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
+			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
+
+			for(int i = 0; i < populacao.get(0).listaVeiculos.size(); i++) {
+				if(populacao.get(0).listaVeiculos.get(i).getCargaOcupada() != 0) {
+					BigDecimal bd1 = new BigDecimal(populacao.get(0).listaVeiculos.get(i).getCustoVeiculo()).setScale(2, RoundingMode.HALF_EVEN);
+					System.out.println(bd1 + "     " + populacao.get(0).listaVeiculos.get(i).ordemDeVisitacao);
+				}
 			}
+
+			criaArquivo.solucoes(bd2, bd5, bd3, populacao.get(0).getVeiculosUtilizados(), geracoes);
+
+		}
 
 	}
 }

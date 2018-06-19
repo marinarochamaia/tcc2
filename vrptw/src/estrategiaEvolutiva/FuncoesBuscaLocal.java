@@ -14,19 +14,22 @@ public class FuncoesBuscaLocal {
 		//o tempo e o custo totais da rota são resetados
 		rotaClonada.resetCustoTotalRota();
 		rotaClonada.resetTempoTotalRota();
-
+		
+		double auxCusto = 0;
+		double auxTempo = 0;
+		
 		//a lista de veículos utilizados é percorrida
-		for (int l = 1; l < rotaClonada.getVeiculosUtilizados(); l++) {
+		for (int l = 0; l < rotaClonada.listaVeiculos.size(); l++) {
 
 			//o custo do veículo analisado é calculado
 			rotaClonada.listaVeiculos.get(l).calculaCustos(matrizDeDistancias, multa);
 			
-			//é somado o custo deste veículo ao custo total da rota 
-			rotaClonada.setCustoTotalRota(rotaClonada.listaVeiculos.get(l).getCustoVeiculo());
-
-			//é somado o tempo deste veículo ao tempo total da rota 
-			rotaClonada.setTempoTotalRota(rotaClonada.listaVeiculos.get(l).getTempoVeiculo());
+			auxCusto += rotaClonada.listaVeiculos.get(l).getCustoVeiculo();
+			rotaClonada.listaVeiculos.get(l).getTempoVeiculo();		
 		}
+
+		rotaClonada.setCustoTotalRota(auxCusto); 
+		rotaClonada.setTempoTotalRota(auxTempo);
 	}
 
 	//função para atualizar as posições dos clientes no giant tour após a busca local
@@ -39,7 +42,7 @@ public class FuncoesBuscaLocal {
 		giantTour.add(deposito);
 
 		//a lista de veículos é percorrida
-		for(int i = 0; i < veiculosUtilizados; i++) {
+		for(int i = 0; i < listaVeiculos.size(); i++) {
 
 			//a lista de clientes deste veículo é percorrida
 			for(int j = 0; j < listaVeiculos.get(i).ordemDeVisitacao.size(); j++) {

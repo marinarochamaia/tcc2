@@ -74,7 +74,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	public void setCustoTotalRota(double custoTotalRota) {
-		this.custoTotalRota += custoTotalRota;
+		this.custoTotalRota = custoTotalRota;
 	}
 
 	public void resetCustoTotalRota() {
@@ -86,7 +86,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	public void setTempoTotalRota(double tempoTotalRota) {
-		this.tempoTotalRota += tempoTotalRota;
+		this.tempoTotalRota = tempoTotalRota;
 	}
 
 	public void resetTempoTotalRota() {
@@ -94,7 +94,7 @@ public class Rota implements Cloneable, Comparable<Rota> {
 	}
 
 	//função para criação das rotas iniciais (pais)
-	public void criaRotas() {
+	public void criaRotas(Rota r) {
 
 		//arraylist para salvar a rota inicial partindo de zero (depósito) até o máximo de clientes, ou seja, cria uma rota partindo do 0 (depósito) até o último
 		//cliente em ordem crescente
@@ -122,12 +122,12 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		//a lista de clientes recebe a sequencia de visitas gerada aleatoriamente
 		listaClientes.addAll(sequenciaDeVisitas);
 
-		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa);
+		criaOrdemDeVisitacao(numeroDeVeiculos, listaVeiculos, listaClientes, deposito, matrizDeDistancias, multa, r);
 	}
 
 	//função para criar a ordem de visitação de cada veículo
 	public void criaOrdemDeVisitacao(int numeroDeVeiculos, ArrayList<Veiculo> listaVeiculos, ArrayList<Cliente> listaClientes,
-			Cliente deposito, double [][] matrizDeDistancias, int multa) {
+			Cliente deposito, double [][] matrizDeDistancias, int multa, Rota r) {
 
 		//é criado um contador para controlar os clientes que já foram adicionados em algum veículo
 		//ele inicia em um por causa do depósito
@@ -136,7 +136,10 @@ public class Rota implements Cloneable, Comparable<Rota> {
 		//o custo e o tempo da rota são resetados
 		resetCustoTotalRota();
 		resetTempoTotalRota();
-
+		
+		double auxCusto = 0;
+		double auxTempo = 0;
+		
 		//percorre-se os veículos disponíveis
 		for (int j = 0; j < numeroDeVeiculos; j++) {
 
@@ -221,9 +224,12 @@ public class Rota implements Cloneable, Comparable<Rota> {
 
 			// calcula o custo de cada veículo e adiciona ao custo e ao tempo totais da rota
 			veiculo.calculaCustos(matrizDeDistancias, multa);
-			setCustoTotalRota(veiculo.getCustoVeiculo());
-			setTempoTotalRota(veiculo.getTempoVeiculo());
+			auxCusto += veiculo.getCustoVeiculo();
+			auxTempo += veiculo.getTempoVeiculo();
 		}
+		
+		r.setCustoTotalRota(auxCusto); 
+		r.setTempoTotalRota(auxTempo);
 	}
 
 	public void atualizaVeiculosUtilizados(Rota r) {

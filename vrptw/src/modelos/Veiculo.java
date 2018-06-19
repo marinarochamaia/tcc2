@@ -71,13 +71,12 @@ public class Veiculo implements Cloneable {
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
 
 			} //se o veículo chega antes da janela, soma-se ao tempo o tempo de espera e a duração do serviço e soma-se ao custo o tempo de espera
-			else if (auxTempo< ordemDeVisitacao.get(row).getInicioJanela()) {
+			else if (auxTempo < ordemDeVisitacao.get(row).getInicioJanela()) {
 
 				double tempoDeEspera = ordemDeVisitacao.get(row).getInicioJanela() - auxTempo;
 
 				auxTempo += tempoDeEspera;
 				auxTempo += ordemDeVisitacao.get(row).getDuracaoServico();
-
 
 			} //se o veículo chega depois da janela, soma-se ao tempo a duração do serviço e soma-se ao custo a multa
 			else if (auxTempo > ordemDeVisitacao.get(row).getFimJanela()) {

@@ -14,7 +14,7 @@ public class BuscaLocalRotasDiferentes {
 	public void insereApos(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -28,9 +28,10 @@ public class BuscaLocalRotasDiferentes {
 		for(int u = 1; u < rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() - 1; u++) {
 			for(int v = 0; v < rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() -  1; v++) {
 
-				//o cliente que será visitado é selecionado
+				//os clientes que serão visitados são selecionados
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 
+				
 				//a demanda do cliente que será inserido é somada à carga ocupada do segundo veículo
 				double cargaOcupadaV2 = rotaClonada.listaVeiculos.get(n).getCargaOcupada() + clienteU.getDemanda();
 
@@ -53,10 +54,10 @@ public class BuscaLocalRotasDiferentes {
 
 				//compara-se o novo custo com a anterior para saber se houve melhora ou não
 				//se for melhor, salva-se a melhor ordem para depois a trocar ser desfeita
-				if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado
-					distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					//a melhor ordem de visitação é atualizada
 					melhorOrdemDeVisitacaoV1.clear();
@@ -112,8 +113,8 @@ public class BuscaLocalRotasDiferentes {
 	public void insereDuasPosicoesAposUma(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
-
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV2 = new ArrayList<>();
@@ -161,10 +162,10 @@ public class BuscaLocalRotasDiferentes {
 
 					//compara-se o novo custo com a anterior para saber se houve melhora ou não
 					//senão, salva-se as melhores ordens para depois a troca ser desfeita
-					if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+					if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 						//o custo de antes da busca local é atualizado
-						distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+						custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 						//os arrays das melhores ordens de visitação são atualizados
 						melhorOrdemDeVisitacaoV1.clear();
@@ -227,7 +228,7 @@ public class BuscaLocalRotasDiferentes {
 	public void insereDuasPosicoesAposUmaInvertido(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//arrays para armazenar as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -252,6 +253,7 @@ public class BuscaLocalRotasDiferentes {
 				Cliente clienteU = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(u);
 				Cliente clienteX = rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.get(x);
 
+				
 				//as posições visitadas são selecionadas
 				int posU =  rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.indexOf(clienteU);
 				int posX =  rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.indexOf(clienteX);
@@ -280,10 +282,10 @@ public class BuscaLocalRotasDiferentes {
 
 				//compara-se o novo custo com a anterior para saber se houve melhora ou não
 				//se for melhor salva a melhor ordem para depois destrocar
-				if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado
-					distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					//os arrays das melhores ordens de visitações são atualizados
 					melhorOrdemDeVisitacaoV1.clear();
@@ -347,7 +349,7 @@ public class BuscaLocalRotasDiferentes {
 	public void trocaPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -392,10 +394,10 @@ public class BuscaLocalRotasDiferentes {
 
 				//compara-se o novo custo com a anterior para saber se houve melhora ou não
 				//se for melhor, salvam-se as melhores ordens para depois desfazer a troca
-				if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado
-					distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();
@@ -458,7 +460,7 @@ public class BuscaLocalRotasDiferentes {
 	public void trocaDuasPosicoesComUmaPosicao(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -519,10 +521,10 @@ public class BuscaLocalRotasDiferentes {
 
 				//compara-se o novo custo com a anterior para saber se houve melhora ou não
 				//se for melhor salvam-se as melhores ordens para depois desfazer a troca
-				if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado 
-					distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();
@@ -588,7 +590,7 @@ public class BuscaLocalRotasDiferentes {
 	public void trocaDuasPosicoesComDuasPosicoes(Rota rotaClonada, int k, int n, int multa, double [][] matrizDeDistancias, Cliente deposito) {
 
 		//guarda-se o custo antes de ser realizada a busca local para comparar se houve ou não melhora
-		double distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+		double custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 		//arrays para armazenarem as melhores ordens de visitações geradas
 		ArrayList<Cliente> melhorOrdemDeVisitacaoV1 = new ArrayList<>();
@@ -661,10 +663,10 @@ public class BuscaLocalRotasDiferentes {
 
 				//compara-se o novo custo com a anterior para saber se houve melhora ou não
 				//se for melhor, salvam-se a melhores ordens para depois desfazer as trocas
-				if(rotaClonada.getCustoTotalRota() < distanciaAntesBuscaLocal) {
+				if(rotaClonada.getCustoTotalRota() < custoAntesBuscaLocal) {
 
 					//o custo de antes da busca local é atualizado
-					distanciaAntesBuscaLocal = rotaClonada.getCustoTotalRota();
+					custoAntesBuscaLocal = rotaClonada.getCustoTotalRota();
 
 					//as melhores ordens de visitações são atualizadas
 					melhorOrdemDeVisitacaoV1.clear();

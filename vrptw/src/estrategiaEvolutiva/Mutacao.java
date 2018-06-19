@@ -41,6 +41,9 @@ public class Mutacao {
 
 		//o giant tour é subdividido em ordens de visitação de cada veículo
 		rotaClonada.criaOrdemDeVisitacao(rotaClonada.listaVeiculos.size(), rotaClonada.listaVeiculos, rotaClonada.listaClientes, deposito,
-				matrizDeDistancias, multa);
+				matrizDeDistancias, multa, rotaClonada);
+		
+		FuncoesBuscaLocal fbl = new FuncoesBuscaLocal();
+		fbl.calculaFuncaoObjetivo(matrizDeDistancias, multa, rotaClonada);
 	}
 }
