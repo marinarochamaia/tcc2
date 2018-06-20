@@ -13,42 +13,35 @@ public class BuscaLocal {
 	public void fazBuscaLocal(Rota rotaClonada, double [][] matrizDeDistancias, int multa, 
 			double cBuscaLocal, Cliente deposito, int criterioParada) throws CloneNotSupportedException{
 
-		//um número aleatório entre 0 e 1 é selecionado para ser o coeficiente que deve ser atendido para a busca local ser feita
+		//um nÃºmero aleatÃ³rio entre 0 e 1 Ã© selecionado para ser o coeficiente que deve ser atendido para a busca local ser feita
 		Random rnd = new Random();
 		double bl = rnd.nextDouble();
 
-		//a busca local só é feita se o coeficiente (fator pl) for atendido
+		//a busca local sÃ³ Ã© feita se o coeficiente (fator pl) for atendido
 		if (bl <= cBuscaLocal){
 
 			int count = 0;
 
 			
-			//critério de parada
+			//critÃ©rio de parada
 			while(count < criterioParada) {	
 				
 				count++;			
 
-				//a lista de veículos utilizados é percorrida para que todos possam passar pela busca local 
-				for(int k = 0; k < rotaClonada.listaVeiculos.size(); k++) {
-					
-					if(rotaClonada.listaVeiculos.get(k).ordemDeVisitacao.size() == 0)
-						continue;
-					
-					for(int n = 0; n < rotaClonada.listaVeiculos.size(); n++) {
-						
-						if(rotaClonada.listaVeiculos.get(n).ordemDeVisitacao.size() == 0)
-							continue;
+				//a lista de veÃ­culos utilizados Ã© percorrida para que todos possam passar pela busca local 
+				for(int k = 0; k < rotaClonada.getVeiculosUtilizados(); k++) {
+					for(int n = 0; n < rotaClonada.lgetVeiculosUtilizados(); n++) {
 
-						//se os veículos forem iguais, as buscas são feitas na mesma rota
+						//se os veÃ­culos forem iguais, as buscas sÃ£o feitas na mesma rota
 						if(k == n) {
 
-							//1) remove u e insere após v;
-							//2) remove u e x e insere u e x após v;
-							//3) remove u e x e insere x e u após v; (posições invertidas)
+							//1) remove u e insere apÃ³s v;
+							//2) remove u e x e insere u e x apÃ³s v;
+							//3) remove u e x e insere x e u apÃ³s v; (posiÃ§Ãµes invertidas)
 							//4) troca u e v; (SWAP)
 							//5) troca u e x com v;
 							//6) troca u e x com v e y;
-							//7) operação 2opt
+							//7) operaÃ§Ã£o 2opt
 
 							BuscaLocalRotasIguais blri = new BuscaLocalRotasIguais();
 
@@ -102,17 +95,17 @@ public class BuscaLocal {
 								}
 								}
 							}
-						}//caso contrário, a busca é feita em veículos diferentes
+						}//caso contrÃ¡rio, a busca Ã© feita em veÃ­culos diferentes
 						else {
 
 							BuscaLocalRotasDiferentes blrd = new BuscaLocalRotasDiferentes();
 
-							//1) remove u e insere após v em veículos diferentes;
-							//2) remove u e x e insere u e x após v;
-							//3) remove u e x e insere x e u após v em veículos diferentes; (posições invertidas)
-							//4) troca u e v em veículos diferentes;
-							//5) troca u e x com v em veículos diferentes;
-							//6) troca u e x com v e y em veículos diferentes;
+							//1) remove u e insere apÃ³s v em veÃ­culos diferentes;
+							//2) remove u e x e insere u e x apÃ³s v;
+							//3) remove u e x e insere x e u apÃ³s v em veÃ­culos diferentes; (posiÃ§Ãµes invertidas)
+							//4) troca u e v em veÃ­culos diferentes;
+							//5) troca u e x com v em veÃ­culos diferentes;
+							//6) troca u e x com v e y em veÃ­culos diferentes;
 
 							ArrayList<Integer> operacoes = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
 							Collections.shuffle(operacoes);	
