@@ -18,9 +18,9 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 180) {
+		while(contador < 1) {
 			contador++;
-			int gmax = 1000; //número de gerações
+			int gmax = 1; //número de gerações
 			int numeroDeRotas = 5; //mu, tamanho da população
 			int numeroDeDescendentes = 25; //lamba, número de descendentes
 			int criterioParadaBL = 10; //critério de parada da busca local
@@ -37,44 +37,56 @@ public class Main {
 			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas gerações
 
 			Random rnd = new Random();
-			int parametro = rnd.nextInt(5);
+			int parametro;
 
-			int contZero = 0, contUm = 0, contDois = 0, contTres = 0, contQuatro = 0, contCinco = 0;
-			
+			int [] cont = new int[11];
+			for (int j = 0; j < cont.length; j++) {
+				cont[j] = 0;
+			}
 
-			while(contZero == 15 || contUm == 15 || contDois == 15 || contTres == 15 || contQuatro == 15 || contCinco == 15) {
-				parametro = rnd.nextInt(5);
-				
-				if(contZero == 15 && contUm == 15 && contDois == 15 && contTres == 15 && contQuatro == 15 && contCinco == 15)
+			do {
+
+				parametro = rnd.nextInt(11);
+
+				switch(parametro) {
+				case 0:
+					cont[0]++;
 					break;
-			}
-
-			switch(parametro) {
-			case 0:{
-				contZero++;
-				break;
-			}
-			case 1:{
-				contUm++;
-				break;
-			}			
-			case 2:{
-				contDois++;
-				break;
-			}
-			case 3:{
-				contTres++;
-				break;
-			}
-			case 4:{
-				contQuatro++;
-				break;
-			}
-			case 5:{
-				contCinco++;
-				break;
-			}
-			}
+				case 1:
+					cont[1]++;
+					break;
+				case 2:
+					cont[2]++;
+					break;
+				case 3:
+					cont[3]++;
+					break;
+				case 4:
+					cont[4]++;
+					break;
+				case 5:
+					cont[5]++;
+					break;
+				case 6:
+					cont[6]++;
+					break;
+				case 7:
+					cont[7]++;
+					break;
+				case 8:
+					cont[8]++;
+					break;
+				case 9:
+					cont[9]++;
+					break;
+				case 10:
+					cont[10]++;
+					break;
+				case 11:
+					cont[11]++;
+					break;			
+				}
+			}while(cont[parametro] >= 15);	
 
 			//args[0] é o primeiro parâmetro do programa, que é o nome do arquivo que será lido
 			Conversor conversor = new Conversor(args[parametro]);
@@ -179,7 +191,7 @@ public class Main {
 				}
 			}
 
-			Saida criaArquivo = new Saida(args[parametro + 6]);
+			Saida criaArquivo = new Saida(args[parametro + 12]);
 
 			BigDecimal bd4 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 
