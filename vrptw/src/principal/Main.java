@@ -18,23 +18,23 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 1) {
+		while(contador < 180) {
 			contador++;
-			int gmax = 1; //n˙mero de geraÁıes
-			int numeroDeRotas = 5; //mu, tamanho da populaÁ„o
-			int numeroDeDescendentes = 25; //lamba, n˙mero de descendentes
-			int criterioParadaBL = 10; //critÈrio de parada da busca local
-			int multa = 1000; //multa aplicada ‡s rotas que n„o chegarem dentro da janela
-			double cMutacao = 0.8; //coeficiente de mutaÁ„o
+			int gmax = 1000; //n√∫mero de gera√ß√µes
+			int numeroDeRotas = 5; //mu, tamanho da popula√ß√£o
+			int numeroDeDescendentes = 25; //lamba, n√∫mero de descendentes
+			int criterioParadaBL = 10; //crit√©rio de parada da busca local
+			int multa = 1000; //multa aplicada √†s rotas que n√£o chegarem dentro da janela
+			double cMutacao = 0.8; //coeficiente de muta√ß√£o
 			double cBuscaLocal = 0.6; //coeficiente de busca local
 			long tempoInicio = System.currentTimeMillis();
 			long tempoDeExecucao;
 
-			//array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local com o merge com a populaÁ„o inicial
+			//array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local com o merge com a popula√ß√£o inicial
 			ArrayList<Rota> descendentes = new ArrayList<>();
 			ArrayList<Cliente> clientes = new ArrayList<>(); //lista de clientes passados pelo arquivo
-			ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de veÌculos passados pelo arquivo
-			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas geraÁıes
+			ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de ve√≠culos passados pelo arquivo
+			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas gera√ß√µes
 
 			Random rnd = new Random();
 			int parametro;
@@ -88,59 +88,59 @@ public class Main {
 				}
 			}while(cont[parametro] >= 15);	
 
-			//args[0] È o primeiro par‚metro do programa, que È o nome do arquivo que ser· lido
+			//args[0] √© o primeiro par√¢metro do programa, que √© o nome do arquivo que ser√° lido
 			Conversor conversor = new Conversor(args[parametro]);
 			conversor.converterArquivo(clientes, veiculos);
 
-			//matriz que salva as dist‚ncias de todos os clientes para os outros
+			//matriz que salva as dist√¢ncias de todos os clientes para os outros
 			double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
-			//as dist‚ncias entre os clientes s„o calculadas
+			//as dist√¢ncias entre os clientes s√£o calculadas
 			matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
 			Rota melhorRota = new Rota(clientes, veiculos,clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			melhorRota.setCustoTotalRota(Double.MAX_VALUE);
 
-			//criaÁ„o da populaÁ„o inicial (pais)
+			//cria√ß√£o da popula√ß√£o inicial (pais)
 			for (int i = 0; i < numeroDeRotas; i++) {
-				//a rota È instanciada
+				//a rota √© instanciada
 				Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-				//a funÁ„o para mudar as rotas È chamada
+				//a fun√ß√£o para mudar as rotas √© chamada
 				r.criaRotas(r);
 
-				//as rotas criadas s„o clonadas
+				//as rotas criadas s√£o clonadas
 				Rota rotaInicial = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 				rotaInicial = (Rota) r.getClone(rotaInicial);
 
-				// a rota È incluÌda na populaÁ„o
+				// a rota √© inclu√≠da na popula√ß√£o
 				populacao.add(rotaInicial);
 
 			}
 
-			//contador para o n˙mero de geraÁıes que ser„o criadas
+			//contador para o n√∫mero de gera√ß√µes que ser√£o criadas
 			int geracoes = 0;
 
-			//laÁo para fazer a mutaÁ„o em todas as geraÁıes criadas
+			//la√ßo para fazer a muta√ß√£o em todas as gera√ß√µes criadas
 			while (geracoes < gmax) {			
 
-				//para cada indivÌduo da populaÁ„o (pai) 
+				//para cada indiv√≠duo da popula√ß√£o (pai) 
 				for (Rota r : populacao) {
 
 					//gerar (lambda/mu) filhos
 					for (int i = 0; i < (numeroDeDescendentes / numeroDeRotas); i++) {
 
-						//a rota È clonada
+						//a rota √© clonada
 						Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 						rotaClonada = (Rota) r.getClone(rotaClonada);
 
-						//o depÛsito È instanciado
+						//o dep√≥sito √© instanciado
 						Cliente deposito = rotaClonada.getDeposito();
 
-						//a mutaÁ„o È feita
+						//a muta√ß√£o √© feita
 						Mutacao mut = new Mutacao();
 						mut.fazMutacao(rotaClonada, cMutacao, matrizDeDistancias, multa, deposito);
 
-						//a busca local È feita
+						//a busca local √© feita
 						BuscaLocal bl = new BuscaLocal();
 						bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);		
 
@@ -148,7 +148,7 @@ public class Main {
 							melhorRota = (Rota) rotaClonada.getClone(melhorRota);
 						}
 
-						//as novas rotas s„o adicionadas em um array auxiliar
+						//as novas rotas s√£o adicionadas em um array auxiliar
 						descendentes.add(rotaClonada);
 					}	
 				}
@@ -158,13 +158,13 @@ public class Main {
 
 				Collections.sort(populacao);
 
-				// È feito um corte para mu (numeroDeRotas) indivÌduos
+				// √© feito um corte para mu (numeroDeRotas) indiv√≠duos
 				populacao.subList(numeroDeRotas, populacao.size()).clear();
 
-				//a lista auxiliar È limpa
+				//a lista auxiliar √© limpa
 				descendentes.clear();
 
-				//È impressa a dist‚ncia encontrada nessa geraÁ„o
+				//√© impressa a dist√¢ncia encontrada nessa gera√ß√£o
 				BigDecimal bd1 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 				System.out.println((geracoes+1) + " " + bd1);
 
@@ -177,7 +177,7 @@ public class Main {
 			}
 
 
-			//È impresso o menor custo encontrado
+			//√© impresso o menor custo encontrado
 			BigDecimal bd2 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
