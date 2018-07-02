@@ -1,0 +1,20 @@
+Resultados da Instância c201
+Tempo Execução		Menor Custo		Tempo da rota		Quantidade Veículos		Gerações			Factível			Nome do arquivo de entrada
+30.00				665.18			12419.61				4						93				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				664.51			13285.73				5						95				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				659.75			12563.02				4						91				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				670.77			15430.39				5						81				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				674.50			13163.04				5						90				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				666.00			13843.66				5						93				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				674.50			13163.04				5						94				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				629.74			12376.96				4						79				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				672.98			15285.14				5						76				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				634.17			12376.96				4						80				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				670.31			13163.04				5						80				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				675.02			15285.93				5						74				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				660.60			15285.93				5						82				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				666.15			13430.98				5						85				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				670.31			13163.04				5						83				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt
+30.00				671.52			13843.66				5						56				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt				C:\Users\Marina\Documents\UFOP\TCC2\Resultados\c201.txt
+30.00				659.06			15285.93				5						43				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt				C:\Users\Marina\Documents\UFOP\TCC2\Resultados\c201.txt
+35.00				673.14			13656.99				5						5				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c201.txt				C:\Users\Marina\Documents\UFOP\TCC2\Resultados\c201.txt

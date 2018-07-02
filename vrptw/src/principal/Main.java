@@ -18,129 +18,130 @@ public class Main {
 
 		int contador = 0;
 
-		while(contador < 180) {
+		while(contador < 1) {
 			contador++;
-			int gmax = 1000; //n√∫mero de gera√ß√µes
-			int numeroDeRotas = 5; //mu, tamanho da popula√ß√£o
-			int numeroDeDescendentes = 25; //lamba, n√∫mero de descendentes
-			int criterioParadaBL = 10; //crit√©rio de parada da busca local
-			int multa = 1000; //multa aplicada √†s rotas que n√£o chegarem dentro da janela
-			double cMutacao = 0.8; //coeficiente de muta√ß√£o
-			double cBuscaLocal = 0.6; //coeficiente de busca local
+			int gmax = 1000; //n˙mero de geraÁıes
+			int numeroDeRotas = 5; //mu, tamanho da populaÁ„o
+			int numeroDeDescendentes = 250; //lamba, n˙mero de descendentes
+			int criterioParadaBL = 10; //critÈrio de parada da busca local
+			int multa = 1000; //multa aplicada ‡s rotas que n„o chegarem dentro da janela
+			double cMutacao = 0.6; //coeficiente de mutaÁ„o
+			double cBuscaLocal = 0.8; //coeficiente de busca local
 			long tempoInicio = System.currentTimeMillis();
 			long tempoDeExecucao;
 
-			//array auxiliar para guardar todas os ind√≠viduos criados atrav√©s da busca local com o merge com a popula√ß√£o inicial
+			//array auxiliar para guardar todas os indÌviduos criados atravÈs da busca local com o merge com a populaÁ„o inicial
 			ArrayList<Rota> descendentes = new ArrayList<>();
 			ArrayList<Cliente> clientes = new ArrayList<>(); //lista de clientes passados pelo arquivo
-			ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de ve√≠culos passados pelo arquivo
-			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas gera√ß√µes
+			ArrayList<Veiculo> veiculos = new ArrayList<>(); //lista de veÌculos passados pelo arquivo
+			ArrayList<Rota> populacao = new ArrayList<>(); //array das rotas criadas inicialmente e das novas geraÁıes
 
-			Random rnd = new Random();
-			int parametro;
+//			Random rnd = new Random();
+//			int parametro;
+//
+//			int [] cont = new int[11];
+//			for (int j = 0; j < cont.length; j++) {
+//				cont[j] = 0;
+//			}
+//
+//			do {
+//
+//				parametro = rnd.nextInt(11);
+//
+//				switch(parametro) {
+//				case 0:
+//					cont[0]++;
+//					break;
+//				case 1:
+//					cont[1]++;
+//					break;
+//				case 2:
+//					cont[2]++;
+//					break;
+//				case 3:
+//					cont[3]++;
+//					break;
+//				case 4:
+//					cont[4]++;
+//					break;
+//				case 5:
+//					cont[5]++;
+//					break;
+//				case 6:
+//					cont[6]++;
+//					break;
+//				case 7:
+//					cont[7]++;
+//					break;
+//				case 8:
+//					cont[8]++;
+//					break;
+//				case 9:
+//					cont[9]++;
+//					break;
+//				case 10:
+//					cont[10]++;
+//					break;
+//				case 11:
+//					cont[11]++;
+//					break;			
+//				}
+//			}while(cont[parametro] >= 15);	
 
-			int [] cont = new int[11];
-			for (int j = 0; j < cont.length; j++) {
-				cont[j] = 0;
-			}
-
-			do {
-
-				parametro = rnd.nextInt(11);
-
-				switch(parametro) {
-				case 0:
-					cont[0]++;
-					break;
-				case 1:
-					cont[1]++;
-					break;
-				case 2:
-					cont[2]++;
-					break;
-				case 3:
-					cont[3]++;
-					break;
-				case 4:
-					cont[4]++;
-					break;
-				case 5:
-					cont[5]++;
-					break;
-				case 6:
-					cont[6]++;
-					break;
-				case 7:
-					cont[7]++;
-					break;
-				case 8:
-					cont[8]++;
-					break;
-				case 9:
-					cont[9]++;
-					break;
-				case 10:
-					cont[10]++;
-					break;
-				case 11:
-					cont[11]++;
-					break;			
-				}
-			}while(cont[parametro] >= 15);	
-
-			//args[0] √© o primeiro par√¢metro do programa, que √© o nome do arquivo que ser√° lido
-			Conversor conversor = new Conversor(args[parametro]);
+			//args[0] È o primeiro par‚metro do programa, que È o nome do arquivo que ser· lido
+			Conversor conversor = new Conversor(args[0]);
 			conversor.converterArquivo(clientes, veiculos);
 
-			//matriz que salva as dist√¢ncias de todos os clientes para os outros
+			System.out.println(conversor.getNomeDoArquivo());
+			
+			//matriz que salva as dist‚ncias de todos os clientes para os outros
 			double[][] matrizDeDistancias = new double[clientes.size()][clientes.size()];
 
-			//as dist√¢ncias entre os clientes s√£o calculadas
+			//as dist‚ncias entre os clientes s„o calculadas
 			matrizDeDistancias = conversor.calculaDistancias(clientes.size(), clientes);
 
 			Rota melhorRota = new Rota(clientes, veiculos,clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 			melhorRota.setCustoTotalRota(Double.MAX_VALUE);
 
-			//cria√ß√£o da popula√ß√£o inicial (pais)
+			//criaÁ„o da populaÁ„o inicial (pais)
 			for (int i = 0; i < numeroDeRotas; i++) {
-				//a rota √© instanciada
+				//a rota È instanciada
 				Rota r = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
-				//a fun√ß√£o para mudar as rotas √© chamada
+				//a funÁ„o para mudar as rotas È chamada
 				r.criaRotas(r);
 
-				//as rotas criadas s√£o clonadas
+				//as rotas criadas s„o clonadas
 				Rota rotaInicial = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 				rotaInicial = (Rota) r.getClone(rotaInicial);
 
-				// a rota √© inclu√≠da na popula√ß√£o
+				// a rota È incluÌda na populaÁ„o
 				populacao.add(rotaInicial);
-
 			}
 
-			//contador para o n√∫mero de gera√ß√µes que ser√£o criadas
+			//contador para o n˙mero de geraÁıes que ser„o criadas
 			int geracoes = 0;
 
-			//la√ßo para fazer a muta√ß√£o em todas as gera√ß√µes criadas
+			//laÁo para fazer a mutaÁ„o em todas as geraÁıes criadas
 			while (geracoes < gmax) {			
 
-				//para cada indiv√≠duo da popula√ß√£o (pai) 
+				//para cada indivÌduo da populaÁ„o (pai) 
 				for (Rota r : populacao) {
 
 					//gerar (lambda/mu) filhos
 					for (int i = 0; i < (numeroDeDescendentes / numeroDeRotas); i++) {
 
-						//a rota √© clonada
+						//a rota È clonada
 						Rota rotaClonada = new Rota(clientes, veiculos, clientes.size(), multa, veiculos.size(), matrizDeDistancias);
 						rotaClonada = (Rota) r.getClone(rotaClonada);
 
-						//o dep√≥sito √© instanciado
+						//o depÛsito È instanciado
 						Cliente deposito = rotaClonada.getDeposito();
 
-						//a muta√ß√£o √© feita
+						//a mutaÁ„o È feita
 						Mutacao mut = new Mutacao();
 						mut.fazMutacao(rotaClonada, cMutacao, matrizDeDistancias, multa, deposito);
 
-						//a busca local √© feita
+						//a busca local È feita
 						BuscaLocal bl = new BuscaLocal();
 						bl.fazBuscaLocal(rotaClonada, matrizDeDistancias, multa, cBuscaLocal, deposito, criterioParadaBL);		
 
@@ -148,7 +149,7 @@ public class Main {
 							melhorRota = (Rota) rotaClonada.getClone(melhorRota);
 						}
 
-						//as novas rotas s√£o adicionadas em um array auxiliar
+						//as novas rotas s„o adicionadas em um array auxiliar
 						descendentes.add(rotaClonada);
 					}	
 				}
@@ -158,13 +159,13 @@ public class Main {
 
 				Collections.sort(populacao);
 
-				// √© feito um corte para mu (numeroDeRotas) indiv√≠duos
+				// È feito um corte para mu (numeroDeRotas) indivÌduos
 				populacao.subList(numeroDeRotas, populacao.size()).clear();
 
-				//a lista auxiliar √© limpa
+				//a lista auxiliar È limpa
 				descendentes.clear();
 
-				//√© impressa a dist√¢ncia encontrada nessa gera√ß√£o
+				//È impressa a dist‚ncia encontrada nessa geraÁ„o
 				BigDecimal bd1 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 				System.out.println((geracoes+1) + " " + bd1);
 
@@ -172,12 +173,10 @@ public class Main {
 
 				tempoDeExecucao = (System.currentTimeMillis()-tempoInicio)/60000;
 
-				if(tempoDeExecucao >= 30)
-					break;	
 			}
 
 
-			//√© impresso o menor custo encontrado
+			//È impresso o menor custo encontrado
 			BigDecimal bd2 = new BigDecimal(melhorRota.getCustoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 			System.out.println("Menor custo encontrado: " + bd2.doubleValue());
 
@@ -189,9 +188,10 @@ public class Main {
 							melhorRota.listaVeiculos.get(i).getCargaOcupada()
 							+ "     " + melhorRota.listaVeiculos.get(i).ordemDeVisitacao);
 				}
+				
 			}
 
-			Saida criaArquivo = new Saida(args[parametro + 12]);
+			Saida criaArquivo = new Saida(args[1]);
 
 			BigDecimal bd4 = new BigDecimal(melhorRota.getTempoTotalRota()).setScale(2, RoundingMode.HALF_EVEN);
 
@@ -201,7 +201,7 @@ public class Main {
 
 			BigDecimal bd5 = new BigDecimal(tempoDeExecucao / 60000).setScale(2, RoundingMode.HALF_EVEN);
 
-			criaArquivo.solucoes(bd2, bd5, bd4, melhorRota.getVeiculosUtilizados(), geracoes, melhorRota.isFactivel());
+			criaArquivo.solucoes(bd2, bd5, bd4, melhorRota.getVeiculosUtilizados(), geracoes, melhorRota.isFactivel(), conversor.getNomeDoArquivo());
 
 		}
 

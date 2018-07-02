@@ -1,0 +1,17 @@
+Resultados da Instância c101
+Tempo Execução		Menor Custo		Tempo da rota		Quantidade Veículos		Gerações		Factível			Nome do arquivo de entrada
+30.00				828.94			9828.94				10						90				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						85				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						93				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						95				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						91				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						88				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						95				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						92				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						90				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						91				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						93				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						84				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt
+30.00				828.94			9828.94				10						83				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\c101.txt

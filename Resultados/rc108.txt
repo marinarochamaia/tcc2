@@ -1,0 +1,17 @@
+Resultados da Instância rc108
+Tempo Execução		Menor Custo		Tempo da rota		Quantidade Veículos		Gerações		Factível			Nome do arquivo de entrada
+30.00				1195.54			2453.60				12						68				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1160.25			2327.90				11						68				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1204.56			2407.20				12						60				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1192.18			2417.95				12						63				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1196.06			2427.90				12						66				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1186.40			2369.07				12						69				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1208.76			2447.10				12						69				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1172.43			2386.53				11						68				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1191.56			2439.83				12						65				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1198.83			2441.18				12						54				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1199.07			2470.72				12						62				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1198.57			2401.74				12						64				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1147.27			2341.41				12						69				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1195.66			2422.62				12						70				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt
+30.00				1193.28			2382.00				12						67				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc108.txt

@@ -1,0 +1,17 @@
+Resultados da Instância r205
+Tempo Execução		Menor Custo		Tempo da rota		Quantidade Veículos		Gerações		Factível			Nome do arquivo de entrada
+30.00				1025.63			5900.57				8						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1024.30			5263.24				7						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1030.32			5384.11				8						105				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1025.78			5230.83				7						101				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1030.57			5196.46				7						99				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1029.51			5365.98				7						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1018.02			5033.36				7						94				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1032.69			5194.65				7						98				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1007.24			4580.07				6						104				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1015.35			5803.20				8						102				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1031.25			5043.51				7						106				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1008.80			5957.21				8						99				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1028.84			6525.53				9						103				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1025.14			5299.95				7						106				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt
+30.00				1030.04			5207.18				7						104				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\r205.txt

@@ -14,10 +14,14 @@ public class Conversor {
 	public Conversor(String nomeDoArquivo) {
 		this.nomeDoArquivo = nomeDoArquivo;	
 	}
+	
+	public String getNomeDoArquivo() {
+		return nomeDoArquivo;
+	}
 
-	//transforma uma lista de par√¢metros em um objeto do tipo Cliente
+	//transforma uma lista de par‚metros em um objeto do tipo Cliente
 	private Cliente decodificaCliente(String[] parametros) {
-		// Decodifica os par√¢metros
+		// Decodifica os par‚metros
 		int numero = Integer.valueOf(parametros[0]);
 		double coordenadaX = Double.valueOf(parametros[1]);
 		double coordenadaY = Double.valueOf(parametros[2]);
@@ -36,44 +40,44 @@ public class Conversor {
 			fimJanela = Double.valueOf(parametros[9]);
 		}
 
-		//o cliente √© instanciado
+		//o cliente È instanciado
 		Cliente cliente = new Cliente(numero, coordenadaX, coordenadaY, demanda, duracaoServico, frequenciaVisita,
 				possiveisCombinacoesDeVisitas, listaDeTodasPossiveisVisitas, inicioJanela, fimJanela);
 
 		return cliente;
 	}
 
-	//converte as informa√ß√µes contidas em um arquivo em objetos do tipo Ve√≠culo e Cliente, devidamente parametrizados
+	//converte as informaÁıes contidas em um arquivo em objetos do tipo VeÌculo e Cliente, devidamente parametrizados
 	public void converterArquivo(ArrayList<Cliente> clientes, ArrayList<Veiculo> veiculos) {
 
 		try {
 
-			//contador da posi√ß√£o da linha atual
+			//contador da posiÁ„o da linha atual
 			int posicaoDaLinha = 1;
-			//contador da quantidade de ve√≠culos
+			//contador da quantidade de veÌculos
 			int quantidadeDeVeiculos = 0;
 			//contador da quantidade de clientes
 			int quantidadeDeClientes = 0;
 			//leitor que utiliza buffer para a leitura do arquivo
 			BufferedReader leitor = new BufferedReader(new FileReader(this.nomeDoArquivo));
 
-			//l√™-se a primeira linha
+			//lÍ-se a primeira linha
 			String linhaAtual = leitor.readLine();
 
-			//enquanto ela n√£o for igual a NULL, ou seja, enquanto n√£o acabar de ler o arquivo (EOF)
+			//enquanto ela n„o for igual a NULL, ou seja, enquanto n„o acabar de ler o arquivo (EOF)
 			while (linhaAtual != null) {
 
-				//remove os espa√ßos em branco no in√≠cio e no final da String
+				//remove os espaÁos em branco no inÌcio e no final da String
 				linhaAtual = linhaAtual.trim();
-				//recupera os par√¢metros que est√£o separados por um espa√ßo em branco
+				//recupera os par‚metros que est„o separados por um espaÁo em branco
 				String[] parametros = linhaAtual.split(" ");
 
 				switch (posicaoDaLinha) {
 
-				//se for a primeira linha do arquivo, ent√£o cont√©m o tipo do problema, a quantidade de clientes e ve√≠culos e a quantidade m√°xima de dias
+				//se for a primeira linha do arquivo, ent„o contÈm o tipo do problema, a quantidade de clientes e veÌculos e a quantidade m·xima de dias
 				case 1: {
 
-					//obt√™m-se a quantidade de ve√≠culos e a quantidade de clientes
+					//obtÍm-se a quantidade de veÌculos e a quantidade de clientes
 					quantidadeDeVeiculos = Integer.valueOf(parametros[1])*4;
 					quantidadeDeClientes = Integer.valueOf(parametros[2]);
 
@@ -86,20 +90,20 @@ public class Conversor {
 					break;
 				}
 
-				//se for a segunda linha do arquivo, que cont√©m a limita√ß√£o de dias e a carga m√°xima dos ve√≠culos	
+				//se for a segunda linha do arquivo, que contÈm a limitaÁ„o de dias e a carga m·xima dos veÌculos	
 				case 2: {
 
-					//obt√™m-se a carga m√°xima
+					//obtÍm-se a carga m·xima
 					int cargaMaxima = Integer.valueOf(parametros[1]);
 
-					//cria-se os objetos de ve√≠culos
+					//cria-se os objetos de veÌculos
 					for (int i = 0; i < quantidadeDeVeiculos; ++i)
 						veiculos.add(new Veiculo(cargaMaxima));
 
 					break;
 				}
 
-				//para as demais linhas, que s√≥ cont√©m os dados dos clientes
+				//para as demais linhas, que sÛ contÈm os dados dos clientes
 				default: { 
 
 					//adiciona o objeto decodificado na lista de clientes
@@ -109,10 +113,10 @@ public class Conversor {
 				}
 				}
 
-				//incrementa-se a posi√ß√£o da linha
+				//incrementa-se a posiÁ„o da linha
 				++posicaoDaLinha;
 
-				//l√™-se a pr√≥xima linha
+				//lÍ-se a prÛxima linha
 				linhaAtual = leitor.readLine(); 
 			}
 
@@ -122,17 +126,17 @@ public class Conversor {
 		}
 	}
 
-	//calcula a dist√¢ncia euclidiana de um cliente ao outro
+	//calcula a dist‚ncia euclidiana de um cliente ao outro
 	public double[][] calculaDistancias(int numeroDeClientes, ArrayList<Cliente> clientes) {
 
 		//arraylist para calcular o custo total de cada rota
-		//matriz de dist√¢ncias entre clientes
+		//matriz de dist‚ncias entre clientes
 		double[][] matrizDeDistancias = new double[numeroDeClientes][numeroDeClientes];
 
-		//la√ßo para preencher a matriz com as dist√¢ncias entre clientes calculadas atrav√©s da dist√¢ncia euclidiana
-		//percorre as linhas da matriz de dist√¢ncias
+		//laÁo para preencher a matriz com as dist‚ncias entre clientes calculadas atravÈs da dist‚ncia euclidiana
+		//percorre as linhas da matriz de dist‚ncias
 		for (int row = 0; row < numeroDeClientes; row++) {
-			//percorre as colunas da matriz de dist√¢ncias
+			//percorre as colunas da matriz de dist‚ncias
 			for (int column = 0; column < numeroDeClientes; column++) {
 
 				if (row == column)
@@ -144,4 +148,5 @@ public class Conversor {
 
 		return matrizDeDistancias;
 	}
+
 }

@@ -1,0 +1,17 @@
+Resultados da Instância rc201
+Tempo Execução		Menor Custo		Tempo da rota		Quantidade Veículos		Gerações		Factível			Nome do arquivo de entrada
+30.00				877.62			4037.01				6						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				858.13			4200.65				6						98				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				867.53			3949.28				6						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				859.66			4102.61				5						99				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				852.92			3838.82				6						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				868.62			3908.70				6						99				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				850.57			4221.56				6						103				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				867.74			3727.06				6						95				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				865.13			4198.63				6						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				861.82			4084.40				6						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				878.40			4106.79				6						97				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				837.85			3680.37				5						99				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				866.53			4423.28				7						100				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				849.43			4118.70				6						96				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt
+30.00				871.83			4048.80				6						89				true				C:\Users\Marina\Documents\UFOP\TCC2\Testes\rc204.txt				C:\Users\Marina\Documents\UFOP\TCC2\Resultados\rc204.txt
